@@ -11,4 +11,5 @@ public class MapsTestController {
 	public String test() {
 		return "maps controller works!";
 	}
+	
 }
