@@ -3,13 +3,15 @@ server:
   
 spring:
   datasource:
-    url: rideshare-maps-rds.chueiwozbnfz.us-east-1.rds.amazonaws.com
+    url: jdbc:oracle:thin:@rideshare-maps-rds.chueiwozbnfz.us-east-1.rds.amazonaws.com:1521/ORCL
     username: rideshare_maps_rds
     password: ride2r3v
     driver-class-name: oracle.jdbc.driver.OracleDriver
   application:
     name: maps-service
   jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    show-sql: true
     properties:
       hibernate:
         ddl-auto: update

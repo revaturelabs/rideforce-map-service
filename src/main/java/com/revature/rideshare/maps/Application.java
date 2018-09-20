@@ -10,7 +10,7 @@ import com.revature.rideshare.maps.service.LocationService;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableJpaRepositories
+@EnableJpaRepositories //(basePackages="com.revature.rideshare.maps", entityManagerFactoryRef="emf")
 public class Application {
 	
 	public static void main(String[] args) throws Exception {
