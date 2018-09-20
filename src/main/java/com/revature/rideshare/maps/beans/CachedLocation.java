@@ -16,7 +16,7 @@ import com.google.maps.model.LatLng;
  */
 @Component
 @Entity
-@Table(name = "")
+@Table(name = "ADDRESS")
 public class CachedLocation {
 	@Id
 	@Column(name = "ADDRESS")
@@ -63,6 +63,10 @@ public class CachedLocation {
 	public CachedLocation() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public LatLng getLocation() {
+		return new LatLng(latitude, longitude);
 	}
 
 	

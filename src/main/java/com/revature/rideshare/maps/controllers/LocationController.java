@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.rideshare.maps.beans.Location;
+import com.google.maps.model.LatLng;
 import com.revature.rideshare.maps.service.LocationService;
 
 @RestController
@@ -19,7 +19,7 @@ public class LocationController {
 	LocationService ls;
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Location> get(@RequestParam("address") String address) {
-		return new ResponseEntity<Location>(ls.getOne(address), HttpStatus.OK);
+	public ResponseEntity<LatLng> get(@RequestParam("address") String address) {
+		return new ResponseEntity<LatLng>(ls.getOne(address), HttpStatus.OK);
 	}
 }
