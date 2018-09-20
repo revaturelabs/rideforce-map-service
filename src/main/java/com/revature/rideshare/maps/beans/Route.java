@@ -7,8 +7,8 @@ public class Route {
 
 	int distance;
 	int duration;
-	Location origin;
-	Location destination;
+	CachedLocation origin;
+	CachedLocation destination;
 	
 	
 	
@@ -24,19 +24,19 @@ public class Route {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	public Location getOrigin() {
+	public CachedLocation getOrigin() {
 		return origin;
 	}
-	public void setOrigin(Location origin) {
+	public void setOrigin(CachedLocation origin) {
 		this.origin = origin;
 	}
-	public Location getDestination() {
+	public CachedLocation getDestination() {
 		return destination;
 	}
-	public void setDestination(Location destination) {
+	public void setDestination(CachedLocation destination) {
 		this.destination = destination;
 	}
-	public Route(int distance, int duration, Location origin, Location destination) {
+	public Route(int distance, int duration, CachedLocation origin, CachedLocation destination) {
 		super();
 		this.distance = distance;
 		this.duration = duration;
