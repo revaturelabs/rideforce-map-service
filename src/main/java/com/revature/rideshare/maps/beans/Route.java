@@ -1,5 +1,8 @@
-package com.revature.beans;
+package com.revature.rideshare.maps.beans;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Route {
 
 	int distance;
