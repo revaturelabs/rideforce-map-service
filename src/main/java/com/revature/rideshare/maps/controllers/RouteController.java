@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.beans.Location;
+import com.revature.rideshare.maps.beans.Location;
 
 @RestController
 @RequestMapping(value="/route")
