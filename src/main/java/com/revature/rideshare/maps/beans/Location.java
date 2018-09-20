@@ -3,13 +3,12 @@ package com.revature.rideshare.maps.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import com.google.maps.model.LatLng;
 
 @Component
 @Entity
@@ -50,6 +49,13 @@ public class Location {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
+	
+	public Location (String address, LatLng latlng) {
+		this.address = address;
+		this.latitude = latlng.lat;
+		this.longitude = latlng.lng;
+	}
+	
 	public Location() {
 		super();
 		// TODO Auto-generated constructor stub

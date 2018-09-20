@@ -23,23 +23,17 @@ public class LocationService {
 	@Autowired
 	private AddressComponentParser acp;
 	
-	public String getOne(String address) {
+	public Location getOne(String address) {
 		GeoApiContext context = new GeoApiContext.Builder()
 			    .apiKey("AIzaSyBXWXgWzxhyvz9JyN9SrHgGOzi7VcU5G3g")
 			    .build();
 		try {
 			GeocodingResult[] results =  GeocodingApi.geocode(context,
-				    "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			//System.out.println(results[0].addressComponents[0]);
-			//gson.toJson(results[0].addressComponents)
-			return acp.parseAddressComponent(gson.toJson(results[0].addressComponents));
+				    address).await();
+			return new Location(address, results[0].geometry.location);
 		} catch (ApiException | InterruptedException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//locationRepo.findByAddress1(address);
 		return null;
 	}
 	
