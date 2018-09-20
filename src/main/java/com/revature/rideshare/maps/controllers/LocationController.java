@@ -22,7 +22,7 @@ public class LocationController {
 	public ResponseEntity<Location> get(@RequestParam("address") String address) {
 		return new ResponseEntity<Location>(ls.getOne(address), HttpStatus.OK);
 	}
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST, produces="application/json")
 	public Location post() {
 		
 		return null;

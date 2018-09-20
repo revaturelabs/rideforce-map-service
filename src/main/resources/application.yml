@@ -2,18 +2,17 @@ server:
   port: 3333
   
 spring:
-#  datasource:
-#    url: jdbc:oracle:thin:@demo1807jul30java.chueiwozbnfz.us-east-1.rds.amazonaws.com:1521:ORCL
-#    username: demo1807jul30java
-#    password: p4ssw0rd
-#    driver-class-name: oracle.jdbc.driver.OracleDriver
+  datasource:
+    url: rideshare-maps-rds.chueiwozbnfz.us-east-1.rds.amazonaws.com
+    username: rideshare_maps_rds
+    password: ride2r3v
+    driver-class-name: oracle.jdbc.driver.OracleDriver
   application:
     name: maps-service
-
-endpoints:
-  beans:
-    sensitive: false
-    enabled: true
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
 
 info:
   app:
