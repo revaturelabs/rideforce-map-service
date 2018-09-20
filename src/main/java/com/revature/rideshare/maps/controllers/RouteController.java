@@ -15,15 +15,11 @@ import com.revature.rideshare.maps.service.RouteService;
 @RestController
 @RequestMapping(value="/route")
 public class RouteController {
-	
 	@Autowired
 	private RouteService routeService;
 
 	@RequestMapping(method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Route> get(@RequestParam String origin, @RequestParam String destination) {
-		
 		return new ResponseEntity<Route>(routeService.getRoute(origin, destination), HttpStatus.OK);
-		
-	}
-	
+  }
 }

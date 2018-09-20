@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.maps.model.AddressComponent;
-import com.revature.rideshare.maps.beans.Location;
+import com.revature.rideshare.maps.beans.CachedLocation;
 
 @Component
 public class AddressComponentParser {

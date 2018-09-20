@@ -4,16 +4,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Route {
-
 	long distance;
 	long duration;
 
 	public Route() {
-		super();
 	}
 
 	public Route(long distance, long duration) {
-		super();
 		this.distance = distance;
 		this.duration = duration;
 	}
