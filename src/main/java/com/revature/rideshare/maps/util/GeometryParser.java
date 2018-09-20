@@ -2,14 +2,15 @@ package com.revature.rideshare.maps.util;
 
 import org.springframework.stereotype.Component;
 
+import com.revature.rideshare.maps.beans.Location;
+
 @Component
 public class GeometryParser {
 
-	public int[] parseGeometry() {
-		int[] big = new int[2];
+	public Location parseGeometry() {
+		Location location = new Location();
 		
-		
-		return big;
+		return location; 
 	}
 	
 }

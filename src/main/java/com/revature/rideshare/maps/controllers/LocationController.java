@@ -19,10 +19,8 @@ public class LocationController {
 	LocationService ls;
 	
 	@RequestMapping(method=RequestMethod.GET, produces="application/json")
-	public ResponseEntity<String> get(@RequestParam("address") String address) {
-		//ls.getOne("a");
-		//System.out.println(address);
-		return new ResponseEntity<String>(ls.getOne("a"), HttpStatus.OK);
+	public ResponseEntity<Location> get(@RequestParam("address") String address) {
+		return new ResponseEntity<Location>(ls.getOne(address), HttpStatus.OK);
 	}
 	@RequestMapping(method=RequestMethod.POST)
 	public Location post() {

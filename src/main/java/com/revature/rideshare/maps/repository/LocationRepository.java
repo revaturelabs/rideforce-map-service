@@ -9,6 +9,6 @@ import com.revature.rideshare.maps.beans.Location;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer> {
 
-	public Location findByAddress1(String address1);
+	public Location findByAddress(String address);
 	
 }
