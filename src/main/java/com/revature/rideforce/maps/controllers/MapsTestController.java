@@ -1,4 +1,4 @@
-package com.revature.rideshare.maps.controllers;
+package com.revature.rideforce.maps.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

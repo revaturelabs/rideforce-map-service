@@ -1,4 +1,4 @@
-package com.revature.rideshare.maps.controllers;
+package com.revature.rideforce.maps.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.rideshare.maps.beans.ResponseError;
-import com.revature.rideshare.maps.beans.Route;
-import com.revature.rideshare.maps.service.RouteService;
+import com.revature.rideforce.maps.beans.ResponseError;
+import com.revature.rideforce.maps.beans.Route;
+import com.revature.rideforce.maps.service.RouteService;
 
 @RestController
 @RequestMapping(value = "/route")

@@ -1,4 +1,4 @@
-package com.revature.rideshare.maps.service;
+package com.revature.rideforce.maps.service;
 
 import java.io.IOException;
 
@@ -14,8 +14,8 @@ import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
-import com.revature.rideshare.maps.beans.CachedLocation;
-import com.revature.rideshare.maps.repository.LocationRepository;
+import com.revature.rideforce.maps.beans.CachedLocation;
+import com.revature.rideforce.maps.repository.LocationRepository;
 
 @Service
 @Transactional

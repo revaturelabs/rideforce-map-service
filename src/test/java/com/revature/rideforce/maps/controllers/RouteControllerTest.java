@@ -1,4 +1,4 @@
-package com.revature.rideshare.maps.controllers;
+package com.revature.rideforce.maps.controllers;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -13,8 +13,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.revature.rideshare.maps.beans.Route;
-import com.revature.rideshare.maps.service.RouteService;
+import com.revature.rideforce.maps.beans.Route;
+import com.revature.rideforce.maps.controllers.RouteController;
+import com.revature.rideforce.maps.service.RouteService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(RouteController.class)

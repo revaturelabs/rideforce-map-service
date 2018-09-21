@@ -1,4 +1,4 @@
-package com.revature.rideshare.maps.service;
+package com.revature.rideforce.maps.service;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsRoute;
-import com.revature.rideshare.maps.beans.Route;
+import com.revature.rideforce.maps.beans.Route;
 
 @Component
 public class RouteService {
