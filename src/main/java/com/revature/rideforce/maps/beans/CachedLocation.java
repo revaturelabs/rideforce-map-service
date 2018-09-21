@@ -1,4 +1,4 @@
-package com.revature.rideshare.maps.beans;
+package com.revature.rideforce.maps.beans;
 
 
 import javax.persistence.Column;

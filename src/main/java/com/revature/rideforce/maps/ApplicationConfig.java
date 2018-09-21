@@ -1,4 +1,4 @@
-package com.revature.rideshare.maps;
+package com.revature.rideforce.maps;
 
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Configuration;

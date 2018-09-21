@@ -1,4 +1,4 @@
-package com.revature.rideshare.maps.controllers;
+package com.revature.rideforce.maps.controllers;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.revature.rideshare.maps.beans.ResponseError;
+import com.revature.rideforce.maps.beans.ResponseError;
 
 @RestControllerAdvice
 public class ErrorController extends AbstractErrorController {
