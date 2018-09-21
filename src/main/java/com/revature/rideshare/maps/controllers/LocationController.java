@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.maps.model.LatLng;
+import com.revature.rideshare.maps.beans.ResponseError;
 import com.revature.rideshare.maps.service.LocationService;
 
 @RestController
@@ -19,7 +20,10 @@ public class LocationController {
 	private LocationService ls;
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<LatLng> get(@RequestParam("address") String address) {
+	public ResponseEntity<?> get(@RequestParam String address) {
+		if (address.isEmpty()) {
+			return new ResponseError("Must specify an address.").toResponseEntity(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<LatLng>(ls.getOne(address), HttpStatus.OK);
 	}
 }
