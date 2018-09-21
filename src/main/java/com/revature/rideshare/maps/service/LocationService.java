@@ -15,7 +15,6 @@ import com.google.maps.model.LatLng;
 import com.revature.rideshare.maps.beans.CachedLocation;
 import com.revature.rideshare.maps.repository.LocationRepository;
 
-
 @Service
 @Transactional
 public class LocationService {
