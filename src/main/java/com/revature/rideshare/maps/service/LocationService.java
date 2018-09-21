@@ -2,7 +2,6 @@ package com.revature.rideshare.maps.service;
 
 import java.io.IOException;
 
-import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,10 @@ import com.google.maps.model.LatLng;
 import com.revature.rideshare.maps.beans.CachedLocation;
 import com.revature.rideshare.maps.repository.LocationRepository;
 
-
 @Service
 @Transactional
 public class LocationService {
-	
+
 	@Autowired
 	private LocationRepository locationRepo;
 

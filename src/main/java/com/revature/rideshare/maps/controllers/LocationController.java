@@ -16,7 +16,7 @@ import com.revature.rideshare.maps.service.LocationService;
 @RequestMapping(value = "/location")
 public class LocationController {
 	@Autowired
-	LocationService ls;
+	private LocationService ls;
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<LatLng> get(@RequestParam("address") String address) {
