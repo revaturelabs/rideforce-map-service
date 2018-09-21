@@ -1,4 +1,4 @@
-# RideShare maps service
+# RideForce maps service
 
 This service handles the following endpoints (see the API documentation in
 the gateway service repo for all endpoints and their explanations):
