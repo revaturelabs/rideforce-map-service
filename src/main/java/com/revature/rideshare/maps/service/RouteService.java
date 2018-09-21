@@ -3,6 +3,10 @@ package com.revature.rideshare.maps.service;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Component;
 
 import com.google.maps.DirectionsApi;
@@ -14,6 +18,8 @@ import com.revature.rideshare.maps.beans.Route;
 
 @Component
 public class RouteService {
+	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
+
 	@Autowired
 	private GeoApiContext geoApiContext;
 
@@ -29,10 +35,8 @@ public class RouteService {
 			}
 			return new Route(distance, duration);
 		} catch (ApiException | InterruptedException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Unexpected exception when fetching route.", e);
 			return null;
 		}
-
 	}
 }
