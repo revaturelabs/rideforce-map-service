@@ -17,8 +17,8 @@ spring:
 
 info:
   app:
-    name: Rideshare Map Service
-    description: This is the map service for the Rideshare Map.
+    name: Rideforce Map Service
+    description: This is the map service for the Rideforce Map.
 
 eureka:
   client:
