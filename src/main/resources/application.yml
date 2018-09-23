@@ -11,9 +11,8 @@ spring:
     name: maps-service
   jpa:
     show-sql: true
-    properties:
-      hibernate:
-        ddl-auto: validate
+    hibernate:
+      ddl-auto: create
 
 info:
   app:
