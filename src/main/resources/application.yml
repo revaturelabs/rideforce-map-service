@@ -3,17 +3,16 @@ server:
   
 spring:
   datasource:
-    url: ${JDBC_URL}
-    username: ${JDBC_USERNAME}
-    password: ${JDBC_PASSWORD}
+    url: jdbc:oracle:thin:@//localhost:1521/XE
+    username: demo
+    password: demo
     driver-class-name: oracle.jdbc.driver.OracleDriver
   application:
     name: maps-service
   jpa:
     show-sql: true
-    properties:
-      hibernate:
-        ddl-auto: validate
+    hibernate:
+      ddl-auto: create
 
 info:
   app:
