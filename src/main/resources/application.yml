@@ -1,9 +1,23 @@
 server:
   port: 3333
-
+  
 spring:
+  datasource:
+    url: ${JDBC_URL}
+    username: ${JDBC_USERNAME}
+    password: ${JDBC_PASSWORD}
+    driver-class-name: oracle.jdbc.driver.OracleDriver
   application:
     name: maps-service
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+info:
+  app:
+    name: Rideforce Map Service
+    description: This is the map service for the Rideforce Map.
 
 eureka:
   client:
