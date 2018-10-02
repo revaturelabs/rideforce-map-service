@@ -29,13 +29,13 @@ public class LocationService {
   private static final Logger log = LoggerFactory.getLogger(LocationService.class);
 
   	/**
-  	 * 
+  	 * Injecting the GeoApiContext
   	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
 
 	/**
-	 * Injecting the {@link com.revature.rideforce.maps.repository#LocationRepository} spring bean
+	 * Injecting the LocationRepository
 	 */
 	@Autowired
 	private LocationRepository locationRepo;
