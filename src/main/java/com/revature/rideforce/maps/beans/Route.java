@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 public class Route {
 	
 	/**
-	 * the distance
+	 * the distance of route
 	 */
 	long distance;
 	
 	/**
-	 * the duration
+	 * the duration of route
 	 */
 	long duration;
 
