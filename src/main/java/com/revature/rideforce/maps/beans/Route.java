@@ -1,5 +1,7 @@
 package com.revature.rideforce.maps.beans;
 
+import javax.validation.constraints.Max;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +17,7 @@ public class Route {
 		this.duration = duration;
 	}
 
+//	@Max(value=10)
 	public long getDistance() {
 		return distance;
 	}

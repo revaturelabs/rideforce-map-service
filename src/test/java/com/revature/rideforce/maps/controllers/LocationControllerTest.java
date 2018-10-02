@@ -41,8 +41,33 @@ public class LocationControllerTest {
 	public void testGetBadParams() throws Exception {
 		mvc.perform(get("/location")).andExpect(status().isBadRequest());
 		mvc.perform(get("/location").param("address", "")).andExpect(status().isBadRequest());
+		
+
+	}
+	@Test
+	public void testGetBadParams2() throws Exception {
 		mvc.perform(get("/location").param("address", "junky")).andExpect(status().isOk());
+
+	}
+	@Test
+	public void testGetBadParams3() throws Exception {
 		mvc.perform(get("/location").param("address", "11730")).andExpect(status().isOk());
 
 	}
+	@Test
+	public void testGetBadParams4() throws Exception {
+		mvc.perform(get("/location").param("address", "11730")).andExpect(status().isOk());
+
+	}
+	@Test
+	public void testGetBadParams5() throws Exception {
+		mvc.perform(get("/location").param("Random", "11730")).andExpect(status().isBadRequest());
+
+	}
+	@Test
+	public void testGetBadParams6() throws Exception {
+		mvc.perform(get("/location").param("RANDOM", "11730 Plaza America Dr. Reston, VA")).andExpect(status().isBadRequest());
+
+	}
+	
 }
