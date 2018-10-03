@@ -1,10 +1,14 @@
 package com.revature.rideforce.maps.beans;
 
+import javax.validation.constraints.Max;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class Route {
+	@Max(15)
 	long distance;
+	
 	long duration;
 
 	public Route() {
