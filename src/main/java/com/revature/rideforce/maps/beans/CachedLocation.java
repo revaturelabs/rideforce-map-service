@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,7 @@ public class CachedLocation {
 	 * @Column(name = "ADDRESS")
 	 */
 	@Id
+	@Size(max = 85)
 	@Column(name = "ADDRESS")
 	String address;
 	
