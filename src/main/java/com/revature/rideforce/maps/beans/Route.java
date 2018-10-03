@@ -4,33 +4,71 @@ import javax.validation.constraints.Max;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * The distance and duration of the route
+ * @author Revature Java batch
+ * @Component
+ */
 @Component
 public class Route {
+  
+	/**
+	 * the distance of route
+	 */
 	@Max(15)
 	long distance;
 	
+  /**
+	 * the duration of route
+	 */
 	long duration;
 
+	/**
+	 * class constructor (no args)
+	 */
 	public Route() {
 	}
 
+	/**
+	 * class constructor
+	 * sets this distance to 'distance'
+	 * sets this duration to 'duration'
+	 * @param distance
+	 * @param duration
+	 */
 	public Route(long distance, long duration) {
 		this.distance = distance;
 		this.duration = duration;
 	}
 
+	/**
+	 * get distance
+	 * @return distance
+	 */
 	public long getDistance() {
 		return distance;
 	}
 
+	/**
+	 * set distance to distance
+	 * @param distance
+	 */
 	public void setDistance(long distance) {
 		this.distance = distance;
 	}
-
+	
+	/**
+	 * get duration
+	 * @return duration
+	 */
 	public long getDuration() {
 		return duration;
 	}
 
+	/**
+	 * set this duration to 'duration'
+	 * @param duration
+	 */
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
