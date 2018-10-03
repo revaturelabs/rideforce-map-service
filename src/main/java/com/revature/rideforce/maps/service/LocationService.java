@@ -17,17 +17,34 @@ import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.repository.LocationRepository;
 
+/**
+ * The LocationService
+ * @author Revature Java batch
+ * @Service
+ * @Transactional
+ */
 @Service
 @Transactional
 public class LocationService {
   private static final Logger log = LoggerFactory.getLogger(LocationService.class);
 
+  	/**
+  	 * Injecting the GeoApiContext
+  	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
 
+	/**
+	 * Injecting the LocationRepository
+	 */
 	@Autowired
 	private LocationRepository locationRepo;
 
+	/**
+	 * get a location
+	 * @param address
+	 * @return LatLng (geographical location represented by latitude, longitude pair)
+	 */
 	public LatLng getOne(String address) {
 		CachedLocation location = locationRepo.findByAddress(address);
 		if (location == null) {
