@@ -15,11 +15,6 @@ public class Route {
 	/**
 	 * the distance of route
 	 */
-	long distance;
-	
-	/**
-	 * the duration of route
-	 */
 	@Max(15)
 	long distance;
 	
