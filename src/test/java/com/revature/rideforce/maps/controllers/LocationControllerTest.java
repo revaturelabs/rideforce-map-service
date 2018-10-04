@@ -67,7 +67,22 @@ public class LocationControllerTest {
 	@Test
 	public void testGetBadParams6() throws Exception {
 		mvc.perform(get("/location").param("RANDOM", "11730 Plaza America Dr. Reston, VA")).andExpect(status().isBadRequest());
-
+	}
+	@Test
+	public void testGetBadParams7() throws Exception {
+		mvc.perform(get("/location").param("random", "93305@@")).andExpect(status().isBadRequest());
+	}
+	@Test
+	public void testGetBadParams8() throws Exception {
+		mvc.perform(get("/location").param("random", "'93305@@")).andExpect(status().isBadRequest());
+	}
+	@Test
+	public void testGetBadParams9() throws Exception {
+		mvc.perform(get("/location").param("random", "[[93305]]")).andExpect(status().isBadRequest());
+	}
+	@Test
+	public void testGetBadParams10() throws Exception {
+		mvc.perform(get("/location").param("random", "'[93305]'")).andExpect(status().isBadRequest());
 	}
 	@Test
 	public void testGetBadMapping() throws Exception {
@@ -77,6 +92,69 @@ public class LocationControllerTest {
 	public void testGetBadParamName() throws Exception {
 		mvc.perform(get("/loc").param("add", "11730")).andExpect(status().is4xxClientError());
 	}
+	@Test
+	public void testValidZipCodeAddress() throws Exception {
+		mvc.perform(get("/location").param("address", "93305")).andExpect(status().isOk());
+	}
+	@Test
+	public void testInvalidZipCodeAddress() throws Exception {
+		mvc.perform(get("/location").param("address", "933056")).andExpect(status().isBadRequest());
+	}
+	@Test
+	public void testInvalidZipCodeAddress2() throws Exception {
+		mvc.perform(get("/location").param("address", "933")).andExpect(status().isBadRequest());
+	}
+	@Test
+	public void testGetValidParam() throws Exception {
+		mvc.perform(get("/location").param("address", "93305withsometext")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam2() throws Exception {
+		mvc.perform(get("/location").param("address", "'93305'")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam3() throws Exception {
+		mvc.perform(get("/location").param("address", "'93305")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam4() throws Exception {
+		mvc.perform(get("/location").param("address", " 93305")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam5() throws Exception {
+		mvc.perform(get("/location").param("address", " 93305 ")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam6() throws Exception {
+		mvc.perform(get("/location").param("address", "93305 ")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam7() throws Exception {
+		mvc.perform(get("/location").param("address", "93305@")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam9() throws Exception {
+		mvc.perform(get("/location").param("address", "[93305@")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam10() throws Exception {
+		mvc.perform(get("/location").param("address", " [93305@ ")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam11() throws Exception {
+		mvc.perform(get("/location").param("address", "[93305@ ")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam12() throws Exception {
+		mvc.perform(get("/location").param("address", "[93305]")).andExpect(status().isOk());
+	}
+	@Test
+	public void testGetValidParam13() throws Exception {
+		mvc.perform(get("/location").param("address", "\"93305\"")).andExpect(status().isOk());
+	}
+	
+	
+	
 	
 
 	
