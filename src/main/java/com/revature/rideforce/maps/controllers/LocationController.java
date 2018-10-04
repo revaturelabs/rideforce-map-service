@@ -51,7 +51,7 @@ public class LocationController {
 		}
 		int last = address.length() - 1;
 		if(address.matches("^.*[^\\w]$")) {
-			address.substring(0, last);
+			address = address.substring(0, last);
 			}
 		if(StringUtils.isNumeric(address)) {
 			int numCheck = address.length();
