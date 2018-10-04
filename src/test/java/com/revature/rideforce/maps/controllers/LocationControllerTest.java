@@ -36,18 +36,6 @@ public class LocationControllerTest {
 		mvc.perform(get("/location").param("address", address)).andExpect(status().isOk())
 				.andExpect(content().json(locationJson));
 	}
-	
-//	// new
-//	@Test
-//	public void testGet2() throws Exception {
-//		final String address = "2100 Astoria Cir, Herndon, VA 20170";
-//		final LatLng location = new LatLng(40.00, 80.00);
-//		final String locationJson = "{ lat: 38.95, lng: -77.35 }";
-//
-//		given(locationService.getOne(address)).willReturn(location);
-//		mvc.perform(get("/location").param("address", address)).andExpect(status().isOk())
-//				.andExpect(content().json(locationJson));
-//	}
 
 	@Test
 	public void testGetBadParams() throws Exception {
