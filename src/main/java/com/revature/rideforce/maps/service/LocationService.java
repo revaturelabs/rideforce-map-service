@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,7 @@ public class LocationService {
 				return results[0].geometry.location;
 			} catch (ApiException | InterruptedException | IOException e) {
 				log.error("Unexpected exception when fetching location.", e);
+				Thread.currentThread().interrupt();
 				return null;
 			}
 		}
