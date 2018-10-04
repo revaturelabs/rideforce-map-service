@@ -1,6 +1,8 @@
 package com.revature.rideforce.maps.controllers;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +25,7 @@ import com.revature.rideforce.maps.service.LocationService;
 @RestController
 @RequestMapping(value = "/location")
 public class LocationController {
+	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
 	
 	/**
 	 * Injecting the LocationService spring bean
@@ -54,13 +57,14 @@ public class LocationController {
 			((address.charAt(last) > 57) && (address.charAt(last) < 65)) ||
 			((address.charAt(last) > 90) && (address.charAt(last) < 97)) ||
 			((address.charAt(last) > 122) && (address.charAt(last) < 127))) {
-			address.substring(0, last);
+			address= address.substring(0, last);
 			}
 		if(StringUtils.isNumeric(address)) {
 			int numCheck = address.length();
-			System.out.println(address);
+			log.info(address);
 			if(numCheck != 5) {
-				System.out.println("numcheck = " +numCheck);
+				String message= String.format("numcheck = %d", numCheck);
+				log.info(message);
 				return new ResponseError("Address cannot be a number that is not a Zip code.").toResponseEntity(HttpStatus.BAD_REQUEST);
 			}	
 		}
