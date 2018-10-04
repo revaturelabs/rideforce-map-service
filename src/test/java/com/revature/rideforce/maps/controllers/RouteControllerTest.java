@@ -41,8 +41,31 @@ public class RouteControllerTest {
 	@Test
 	public void testGetBadParams() throws Exception {
 		mvc.perform(get("/route")).andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void testNoStartParams() throws Exception {
 		mvc.perform(get("/route").param("start", "")).andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void testNoEndParams() throws Exception {
 		mvc.perform(get("/route").param("start", "2925 Rensselaer Ct. Vienna, VA 22181").param("end", ""))
 				.andExpect(status().isBadRequest());
 	}
+	
+	@Test
+	public void testPartiallyIncompleteParams() throws Exception {
+		final String start = "2925 Rensselaer Ct. Vienna";
+		final String end = "11730 Plaza America Dr. Reston";
+		final Route route = new Route(12714, 9600);
+		final String routeJson = "{ distance: 12714, duration: 9600 }";
+
+		given(routeService.getRoute(start, end)).willReturn(route);
+		mvc.perform(get("/route").param("start", start).param("end", end)).andExpect(status().isOk())
+				.andExpect(content().json(routeJson));
+	}
+	
+	
+	
 }
