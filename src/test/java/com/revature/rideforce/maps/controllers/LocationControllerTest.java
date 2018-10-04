@@ -160,11 +160,5 @@ public class LocationControllerTest {
 	public void testGetValidParam13() throws Exception {
 		mvc.perform(get("/location").param("address", "\"93305\"")).andExpect(status().isOk());
 	}
-	
-	
-	
-	
 
-	
-	
 }
