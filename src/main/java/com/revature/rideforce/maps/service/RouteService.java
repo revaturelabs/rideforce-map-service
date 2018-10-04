@@ -39,7 +39,7 @@ public class RouteService {
 	public Route getRoute(String origin, String destination) {
 		try {
 			DirectionsRoute route = DirectionsApi.getDirections(geoApiContext, origin, destination)
-					.mode(TravelMode.WALKING).await().routes[0];
+					.mode(TravelMode.DRIVING).await().routes[0];
 			long distance = 0;
 			long duration = 0;
 
