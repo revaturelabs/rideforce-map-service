@@ -33,7 +33,8 @@ public class ErrorController extends AbstractErrorController {
 	public ResponseEntity<ResponseError> handleError(HttpServletRequest request) {
 		Map<String, Object> errorAttributes = getErrorAttributes(request, true);
 		if (getStatus(request) == HttpStatus.INTERNAL_SERVER_ERROR) {
-			log.error("Handling unexpected error with attributes " + errorAttributes);
+			String errorMessage= String.format("Handling unexpected error with attributes %s", errorAttributes);
+			log.error(errorMessage);
 		}
 		String message = (String) errorAttributes.get("message");
 		if (message == null) {
