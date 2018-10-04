@@ -69,7 +69,5 @@ public class CachedLocation {
 	public LatLng getLocation() {
 		return new LatLng(latitude, longitude);
 	}
-
-	
 	
 }
