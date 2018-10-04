@@ -50,6 +50,7 @@ public class RouteService {
 			return new Route(distance, duration);
 		} catch (ApiException | InterruptedException | IOException e) {
 			log.error("Unexpected exception when fetching route.", e);
+			Thread.currentThread().interrupt();
 			return null;
 		}
 	}

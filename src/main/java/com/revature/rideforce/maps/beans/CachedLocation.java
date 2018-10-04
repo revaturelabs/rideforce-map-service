@@ -65,7 +65,6 @@ public class CachedLocation {
 	
 	public CachedLocation() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public LatLng getLocation() {

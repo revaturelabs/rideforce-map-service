@@ -56,6 +56,7 @@ public class LocationService {
 				return results[0].geometry.location;
 			} catch (ApiException | InterruptedException | IOException e) {
 				log.error("Unexpected exception when fetching location.", e);
+				Thread.currentThread().interrupt();
 				return null;
 			}
 		}
