@@ -85,6 +85,14 @@ public class LocationControllerTest {
 		mvc.perform(get("/location").param("random", "'[93305]'")).andExpect(status().isBadRequest());
 	}
 	@Test
+	public void testGetBadParams11() throws Exception {
+		mvc.perform(get("/location").param("random", "\"93305\"")).andExpect(status().isBadRequest());
+	}
+	@Test
+	public void testGetBadParams12() throws Exception {
+		mvc.perform(get("/location").param("random", "'93305'")).andExpect(status().isBadRequest());
+	}
+	@Test
 	public void testGetBadMapping() throws Exception {
 		mvc.perform(get("/loc").param("address", "11730")).andExpect(status().is4xxClientError());
 	}
