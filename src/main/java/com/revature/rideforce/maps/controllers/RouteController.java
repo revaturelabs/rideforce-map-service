@@ -48,13 +48,7 @@ public class RouteController {
 		if (end.isEmpty()) {
 			return new ResponseError("Must specify a end address.").toResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		if(StringUtils.isNumeric(start)) {
-			int numCheck = start.length();
-			if(numCheck != 5) {
-				log.info("numcheck = " +numCheck);
-				return new ResponseError("Address cannot be a number that is not a Zip code.").toResponseEntity(HttpStatus.BAD_REQUEST);
-			}	
-		}
+		
 		return new ResponseEntity<Route>(routeService.getRoute(start, end), HttpStatus.OK);
 	}
 }
