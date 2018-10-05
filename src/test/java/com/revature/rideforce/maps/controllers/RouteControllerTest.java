@@ -59,6 +59,13 @@ public class RouteControllerTest {
 				.andExpect(status().isBadRequest());
 	}
 	
+	// nozuko added, may delete
+	@Test
+	public void testEmptyParams() throws Exception {
+		mvc.perform(get("/route").param("start", "").param("end", ""))
+				.andExpect(status().isBadRequest());
+	}
+	
 	@Test
 	public void testPartiallyIncompleteParams() throws Exception {
 		final String start = "2925 Rensselaer Ct. Vienna";
