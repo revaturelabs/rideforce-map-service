@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Route {
-	@Max(15)
+	@Max(15000)
 	long distance;
-	
+
 	long duration;
 
 	public Route() {

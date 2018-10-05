@@ -1,5 +1,9 @@
 package com.revature.rideforce.maps.controllers;
 
+import java.util.logging.Logger;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +20,7 @@ import com.revature.rideforce.maps.service.RouteService;
 @RestController
 @RequestMapping(value = "/route")
 public class RouteController {
+	private static final Logger log = (Logger) LoggerFactory.getLogger(RouteController.class);
 	@Autowired
 	private RouteService routeService;
 
@@ -26,6 +31,13 @@ public class RouteController {
 		}
 		if (end.isEmpty()) {
 			return new ResponseError("Must specify a end address.").toResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		if(StringUtils.isNumeric(start)) {
+			int numCheck = start.length();
+			if(numCheck != 5) {
+				log.info("numcheck = " +numCheck);
+				return new ResponseError("Address cannot be a number that is not a Zip code.").toResponseEntity(HttpStatus.BAD_REQUEST);
+			}	
 		}
 		return new ResponseEntity<Route>(routeService.getRoute(start, end), HttpStatus.OK);
 	}

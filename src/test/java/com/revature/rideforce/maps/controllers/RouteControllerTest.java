@@ -47,6 +47,11 @@ public class RouteControllerTest {
 	public void testNoStartParams() throws Exception {
 		mvc.perform(get("/route").param("start", "")).andExpect(status().isBadRequest());
 	}
+	//badRequest is only for empty params... must figure out what will happen if incorrect params entered
+	@Test
+	public void testNumberParams() throws Exception {
+		mvc.perform(get("/route").param("start", "-5")).andExpect(status().isBadRequest());
+	}
 	
 	@Test
 	public void testNoEndParams() throws Exception {
