@@ -45,10 +45,7 @@ public class RouteService {
 
 	public RouteService() {
 		super();
-	}
-
-	public static Logger getLog() {
-		return log;
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
