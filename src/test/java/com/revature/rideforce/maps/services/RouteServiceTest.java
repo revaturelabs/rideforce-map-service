@@ -1,35 +1,40 @@
 package com.revature.rideforce.maps.services;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.google.maps.GeoApiContext;
 import com.netflix.discovery.shared.Application;
 import com.revature.rideforce.maps.beans.Route;
+import com.revature.rideforce.maps.configuration.ServiceTestConfiguration;
 import com.revature.rideforce.maps.service.RouteService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-//@ContextConfiguration(classes=ServiceTestConfiguration.class)
+@ContextConfiguration(classes=ServiceTestConfiguration.class)
 //@DataJpaTest
 public class RouteServiceTest {
 //	
 //	@Autowired
 //	private  TestEntityManager testEntityManager; 
 
-	@MockBean
+	@Autowired
 	private RouteService routeService;
 	
-	@MockBean
+	@Autowired
+	private GeoApiContext geoApiContext;
+	
+	@Autowired
 	private Route route;
 	
 	@Test
