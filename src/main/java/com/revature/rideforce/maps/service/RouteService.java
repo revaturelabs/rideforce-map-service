@@ -30,6 +30,27 @@ public class RouteService {
 	@Autowired
 	private GeoApiContext geoApiContext;
 
+	public GeoApiContext getGeoApiContext() {
+		return geoApiContext;
+	}
+
+	public void setGeoApiContext(GeoApiContext geoApiContext) {
+		this.geoApiContext = geoApiContext;
+	}
+
+	public RouteService(GeoApiContext geoApiContext) {
+		super();
+		this.geoApiContext = geoApiContext;
+	}
+
+	public RouteService() {
+		super();
+	}
+
+	public static Logger getLog() {
+		return log;
+	}
+
 	/**
 	 * get the route
 	 * @param origin
