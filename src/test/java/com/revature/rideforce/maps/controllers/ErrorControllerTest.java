@@ -27,26 +27,15 @@ import com.revature.rideforce.maps.service.RouteService;
 @SpringBootTest(classes = Application.class)
 @AutoConfigureMockMvc
 public class ErrorControllerTest {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
-	@MockBean
-	private RouteService routeService;
-	
-	// THIS TEST SHOULD GO IN ROUTESERVICETEST
-//	@Test
-//	public void shouldReturn404() {
-//		Mockito.when(this.routeService.getRoute("", "")).thenThrow(MethodArgumentNotValidException.class);
-//	}
-	
+
 	@Test
 	public void testExceptionHandler() throws Exception {
 		this.mockMvc.perform(get("/error")
-	            .contentType(MediaType.APPLICATION_JSON)
-	            .accept(MediaType.APPLICATION_JSON)
-	            )
-	            .andExpect(status().is5xxServerError());
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().is5xxServerError());
 	}
 
 
