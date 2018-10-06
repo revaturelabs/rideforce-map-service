@@ -2,6 +2,7 @@ package com.revature.rideforce.maps.service;
 
 import java.io.IOException;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,34 +31,22 @@ public class RouteService {
 	@Autowired
 	private GeoApiContext geoApiContext;
 
-	public GeoApiContext getGeoApiContext() {
-		return geoApiContext;
-	}
-
-	public void setGeoApiContext(GeoApiContext geoApiContext) {
-		this.geoApiContext = geoApiContext;
-	}
-
-	public RouteService(GeoApiContext geoApiContext) {
-		super();
-		this.geoApiContext = geoApiContext;
-	}
-
-	public RouteService() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	/**
 	 * get the route
 	 * @param origin
 	 * @param destination
 	 * @return Route
+	 * @throws Exception 
 	 */
-	public Route getRoute(String origin, String destination) {
+	public Route getRoute(String origin, String destination) throws Exception {
 		try {
 			DirectionsRoute route = DirectionsApi.getDirections(geoApiContext, origin, destination)
 					.mode(TravelMode.DRIVING).await().routes[0];
+			if(StringUtils.isNumeric(origin)) {
+				if(Integer.parseInt(origin)<0) {
+					throw new Exception("Can't input negative numbers");
+				}
+			}
 			long distance = 0;
 			long duration = 0;
 
