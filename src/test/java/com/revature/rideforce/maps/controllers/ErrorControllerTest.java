@@ -32,12 +32,18 @@ public class ErrorControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void testExceptionHandler() throws Exception {
+	public void testHandleError() throws Exception {
 		this.mockMvc.perform(get("/error")
 				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andExpect(status().is5xxServerError());
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
 	}
 
+//	@Test
+//	public void testHandleException() throws Exception {
+//		this.mockMvc.perform(get("/location")
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+//	}
 
 }
 
