@@ -18,18 +18,8 @@ import com.revature.rideforce.maps.repository.LocationRepository;
 @Configuration
 @EnableJpaRepositories("com.revature.rideforce.maps")
 @EnableTransactionManagement
-@ComponentScan//(basePackages = "com.revature.rideforce", excludeFilters = @Filter(type = FilterType.REGEX, pattern = "com\\.revature\\.rideforce\\.maps\\.repository\\.config"))
+@ComponentScan("com.revature.rideforce.maps")
+// @ComponentScan(basePackages = "com.revature.rideforce", excludeFilters = @Filter(type = FilterType.REGEX, pattern = "com\\.revature\\.rideforce\\.maps\\.repository\\.config"))
 public class TestConfiguration {
-	
-//	private static final Logger logger = LoggerFactory.getLogger(TestConfiguration.class);
-//
-//	@Bean
-//	@Profile("mock-location-repository")
-//	// change bean name
-//	public LocationRepository locationRepositoryMock() {
-//		logger.info("Mocking: {}", LocationRepository.class);
-//		//logger.info("I am logging");
-//		return mock(LocationRepository.class);
-//	}
 	
 }
