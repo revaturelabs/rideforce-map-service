@@ -15,17 +15,31 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.TravelMode;
 import com.revature.rideforce.maps.beans.Route;
 
+/**
+ * The route service
+ * @author Revature Java batch
+ * @Component
+ */
 @Component
 public class RouteService {
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
 
+  	/**
+  	 * Injecting the GeoApiContext
+  	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
 
+	/**
+	 * get the route
+	 * @param origin
+	 * @param destination
+	 * @return Route
+	 */
 	public Route getRoute(String origin, String destination) {
 		try {
 			DirectionsRoute route = DirectionsApi.getDirections(geoApiContext, origin, destination)
-					.mode(TravelMode.WALKING).await().routes[0];
+					.mode(TravelMode.DRIVING).await().routes[0];
 			long distance = 0;
 			long duration = 0;
 
@@ -36,6 +50,7 @@ public class RouteService {
 			return new Route(distance, duration);
 		} catch (ApiException | InterruptedException | IOException e) {
 			log.error("Unexpected exception when fetching route.", e);
+			Thread.currentThread().interrupt();
 			return null;
 		}
 	}
