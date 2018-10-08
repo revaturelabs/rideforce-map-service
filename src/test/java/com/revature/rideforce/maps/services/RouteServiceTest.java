@@ -1,8 +1,13 @@
 package com.revature.rideforce.maps.services;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,21 +26,21 @@ import com.revature.rideforce.maps.service.RouteService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-@ContextConfiguration(classes=ServiceTestConfiguration.class)
+//@ContextConfiguration(classes=ServiceTestConfiguration.class)
 //@DataJpaTest
 public class RouteServiceTest {
 //	
 //	@Autowired
 //	private  TestEntityManager testEntityManager; 
 
-	@Autowired
+	@MockBean
 	private RouteService routeService;
 	
-	@Autowired
-	private GeoApiContext geoApiContext;
+//	@Autowired
+//	private GeoApiContext geoApiContext;
 	
-	@Autowired
-	private Route route;
+//	@MockBean
+//	private Route route;
 	
 	@Test
 	@Before
@@ -46,11 +51,37 @@ public class RouteServiceTest {
 	
 	@Test
 	public void goodRoute() {
-		Route correctRoute= routeService.getRoute("12160 Sunset Hills Rd, Reston, VA 20190", "905 Herndon Pkwy A, Herndon, VA 20170");
-//		assertTrue(correctRoute instanceof Route);
-//		assertThat(correctRoute, instanceOf(Route.class));
-		System.out.println(correctRoute.getDistance());
-//		assertTrue(correctRoute.getDistance()==3520);
+		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
+		final String end = "11730 Plaza America Dr. Reston, VA";
+		final Route route = new Route(12714, 9600);
+
+		given(routeService.getRoute(start, end)).willReturn(route);
+		Route routeTest = routeService.getRoute(start, end);
+		
+		assertEquals(route,routeTest);
+	}
+	@Test
+	public void testDistance() throws Exception {
+		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
+		final String end = "11730 Plaza America Dr. Reston, VA";
+		final Route route = new Route(12714, 9600);
+
+		given(routeService.getRoute(start, end)).willReturn(route);
+		Route routeTest = routeService.getRoute(start, end);
+		
+		assertEquals(routeTest.getDistance(),12714);
+	}
+	
+	@Test
+	public void testDuration() throws Exception {
+		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
+		final String end = "11730 Plaza America Dr. Reston, VA";
+		final Route route = new Route(12714, 9600);
+
+		given(routeService.getRoute(start, end)).willReturn(route);
+		Route routeTest = routeService.getRoute(start, end);
+		
+		assertEquals(routeTest.getDuration(),9600);
 	}
 	
 	@Test
