@@ -1,29 +1,21 @@
 package com.revature.rideforce.maps.services;
 
-import static org.junit.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.google.maps.GeoApiContext;
 import com.netflix.discovery.shared.Application;
 import com.revature.rideforce.maps.beans.Route;
-import com.revature.rideforce.maps.configuration.ServiceTestConfiguration;
 import com.revature.rideforce.maps.service.RouteService;
 
 @RunWith(SpringRunner.class)
@@ -37,11 +29,11 @@ public class RouteServiceTest {
 	@Before
 	public void validate() {
 		assertNotNull(routeService);
-		assertThat(routeService, instanceOf(RouteService.class));
+		Assert.assertThat(routeService, instanceOf(RouteService.class));
 	}
 	
 	@Test
-	public void goodRoute() {
+	public void goodRoute() throws Exception {
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA";
 		final Route route = new Route(12714, 9600);
@@ -96,25 +88,25 @@ public class RouteServiceTest {
 	
 	
 
-	public void noStartParameter() {
+	public void noStartParameter() throws Exception {
 		Route badRoute = routeService.getRoute("", "11730 Plaza America Dr. Reston, VA");
 		assertNull(badRoute);
 	}
 	
 	@Test
-	public void noEndParameters() {
+	public void noEndParameters() throws Exception {
 		Route badRoute = routeService.getRoute("11730 Plaza America Dr. Reston, VA","");
 		assertNull(badRoute);
 	}
 	
 	@Test
-	public void incompleteStartParameter() {
+	public void incompleteStartParameter() throws Exception {
 		Route badRoute = routeService.getRoute("11730 Plaza America Dr.","12160 Sunset Hills Rd, Reston, VA 20190");
 		assertNull(badRoute);
 	}
 	
 	@Test 
-	public void incompleteEndParameter() {
+	public void incompleteEndParameter() throws Exception {
 		Route badRoute = routeService.getRoute("12160 Sunset Hills Rd, Reston, VA 20190","12160 Sunset Hills");
 		assertNull(badRoute);
 	}
