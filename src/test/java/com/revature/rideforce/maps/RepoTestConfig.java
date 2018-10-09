@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.revature.rideforce.maps.repository.LocationRepository;
 
+
 @Configuration
 @EnableJpaRepositories("com.revature.rideforce.maps.repository")
 @EnableTransactionManagement
