@@ -18,7 +18,10 @@ public class Route {
 	 * according to {@code RouteService} in meters
 	 */
 	long distance;
-
+	/**
+	 * the duration of the drive between starting address and ending address
+	 * according to {@code RouteService} in seconds
+	 */
 	long duration;
 
 	/**
