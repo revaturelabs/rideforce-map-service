@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.google.maps.GeoApiContext;
 import com.netflix.discovery.shared.Application;
 import com.revature.rideforce.maps.beans.Route;
 import com.revature.rideforce.maps.service.RouteService;
@@ -31,6 +32,13 @@ public class RouteServiceTest {
 		assertNotNull(routeService);
 		Assert.assertThat(routeService, instanceOf(RouteService.class));
 	}
+	
+	private GeoApiContext.Builder builder;
+	
+	@Before
+	  public void Setup() {
+	    builder = new GeoApiContext.Builder().apiKey("AIzaSyBRAKkW17BuAqk3RlsPEs9syFYD2B0NIVA").queryRateLimit(500);
+	  }
 	
 	@Test
 	public void goodRoute() throws Exception {
@@ -85,13 +93,6 @@ public class RouteServiceTest {
 	
 	Assert.assertEquals(routeService.getRoute("-80302", "80302"), null);
 }
-	
-	
-
-	public void noStartParameter() throws Exception {
-		Route badRoute = routeService.getRoute("", "11730 Plaza America Dr. Reston, VA");
-		assertNull(badRoute);
-	}
 	
 	@Test
 	public void noEndParameters() throws Exception {
