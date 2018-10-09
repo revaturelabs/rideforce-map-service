@@ -41,7 +41,7 @@ public class RouteServiceTest {
 	  }
 	
 	@Test
-	public void goodRoute() throws Exception {
+	public void goodRoute(){
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA";
 		final Route route = new Route(12714, 9600);
@@ -52,7 +52,7 @@ public class RouteServiceTest {
 		assertEquals(route,routeTest);
 	}
 	@Test
-	public void testDistance() throws Exception {
+	public void testDistance(){
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA";
 		final Route route = new Route(12714, 9600);
@@ -64,7 +64,7 @@ public class RouteServiceTest {
 	}
 	
 	@Test
-	public void testDuration() throws Exception {
+	public void testDuration() {
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA";
 		final Route route = new Route(12714, 9600);
@@ -76,7 +76,7 @@ public class RouteServiceTest {
 	}
 		
 		@Test
-		public void testGet() throws Exception {
+		public void testGet(){
 			final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 			final String end = "11730 Plaza America Dr. Reston, VA";
 			final Route route = new Route(12714, 9600);
@@ -88,26 +88,26 @@ public class RouteServiceTest {
 		}
 	
 	@Test
-	public void testNegativeParams() throws Exception{
+	public void testNegativeParams() {
 	given(routeService.getRoute("-80302", "80302")).willReturn(null);
 	
 	Assert.assertEquals(routeService.getRoute("-80302", "80302"), null);
 }
 	
 	@Test
-	public void noEndParameters() throws Exception {
+	public void noEndParameters(){
 		Route badRoute = routeService.getRoute("11730 Plaza America Dr. Reston, VA","");
 		assertNull(badRoute);
 	}
 	
 	@Test
-	public void incompleteStartParameter() throws Exception {
+	public void incompleteStartParameter() {
 		Route badRoute = routeService.getRoute("11730 Plaza America Dr.","12160 Sunset Hills Rd, Reston, VA 20190");
 		assertNull(badRoute);
 	}
 	
 	@Test 
-	public void incompleteEndParameter() throws Exception {
+	public void incompleteEndParameter() {
 		Route badRoute = routeService.getRoute("12160 Sunset Hills Rd, Reston, VA 20190","12160 Sunset Hills");
 		assertNull(badRoute);
 	}
