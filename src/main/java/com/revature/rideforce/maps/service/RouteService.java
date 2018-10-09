@@ -30,7 +30,7 @@ public class RouteService {
   	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
-
+	public GeoApiContext getGeoApiContext() {
 	/**
 	 * get the route
 	 * @param origin
