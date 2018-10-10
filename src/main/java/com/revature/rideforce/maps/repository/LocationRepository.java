@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.revature.rideforce.maps.beans.CachedLocation;
 
 /**
- * Interface providing CRUD functionality for LocationService
+ * Interface providing CRUD functionality for CachedLocation
+ * primary key is Integer
  * @author Revature Java batch
  * @Repository
  */

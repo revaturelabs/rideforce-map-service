@@ -51,7 +51,7 @@ public class Route {
 	}
 
 	/**
-	 * set distance to distance
+	 * set distance to 'distance'
 	 * @param distance
 	 */
 	public void setDistance(long distance) {
