@@ -24,29 +24,64 @@ public class CachedLocation {
 	@Size(max = 85)
 	@Column(name = "ADDRESS")
 	String address;
+	
 	@Column(name = "LATITUDE")
 	double latitude;
+	
 	@Column(name = "LONGITUDE")
 	double longitude;
+	
+	/**
+	 * get address
+	 * @return address
+	 */
 	public String getAddress() {
 		return address;
 	}
+	
+	/**
+	 * set this address to 'address'
+	 * @param address
+	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	/**
+	 * get latitude
+	 * @return latitude
+	 */
 	public double getLatitude() {
 		return latitude;
 	}
+	
+	/**
+	 * set this latitude to 'latitude'
+	 * @param latitude
+	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
+	
+	/**
+	 * get longitude
+	 * @return longitude
+	 */
 	public double getLongitude() {
 		return longitude;
 	}
+	
+	/**
+	 * set this longitude to 'longitude'
+	 * @param longitude
+	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 	
+	/**
+	 * Class constructor (no args)
+	 */
 	public CachedLocation() {
 		super();
 	}
