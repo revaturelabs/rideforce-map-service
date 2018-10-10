@@ -13,7 +13,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-
 info:
   app:
     name: Rideforce Map Service

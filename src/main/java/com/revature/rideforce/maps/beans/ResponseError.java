@@ -89,7 +89,7 @@ public class ResponseError {
 
 	/**
 	 * get message
-	 * @return
+	 * @return message
 	 */
 	public String getMessage() {
 		return message;
@@ -105,7 +105,7 @@ public class ResponseError {
 
 	/**
 	 * get details
-	 * @return
+	 * @return details
 	 */
 	public String[] getDetails() {
 		return details;
