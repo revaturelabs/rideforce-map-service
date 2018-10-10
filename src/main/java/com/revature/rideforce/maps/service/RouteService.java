@@ -16,6 +16,8 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.TravelMode;
 import com.revature.rideforce.maps.beans.Route;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 
 /**
@@ -23,9 +25,10 @@ import com.revature.rideforce.maps.beans.Route;
  * @author Revature Java batch
  * @Component
  */
+@Slf4j
 @Component
 public class RouteService {
-	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
+//	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
 
 	
   	/**
@@ -42,6 +45,7 @@ public class RouteService {
 		log.error("I am programming.");
 		return geoApiContext;
 	}
+	
  	public void setGeoApiContext(GeoApiContext geoApiContext) {
 		this.geoApiContext = geoApiContext;
 	}

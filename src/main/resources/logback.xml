@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
   <include resource="org/springframework/boot/logging/logback/base.xml" />
-  <property name="LOGS_BASE" value="logs"/>
+  <property name="LOGS_BASE" value="target"/>
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>%date{yy-MMM-dd@HH:mm:ss}  %level %caller %logger{5} %M => %msg%n</pattern>
