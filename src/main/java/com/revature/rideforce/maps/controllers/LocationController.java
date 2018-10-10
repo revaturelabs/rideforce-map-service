@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.*;
 
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.ResponseError;
@@ -24,6 +25,7 @@ import com.revature.rideforce.maps.service.LocationService;
  */
 @RestController
 @RequestMapping(value = "/location")
+@Slf4j
 public class LocationController {
 	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
 	
@@ -42,6 +44,8 @@ public class LocationController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> get(@RequestParam String address) {
+		System.out.println("dammit");
+		log.info("help me");
 		if (address.isEmpty()) {
 			return new ResponseError("Must specify an address.").toResponseEntity(HttpStatus.BAD_REQUEST);
 		}

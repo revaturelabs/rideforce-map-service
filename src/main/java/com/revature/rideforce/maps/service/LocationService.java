@@ -1,6 +1,7 @@
 package com.revature.rideforce.maps.service;
 
 import java.io.IOException;
+import lombok.extern.slf4j.*;
 
 import javax.transaction.Transactional;
 
@@ -26,6 +27,7 @@ import com.revature.rideforce.maps.repository.LocationRepository;
  */
 @Service
 @Transactional
+@Slf4j
 public class LocationService {
   private static final Logger log = LoggerFactory.getLogger(LocationService.class);
 
@@ -46,6 +48,7 @@ public class LocationService {
 	 * @param address
 	 * @return LatLng (geographical location represented by latitude, longitude pair)
 	 */
+	
 	public LatLng getOne(String address) {
 		CachedLocation location = locationRepo.findByAddress(address);
 		if (location == null) {
