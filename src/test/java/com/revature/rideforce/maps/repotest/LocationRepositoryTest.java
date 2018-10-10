@@ -24,9 +24,9 @@ import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.repository.LocationRepository;
 
 /**
+ * Class that tests the repository
  * These tests were created with the intention of being able to be run independently
- * @author nozuk
- *
+ * @author Revature Java batch
  */
 @SpringBootTest(classes = Application.class)
 @RunWith(SpringRunner.class)
