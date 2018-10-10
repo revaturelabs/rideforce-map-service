@@ -137,14 +137,22 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+
+		<!--  Logging using Logback -->
 		
+		<dependency> 
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<!-- logging 
 		<dependency>
     		<groupId>org.springframework.boot</groupId>
    			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>-->
-		
+
 	</dependencies>
+	
 
 	<build>
 		<finalName>rideforce-maps-service</finalName>
