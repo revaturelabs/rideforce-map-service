@@ -52,7 +52,7 @@ public class RouteServiceTest {
 		given(routeService.getRoute(start, end)).willReturn(route);
 		Route routeTest = routeService.getRoute(start, end);
 		
-		assertEquals(routeTest.getDistance(),12714);
+		assertEquals(12714, routeTest.getDistance());
 	}
 	
 	@Test
@@ -72,7 +72,6 @@ public class RouteServiceTest {
 			final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 			final String end = "11730 Plaza America Dr. Reston, VA";
 			final Route route = new Route(12714, 9600);
-			final String routeJson = "{ distance: 12714, duration: 9600 }";
 
 			given(routeService.getRoute(start, end)).willReturn(route);
 			
@@ -108,6 +107,12 @@ public class RouteServiceTest {
 	@Test 
 	public void incompleteEndParameter() throws Exception {
 		Route badRoute = routeService.getRoute("12160 Sunset Hills Rd, Reston, VA 20190","12160 Sunset Hills");
+		assertNull(badRoute);
+	}
+	
+	@Test
+	public void negativeStartAddress() throws Exception {
+		Route badRoute = routeService.getRoute("-12160 Sunset Hills Rd, Reston, VA 20190","12160 Sunset Hills");
 		assertNull(badRoute);
 	}
 	
