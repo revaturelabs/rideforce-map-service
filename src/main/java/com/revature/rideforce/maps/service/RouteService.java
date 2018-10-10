@@ -16,6 +16,8 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.TravelMode;
 import com.revature.rideforce.maps.beans.Route;
 
+
+
 /**
  * The route service
  * @author Revature Java batch
@@ -25,12 +27,19 @@ import com.revature.rideforce.maps.beans.Route;
 public class RouteService {
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
 
+	
   	/**
   	 * Injecting the GeoApiContext
   	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
 	public GeoApiContext getGeoApiContext() {
+		//testing logging levels
+		log.trace("Hello World!");
+		log.debug("How are you today?");
+		log.info("I am fine.");
+		log.warn("I love programming.");
+		log.error("I am programming.");
 		return geoApiContext;
 	}
  	public void setGeoApiContext(GeoApiContext geoApiContext) {
