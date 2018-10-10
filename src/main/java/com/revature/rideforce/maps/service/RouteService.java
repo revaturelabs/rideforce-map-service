@@ -16,7 +16,7 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.TravelMode;
 import com.revature.rideforce.maps.beans.Route;
 
-import lombok.extern.slf4j.Slf4j;
+
 
 
 
@@ -25,10 +25,10 @@ import lombok.extern.slf4j.Slf4j;
  * @author Revature Java batch
  * @Component
  */
-@Slf4j
+
 @Component
 public class RouteService {
-//	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
+	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
 
 	
   	/**
@@ -37,25 +37,21 @@ public class RouteService {
 	@Autowired
 	private GeoApiContext geoApiContext;
 	public GeoApiContext getGeoApiContext() {
-		//testing logging levels
-		log.trace("Hello World!");
-		log.debug("How are you today?");
-		log.info("I am fine.");
-		log.warn("I love programming.");
-		log.error("I am programming.");
+		
 		return geoApiContext;
 	}
 	
  	public void setGeoApiContext(GeoApiContext geoApiContext) {
-		this.geoApiContext = geoApiContext;
+		this.geoApiContext = geoApiContext; 
+		log.info("GeoApiContext set");
 	}
  	public RouteService(GeoApiContext geoApiContext) {
 		super();
 		this.geoApiContext = geoApiContext;
+		log.info("RouteService instantiated");
 	}
  	public RouteService() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -65,13 +61,14 @@ public class RouteService {
 	 * @return Route
 	 * @throws Exception 
 	 */
-	public Route getRoute(String origin, String destination) throws Exception {
+	public Route getRoute(String origin, String destination)  {
 		try {
 			DirectionsRoute route = DirectionsApi.getDirections(geoApiContext, origin, destination)
 					.mode(TravelMode.DRIVING).await().routes[0];
 			if(StringUtils.isNumeric(origin)) {
 				if(Integer.parseInt(origin)<0) {
-					throw new Exception("Can't input negative numbers");
+					log.warn(String.format("User attempted to input address with negative numbers; address: %s", origin));
+					return null;
 				}
 			}
 			long distance = 0;
@@ -81,7 +78,7 @@ public class RouteService {
 				distance += leg.distance.inMeters;
 				duration += leg.duration.inSeconds;
 			}
-			log.info("Route with the following information returned"+distance+" "+duration);
+			log.info(String.format("Route with the following information returned, distance: %d; duration: %d", distance,duration));
 			return new Route(distance, duration);
 		} catch (ApiException | InterruptedException | IOException e) {
 			log.error("Unexpected exception when fetching route.", e);
