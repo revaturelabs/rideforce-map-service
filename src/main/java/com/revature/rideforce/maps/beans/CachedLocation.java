@@ -20,14 +20,23 @@ import com.google.maps.model.LatLng;
 @Table(name = "ADDRESS")
 //put constructors between fields and getters and setters
 public class CachedLocation {
+	/**
+	 * An address string denoted as the id
+	 */
 	@Id
 	@Size(max = 85)
 	@Column(name = "ADDRESS")
 	String address;
 	
+	/**
+	 * geographic coordinate latitude
+	 */
 	@Column(name = "LATITUDE")
 	double latitude;
 	
+	/**
+	 * geographic coordinate longitude
+	 */
 	@Column(name = "LONGITUDE")
 	double longitude;
 	
