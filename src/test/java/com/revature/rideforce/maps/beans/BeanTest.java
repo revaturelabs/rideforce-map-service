@@ -2,6 +2,7 @@ package com.revature.rideforce.maps.beans;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
@@ -107,6 +108,24 @@ public class BeanTest{
     }
     
     @Test
+    public void hashCodeRouteConsistencyTest()
+    {
+    	Route route = new Route(12714, 9600);
+       
+        assertEquals(route.hashCode(), route.hashCode());
+        
+    }
+    
+    @Test
+    public void hashCodeRouteTest()
+    {
+    	Route route = new Route(12714, 9600);
+    	Route route1 = new Route(12714, 9600);
+       
+        assertEquals(route.hashCode(), route1.hashCode());
+    }
+    
+    @Test
     public void cachedLocationEqualsReflexive(){	
     	CachedLocation location = new CachedLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35);
         assertEquals(location, location);
@@ -129,23 +148,67 @@ public class BeanTest{
         assertThat(location1.equals(location2));
         assertThat(location.equals(location2));
     }
+   
     
     @Test
-    public void hashCodeConsistencyTest()
+    public void routeToStringTest()
     {
     	Route route = new Route(12714, 9600);
-    	Route route1 = new Route(12714, 9600);
-       
-        assertEquals(route.hashCode(), route.hashCode());
-        
+        String expected = "Route [distance=" + 12714 + ", duration=" + 9600 + "]";
+        Assert.assertEquals(expected, route.toString());
     }
     
     @Test
-    public void hashCodeTest()
+    public void locationToStringTest()
     {
-    	Route route = new Route(12714, 9600);
-    	Route route1 = new Route(12714, 9600);
-       
-        Assert.assertTrue(route.hashCode()==route1.hashCode());
+    	CachedLocation location = new CachedLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35);
+        String expected = "Location [address=" + "2925 Rensselaer Ct. Vienna, VA 22181" + ", latitude=" + 38.95 + ", longitude=" + -77.35 + "]";
+        Assert.assertEquals(expected, location.toString());
     }
+    
+    @Test
+    public void routeConstructorTest() {
+    	new Route();
+    }
+    
+    @Test
+    public void locationConstructorTest() {
+    	new CachedLocation();
+    }
+    
+    @Test
+    public void routeSetterAndGetterTest() {
+        Route route = new Route();
+        route.setDistance(12714);
+        assertEquals(route.getDistance(), 12714);
+    }
+    
+    @Test
+    public void routeSetterAndGetterTest2() {
+        Route route = new Route();
+        route.setDuration(9600);
+        assertEquals(route.getDuration(), 9600);
+    }
+    
+    @Test
+    public void locationSetterAndGetterTest() {
+    	CachedLocation location = new CachedLocation();
+        location.setAddress("2925 Rensselaer Ct. Vienna, VA 22181");
+        assertEquals(location.getAddress(), "2925 Rensselaer Ct. Vienna, VA 22181");
+    }
+    
+    @Test
+    public void locationSetterAndGetterTest2() {
+    	CachedLocation location = new CachedLocation();
+        location.setLatitude(38.95);
+        assertThat(location.getLatitude()==38.95);
+    }
+    
+    @Test
+    public void locationSetterAndGetterTest3() {
+    	CachedLocation location = new CachedLocation();
+        location.setLongitude(-77.35);
+        assertThat(location.getLongitude()==-77.35);
+    }
+    
 }

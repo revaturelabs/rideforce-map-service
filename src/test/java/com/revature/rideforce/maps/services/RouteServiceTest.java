@@ -33,8 +33,6 @@ public class RouteServiceTest {
 		Assert.assertThat(routeService, instanceOf(RouteService.class));
 	}
 	
-	private GeoApiContext.Builder builder;
-	
 	@Test
 	public void goodRoute(){
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
