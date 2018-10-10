@@ -11,14 +11,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Route {
+	@Max(15000)
   
 	/**
 	 * the distance between starting address and ending address
 	 * according to {@code RouteService} in meters
 	 */
-	@Max(15)
 	long distance;
-	
 	/**
 	 * the duration of the drive between starting address and ending address
 	 * according to {@code RouteService} in seconds
