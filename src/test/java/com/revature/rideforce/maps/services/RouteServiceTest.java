@@ -37,7 +37,7 @@ public class RouteServiceTest {
 	
 	@Before
 	  public void Setup() {
-	    builder = new GeoApiContext.Builder().apiKey("AIzaSyBRAKkW17BuAqk3RlsPEs9syFYD2B0NIVA").queryRateLimit(500);
+	    builder = new GeoApiContext.Builder().apiKey("AIz...").queryRateLimit(500);
 	  }
 	
 	@Test
