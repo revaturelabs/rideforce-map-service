@@ -46,10 +46,34 @@ public class CachedLocation {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	@Override
-	public String toString() {
-		return "Location [address=" + address + ", latitude=" + latitude + ", longitude=" + longitude + "]";
+	
+	public CachedLocation() {
+		super();
 	}
+	
+	/**
+	 * class constructor
+	 * sets this address to 'address'
+	 * sets this latitude to 'latlng.lat'
+	 * sets this longitude to 'latlng.lng'
+	 * @param address
+	 * @param latlng
+	 */
+	public CachedLocation (String address, LatLng latlng) {
+		this.address = address;
+		this.latitude = latlng.lat;
+		this.longitude = latlng.lng;
+	}
+
+	/**
+	 * class constructor
+	 * sets this address to 'address'
+	 * sets this latitude to 'latitude'
+	 * sets this longitude to 'longitude'
+	 * @param address
+	 * @param latitude
+	 * @param longitude
+	 */
 	public CachedLocation(String address, double latitude, double longitude) {
 		super();
 		this.address = address;
@@ -57,18 +81,17 @@ public class CachedLocation {
 		this.longitude = longitude;
 	}
 	
-	public CachedLocation (String address, LatLng latlng) {
-		this.address = address;
-		this.latitude = latlng.lat;
-		this.longitude = latlng.lng;
-	}
-	
-	public CachedLocation() {
-		super();
-	}
-	
+	/**
+	 * get location
+	 * @return latitude and longitude of location
+	 */
 	public LatLng getLocation() {
-		return new LatLng(latitude, longitude);
+		return new LatLng(latitude, longitude);	
+	}
+	
+	@Override
+	public String toString() {
+		return "Location [address=" + address + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
 	
 }

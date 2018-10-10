@@ -18,7 +18,7 @@ import com.revature.rideforce.maps.repository.LocationRepository;
 @Configuration
 @EnableJpaRepositories("com.revature.rideforce.maps.repository")
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.revature.rideforce")
+@ComponentScan(basePackages = { "com.revature.rideforce"})
 // @ComponentScan(basePackages = "com.revature.rideforce", excludeFilters = @Filter(type = FilterType.REGEX, pattern = "com\\.revature\\.rideforce\\.maps\\.repository\\.config"))
 public class TestConfiguration {
 	

@@ -24,8 +24,9 @@ import com.revature.rideforce.maps.controllers.RouteController;
 import com.revature.rideforce.maps.service.RouteService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
-@AutoConfigureMockMvc
+//@SpringBootTest(classes = Application.class)
+//@AutoConfigureMockMvc
+@WebMvcTest(ErrorController.class)
 public class ErrorControllerTest {
 
 	@Autowired
@@ -38,12 +39,12 @@ public class ErrorControllerTest {
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
 	}
 
-//	@Test
-//	public void testHandleException() throws Exception {
-//		this.mockMvc.perform(get("/location")
-//				.contentType(MediaType.APPLICATION_JSON)
-//				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-//	}
+	@Test
+	public void testHandleException() throws Exception {
+		this.mockMvc.perform(get("/location")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
+	}
 
 }
 
