@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.google.maps.GeoApiContext;
 import com.netflix.discovery.shared.Application;
 import com.revature.rideforce.maps.beans.Route;
 import com.revature.rideforce.maps.service.RouteService;
@@ -32,8 +33,15 @@ public class RouteServiceTest {
 		Assert.assertThat(routeService, instanceOf(RouteService.class));
 	}
 	
+	private GeoApiContext.Builder builder;
+	
+	@Before
+	  public void Setup() {
+	    builder = new GeoApiContext.Builder().apiKey("AIzaSyBRAKkW17BuAqk3RlsPEs9syFYD2B0NIVA").queryRateLimit(500);
+	  }
+	
 	@Test
-	public void goodRoute() throws Exception {
+	public void goodRoute(){
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA";
 		final Route route = new Route(12714, 9600);
@@ -44,7 +52,7 @@ public class RouteServiceTest {
 		assertEquals(route,routeTest);
 	}
 	@Test
-	public void testDistance() throws Exception {
+	public void testDistance(){
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA";
 		final Route route = new Route(12714, 9600);
@@ -52,11 +60,11 @@ public class RouteServiceTest {
 		given(routeService.getRoute(start, end)).willReturn(route);
 		Route routeTest = routeService.getRoute(start, end);
 		
-		assertEquals(routeTest.getDistance(),12714);
+		assertEquals(12714, routeTest.getDistance());
 	}
 	
 	@Test
-	public void testDuration() throws Exception {
+	public void testDuration() {
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA";
 		final Route route = new Route(12714, 9600);
@@ -68,11 +76,10 @@ public class RouteServiceTest {
 	}
 		
 		@Test
-		public void testGet() throws Exception {
+		public void testGet(){
 			final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 			final String end = "11730 Plaza America Dr. Reston, VA";
 			final Route route = new Route(12714, 9600);
-			final String routeJson = "{ distance: 12714, duration: 9600 }";
 
 			given(routeService.getRoute(start, end)).willReturn(route);
 			
@@ -80,34 +87,33 @@ public class RouteServiceTest {
 		}
 	
 	@Test
-	public void testNegativeParams() throws Exception{
+	public void testNegativeParams() {
 	given(routeService.getRoute("-80302", "80302")).willReturn(null);
 	
 	Assert.assertEquals(routeService.getRoute("-80302", "80302"), null);
 }
 	
-	
-
-	public void noStartParameter() throws Exception {
-		Route badRoute = routeService.getRoute("", "11730 Plaza America Dr. Reston, VA");
-		assertNull(badRoute);
-	}
-	
 	@Test
-	public void noEndParameters() throws Exception {
+	public void noEndParameters(){
 		Route badRoute = routeService.getRoute("11730 Plaza America Dr. Reston, VA","");
 		assertNull(badRoute);
 	}
 	
 	@Test
-	public void incompleteStartParameter() throws Exception {
+	public void incompleteStartParameter() {
 		Route badRoute = routeService.getRoute("11730 Plaza America Dr.","12160 Sunset Hills Rd, Reston, VA 20190");
 		assertNull(badRoute);
 	}
 	
 	@Test 
-	public void incompleteEndParameter() throws Exception {
+	public void incompleteEndParameter() {
 		Route badRoute = routeService.getRoute("12160 Sunset Hills Rd, Reston, VA 20190","12160 Sunset Hills");
+		assertNull(badRoute);
+	}
+	
+	@Test
+	public void negativeStartAddress() throws Exception {
+		Route badRoute = routeService.getRoute("-12160 Sunset Hills Rd, Reston, VA 20190","12160 Sunset Hills");
 		assertNull(badRoute);
 	}
 	

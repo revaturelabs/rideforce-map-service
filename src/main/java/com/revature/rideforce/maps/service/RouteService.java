@@ -71,6 +71,12 @@ public class RouteService {
 					return null;
 				}
 			}
+			if(StringUtils.isNumeric(destination)) {
+				if(Integer.parseInt(destination)<0) {
+					log.info("Can't input a negative origin");
+					return null;
+				}
+			}
 			long distance = 0;
 			long duration = 0;
 
