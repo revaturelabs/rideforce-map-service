@@ -1,7 +1,9 @@
 package com.revature.rideforce.maps.repotest;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -57,7 +59,8 @@ public class LocationRepositoryTest {
 	@Test
 	public void databaseShouldHaveThreeAddresses() {
 		List<CachedLocation> locations = locationRepository.findAll();
-		assertThat(locations.size() == 4);
+		assertFalse(locations.size() == 4);
+		assertTrue(locations.size() == 3);
 	}
 	
 	
@@ -87,23 +90,33 @@ public class LocationRepositoryTest {
 //        
 //        assertThat(loc.getAddress()).isEqualTo("11730 Plaza America Dr #205, Reston, VA 20190");
 //	}
-//	
-//	public void testSavedLocation2() {
-//		CachedLocation cachedLocation = getCachedLocation();
-//		CachedLocation savedInDb = entityManager.persist(cachedLocation);
-//		// can query by address
-//		CachedLocation getFromDb = locationRepository.findByAddress(savedInDb.getAddress());
-//		
-//		assertThat(getFromDb).isEqualTo(savedInDb);
-//	}
-//	
-//	private CachedLocation getCachedLocation() {
-//		CachedLocation cLoc = new CachedLocation();
-//		cLoc.setAddress("2100 Astoria Cir, Herndon, VA 20170");
-//		cLoc.setLatitude(38.9677237);
-//		cLoc.setLongitude(-77.4145711);
-//		return cLoc;
-//	}
+	
+
+	/**
+	 * This tests if the data that was fetched from db is equal to the expected result, which is
+	 * the cached location saved in db
+	 */
+	@Test
+	public void testSaveCachedLocation() {
+		CachedLocation cachedLocation = getCachedLocation();
+		CachedLocation savedInDb = entityManager.persist(cachedLocation);
+		// query by address because id for CachedLocation is address
+		CachedLocation getFromDb = locationRepository.findByAddress(savedInDb.getAddress());
+		
+		assertThat(getFromDb).isEqualTo(savedInDb);
+	}
+	
+	/**
+	 * private helper method to get cached location
+	 * @return the new CachedLocation object
+	 */
+	private CachedLocation getCachedLocation() {
+		CachedLocation cLoc = new CachedLocation();
+		cLoc.setAddress("2100 Astoria Cir, Herndon, VA 20170");
+		cLoc.setLatitude(38.9677237);
+		cLoc.setLongitude(-77.4145711);
+		return cLoc;
+	}
 //	
 //	@Test
 //	public void canFindByThing2() {
