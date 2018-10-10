@@ -81,6 +81,7 @@ public class RouteService {
 				distance += leg.distance.inMeters;
 				duration += leg.duration.inSeconds;
 			}
+			log.info("Route with the following information returned"+distance+" "+duration);
 			return new Route(distance, duration);
 		} catch (ApiException | InterruptedException | IOException e) {
 			log.error("Unexpected exception when fetching route.", e);
