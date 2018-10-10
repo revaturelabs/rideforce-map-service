@@ -35,11 +35,6 @@ public class RouteServiceTest {
 	
 	private GeoApiContext.Builder builder;
 	
-	@Before
-	  public void Setup() {
-	    builder = new GeoApiContext.Builder().apiKey("AIz...").queryRateLimit(500);
-	  }
-	
 	@Test
 	public void goodRoute(){
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
