@@ -27,7 +27,8 @@ import com.revature.rideforce.maps.service.LocationService;
 @RequestMapping(value = "/location")
 @Slf4j
 public class LocationController {
-	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
+	//private static final Logger log = LoggerFactory.getLogger(LocationController.class);
+	
 	
 	/**
 	 * Injecting the LocationService spring bean
@@ -44,8 +45,6 @@ public class LocationController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> get(@RequestParam String address) {
-		System.out.println("dammit");
-		log.info("help me");
 		if (address.isEmpty()) {
 			return new ResponseError("Must specify an address.").toResponseEntity(HttpStatus.BAD_REQUEST);
 		}
@@ -59,10 +58,8 @@ public class LocationController {
 			}
 		if(StringUtils.isNumeric(address)) {
 			int numCheck = address.length();
-			log.info(address);
 			if(numCheck != 5) {
 				String message= String.format("numcheck = %d", numCheck);
-				log.info(message);
 				return new ResponseError("Address cannot be a number that is not a Zip code.").toResponseEntity(HttpStatus.BAD_REQUEST);
 			}	
 		}

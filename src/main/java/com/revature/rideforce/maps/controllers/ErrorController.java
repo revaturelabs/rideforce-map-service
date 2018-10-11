@@ -1,5 +1,6 @@
 package com.revature.rideforce.maps.controllers;
 
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,7 +70,7 @@ public class ErrorController extends AbstractErrorController {
 	 * @ExceptionHandler(MethodArgumentNotValidException.class)
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException e) {
+	public static ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException e) {
 		BindingResult result = e.getBindingResult();
 		// Get a human-readable list of validation failure strings.
 		String[] details = result.getFieldErrors().stream()

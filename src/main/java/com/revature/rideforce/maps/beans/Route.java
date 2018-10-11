@@ -1,6 +1,7 @@
 package com.revature.rideforce.maps.beans;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Positive;
 
 import org.springframework.stereotype.Component;
 
@@ -17,11 +18,13 @@ public class Route {
 	 * the distance between starting address and ending address
 	 * according to {@code RouteService} in meters
 	 */
+	@Positive
 	long distance;
 	/**
 	 * the duration of the drive between starting address and ending address
 	 * according to {@code RouteService} in seconds
 	 */
+	@Positive
 	long duration;
 
 	/**

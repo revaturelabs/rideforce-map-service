@@ -47,13 +47,18 @@ public class LocationRepositoryTest {
 	 */
 	@Autowired
 	private LocationRepository locationRepository;
-	
 	/** 
 	 * Assert that the beans get autowired
 	 */
 	@Before
 	public void validate() {
+		List <CachedLocation> locs = locationRepository.findAll();
 		assertNotNull(entityManager);
+		for(CachedLocation l : locs) {
+			if(!l.equals(null)) {
+				entityManager.remove(l);
+			}
+		}
 	}	
 	
 	/**
