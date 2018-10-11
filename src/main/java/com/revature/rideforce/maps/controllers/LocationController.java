@@ -25,6 +25,10 @@ import com.revature.rideforce.maps.service.LocationService;
 @RestController
 @RequestMapping(value = "/location")
 public class LocationController {
+	
+	/**
+	 * logger
+	 */
 	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
 	
 	/**
@@ -37,7 +41,9 @@ public class LocationController {
 	/**
 	 * GET request method
 	 * @param address
-	 * @return ResponseEntity<?> ResponseEntity<?> (either ResponseError or ResponseEntity<LatLng> depending on validity of input)
+	 * @return ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
+	 * to allow it to be returned from a controller method or a ResponseEntity<LatLng> with given address 
+	 * and HTTP status code, and no headers)
 	 * @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
