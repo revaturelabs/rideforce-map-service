@@ -23,6 +23,10 @@ import com.revature.rideforce.maps.beans.Route;
  */
 @Component
 public class RouteService {
+	
+	/**
+	 * logger
+	 */
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
 
   	/**
@@ -30,16 +34,36 @@ public class RouteService {
   	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
+	
+	/**
+	 * get geoApiContext
+	 * @return geoApiContext
+	 */
 	public GeoApiContext getGeoApiContext() {
 		return geoApiContext;
 	}
+	
+	/**
+	 * set this geoApiContext to 'geoApiContext'
+	 * @param geoApiContext
+	 */
  	public void setGeoApiContext(GeoApiContext geoApiContext) {
 		this.geoApiContext = geoApiContext;
 	}
+ 	
+ 	/**
+ 	 * class constructor
+ 	 * set this geoApiContext to 'geoApiContext'
+ 	 * @param geoApiContext
+ 	 */
  	public RouteService(GeoApiContext geoApiContext) {
 		super();
 		this.geoApiContext = geoApiContext;
 	}
+ 	
+	/**
+	 * class constructor (no args)
+	 */
  	public RouteService() {
 		super();
 		// TODO Auto-generated constructor stub
