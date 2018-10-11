@@ -27,11 +27,14 @@ import com.revature.rideforce.maps.repositories.LocationRepository;
 @Service
 @Transactional
 public class LocationService {
-  private static final Logger log = LoggerFactory.getLogger(LocationService.class);
+	/**
+	 * logger
+	 */
+	private static final Logger log = LoggerFactory.getLogger(LocationService.class);
 
-  	/**
-  	 * Injecting the GeoApiContext
-  	 */
+	/**
+	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
+	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
 
@@ -44,7 +47,7 @@ public class LocationService {
 	/**
 	 * get a location
 	 * @param address
-	 * @return LatLng (geographical location represented by latitude, longitude pair)
+	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */
 	public LatLng getOne(String address) {
 		CachedLocation location = locationRepo.findByAddress(address);
