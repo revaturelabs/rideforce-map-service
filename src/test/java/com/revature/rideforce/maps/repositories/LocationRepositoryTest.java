@@ -1,4 +1,4 @@
-package com.revature.rideforce.maps.repotest;
+package com.revature.rideforce.maps.repositories;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.*;
@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.rideforce.maps.Application;
 import com.revature.rideforce.maps.beans.CachedLocation;
-import com.revature.rideforce.maps.repository.LocationRepository;
+import com.revature.rideforce.maps.repositories.LocationRepository;
 
 /**
  * Class that tests the repository
