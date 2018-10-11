@@ -92,10 +92,20 @@ public class LocationControllerTest {
 	public void testGetBadParams12() throws Exception {
 		mvc.perform(get("/location").param("random", "'93305'")).andExpect(status().isBadRequest());
 	}
+	
+	/**
+	 * The mapping is incorrect
+	 * @throws Exception
+	 */
 	@Test
 	public void testGetBadMapping() throws Exception {
 		mvc.perform(get("/loc").param("address", "11730")).andExpect(status().is4xxClientError());
 	}
+	
+	/**
+	 * The mapping is incorrect
+	 * @throws Exception
+	 */
 	@Test
 	public void testGetBadParamName() throws Exception {
 		mvc.perform(get("/loc").param("add", "11730")).andExpect(status().is4xxClientError());
@@ -104,10 +114,20 @@ public class LocationControllerTest {
 	public void testValidZipCodeAddress() throws Exception {
 		mvc.perform(get("/location").param("address", "93305")).andExpect(status().isOk());
 	}
+	
+	/**
+	 * Too many numbers entered
+	 * @throws Exception
+	 */
 	@Test
 	public void testInvalidZipCodeAddress() throws Exception {
 		mvc.perform(get("/location").param("address", "933056")).andExpect(status().isBadRequest());
 	}
+	
+	/**
+	 * Too few numbers entered
+	 * @throws Exception
+	 */
 	@Test
 	public void testInvalidZipCodeAddress2() throws Exception {
 		mvc.perform(get("/location").param("address", "933")).andExpect(status().isBadRequest());

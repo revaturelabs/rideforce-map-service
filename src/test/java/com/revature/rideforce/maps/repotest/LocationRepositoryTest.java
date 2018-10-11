@@ -54,6 +54,19 @@ public class LocationRepositoryTest {
 	@Before
 	public void validate() {
 		assertNotNull(entityManager);
+		
+		List<CachedLocation> locs = locationRepository.findAll();
+		
+		System.out.println("The list of locations now: " + locs);
+		
+		for (CachedLocation l : locs) {
+			if (!l.equals(null)) {
+				entityManager.remove(l);
+			}
+		}	
+		
+		System.out.println("The list of locations now: " + locs);
+		
 	}	
 	
 	/**

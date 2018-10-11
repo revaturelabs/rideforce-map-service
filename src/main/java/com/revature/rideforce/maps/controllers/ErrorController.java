@@ -71,6 +71,8 @@ public class ErrorController extends AbstractErrorController {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException e) {
 		BindingResult result = e.getBindingResult();
+		// A stream pipeline consists of a source (array) 
+		
 		// Get a human-readable list of validation failure strings.
 		String[] details = result.getFieldErrors().stream()
 				.map(err -> "Error in property \"" + err.getField() + "\": " + err.getDefaultMessage())
