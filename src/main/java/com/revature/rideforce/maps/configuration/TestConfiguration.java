@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.revature.rideforce.maps.repositories.LocationRepository;
+import com.revature.rideforce.maps.repository.LocationRepository;
 
 @Configuration
 @EnableJpaRepositories("com.revature.rideforce.maps.repository")

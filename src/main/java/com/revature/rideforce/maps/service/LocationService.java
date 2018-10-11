@@ -16,7 +16,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.CachedLocation;
-import com.revature.rideforce.maps.repositories.LocationRepository;
+import com.revature.rideforce.maps.repository.LocationRepository;
 
 /**
  * The LocationService

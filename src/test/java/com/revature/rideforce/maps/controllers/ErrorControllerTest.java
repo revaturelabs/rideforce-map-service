@@ -40,16 +40,19 @@ public class ErrorControllerTest {
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
 	}
 
-	@Test
-	public void testHandleException() throws Exception {
-		this.mockMvc.perform(get("/location")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
-	}
+//	@Test
+//	public void testHandleException() throws Exception {
+//		this.mockMvc.perform(get("/location")
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.accept(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
+//	}
 	
-//	@Rule
-//	public void testException() throws Exception () {
-//		thrown.expectMessage("Error in property \"")
+//	@Test(expected = MethodArgumentNotValidException.class)
+//	public void validateHandleException() throws Exception, MethodArgumentNotValidException {
+//		// if the following lines actually throw an exception, then this test will pass
+//		mockMvc.perform(get("/location").param("address", "555555")
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.accept(MediaType.APPLICATION_JSON));
 //	}
 
 }

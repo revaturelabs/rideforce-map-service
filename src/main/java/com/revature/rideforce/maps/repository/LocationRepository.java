@@ -1,4 +1,4 @@
-package com.revature.rideforce.maps.repositories;
+package com.revature.rideforce.maps.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
