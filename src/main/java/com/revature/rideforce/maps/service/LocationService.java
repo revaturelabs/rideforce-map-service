@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,37 @@ import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.repository.LocationRepository;
 
+/**
+ * The LocationService
+ * @author Revature Java batch
+ * @Service
+ * @Transactional
+ */
 @Service
 @Transactional
 public class LocationService {
-  private static final Logger log = LoggerFactory.getLogger(LocationService.class);
+	/**
+	 * logger
+	 */
+	private static final Logger log = LoggerFactory.getLogger(LocationService.class);
 
+	/**
+	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
+	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
 
+	/**
+	 * Injecting the LocationRepository
+	 */
 	@Autowired
 	private LocationRepository locationRepo;
 
+	/**
+	 * get a location
+	 * @param address
+	 * @return LatLng (geographical location represented by latitude/longitude pair)
+	 */
 	public LatLng getOne(String address) {
 		CachedLocation location = locationRepo.findByAddress(address);
 		if (location == null) {
@@ -38,6 +59,7 @@ public class LocationService {
 				return results[0].geometry.location;
 			} catch (ApiException | InterruptedException | IOException e) {
 				log.error("Unexpected exception when fetching location.", e);
+				Thread.currentThread().interrupt();
 				return null;
 			}
 		}
