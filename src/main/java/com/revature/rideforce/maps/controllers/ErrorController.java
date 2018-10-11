@@ -37,7 +37,7 @@ public class ErrorController extends AbstractErrorController {
 
 	/**
 	 * class constructor
-	 * @param errorAttributes
+	 * @param errorAttributes which can be logged or presented to the user.
 	 */
 	public ErrorController(ErrorAttributes errorAttributes) {
 		super(errorAttributes);
@@ -46,7 +46,8 @@ public class ErrorController extends AbstractErrorController {
 	/**
 	 * Notifies of internal server error
 	 * @param request (an HttpServletRequest object)
-	 * @return ResponseEntity<ResponseError>
+	 * @return ResponseEntity<ResponseError> (ResponseError with given message wrapped in ResponseEntity 
+	 * to allow it to be returned from a controller method)
 	 * @RequestMapping(path = "/error", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	 */
 	@RequestMapping(path = "/error", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -68,7 +69,8 @@ public class ErrorController extends AbstractErrorController {
 	 * Handles the exception thrown when validation on an argument annotated with @Valid fails.
 	 * @ExceptionHandler(MethodArgumentNotValidException.class)
 	 * @param e (the exception object)
-	 * @return a new ResponseError with the given message
+	 * @return ResponseEntity<ResponseError> (ResponseError with given message wrapped in ResponseEntity 
+	 * to allow it to be returned from a controller method)
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException e) {
