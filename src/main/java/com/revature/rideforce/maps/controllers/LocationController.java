@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import lombok.extern.slf4j.*;
 
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.ResponseError;
@@ -25,10 +24,12 @@ import com.revature.rideforce.maps.service.LocationService;
  */
 @RestController
 @RequestMapping(value = "/location")
-@Slf4j
 public class LocationController {
-	//private static final Logger log = LoggerFactory.getLogger(LocationController.class);
 	
+	/**
+	 * logger
+	 */
+	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
 	
 	/**
 	 * Injecting the LocationService spring bean
@@ -40,7 +41,9 @@ public class LocationController {
 	/**
 	 * GET request method
 	 * @param address
-	 * @return ResponseEntity<?> ResponseEntity<?> (either ResponseError or ResponseEntity<LatLng> depending on validity of input)
+	 * @return ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
+	 * to allow it to be returned from a controller method or a ResponseEntity<LatLng> with given address 
+	 * and HTTP status code, and no headers)
 	 * @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -58,8 +61,10 @@ public class LocationController {
 			}
 		if(StringUtils.isNumeric(address)) {
 			int numCheck = address.length();
+			log.info(address);
 			if(numCheck != 5) {
 				String message= String.format("numcheck = %d", numCheck);
+				log.info(message);
 				return new ResponseError("Address cannot be a number that is not a Zip code.").toResponseEntity(HttpStatus.BAD_REQUEST);
 			}	
 		}

@@ -16,49 +16,81 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.TravelMode;
 import com.revature.rideforce.maps.beans.Route;
 
+
+
+
+
 /**
  * The route service
  * @author Revature Java batch
  * @Component
  */
+
 @Component
 public class RouteService {
+	
+	/**
+	 * logger
+	 */
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
 
+	
   	/**
-  	 * Injecting the GeoApiContext
+  	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
   	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
+	
+	/**
+	 * get geoApiContext
+	 * @return geoApiContext
+	 */
 	public GeoApiContext getGeoApiContext() {
+		
 		return geoApiContext;
 	}
+	
+	/**
+	 * set this geoApiContext to 'geoApiContext'
+	 * @param geoApiContext
+	 */
+
  	public void setGeoApiContext(GeoApiContext geoApiContext) {
-		this.geoApiContext = geoApiContext;
+		this.geoApiContext = geoApiContext; 
+		log.info("GeoApiContext set");
 	}
+ 	
+ 	/**
+ 	 * class constructor
+ 	 * set this geoApiContext to 'geoApiContext'
+ 	 * @param geoApiContext
+ 	 */
  	public RouteService(GeoApiContext geoApiContext) {
 		super();
 		this.geoApiContext = geoApiContext;
+		log.info("RouteService instantiated");
 	}
+ 	
+	/**
+	 * class constructor (no args)
+	 */
  	public RouteService() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * get the route
-	 * @param origin
-	 * @param destination
-	 * @return Route
-	 * @throws Exception 
+	 * get the route using Driving travel mode
+	 * @param origin (a starting address)
+	 * @param destination (an ending address)
+	 * @return Route (in meters and seconds)
 	 */
-	public Route getRoute(String origin, String destination){
+	public Route getRoute(String origin, String destination)  {
 		try {
 			DirectionsRoute route = DirectionsApi.getDirections(geoApiContext, origin, destination)
 					.mode(TravelMode.DRIVING).await().routes[0];
 			if(StringUtils.isNumeric(origin)) {
 				if(Integer.parseInt(origin)<0) {
-					log.info("Can't input a negative origin");
+					log.warn(String.format("User attempted to input address with negative numbers; address: %s", origin));
 					return null;
 				}
 			}
@@ -75,6 +107,7 @@ public class RouteService {
 				distance += leg.distance.inMeters;
 				duration += leg.duration.inSeconds;
 			}
+			log.info(String.format("Route with the following information returned, distance: %d; duration: %d", distance,duration));
 			return new Route(distance, duration);
 		} catch (ApiException | InterruptedException | IOException e) {
 			log.error("Unexpected exception when fetching route.", e);

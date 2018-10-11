@@ -40,11 +40,13 @@ public class RouteController {
 	 * GET request method for the route
 	 * @param start
 	 * @param end
-	 * @return ResponseEntity<?> (either ResponseError or ResponseEntity<Route> depending on validity of input)
-	 * @throws Exception 
+	 * @return ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
+	 * to allow it to be returned from a controller method or a ResponseEntity<Route> with given route 
+	 * and HTTP status code, and no headers)
+	 * @throws Exception
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<?> get(@RequestParam String start, @RequestParam String end) throws Exception{
+	public ResponseEntity<?> get(@RequestParam String start, @RequestParam String end) throws Exception {
 		if (start.isEmpty()) {
 			return new ResponseError("Must specify a start address.").toResponseEntity(HttpStatus.BAD_REQUEST);
 		}

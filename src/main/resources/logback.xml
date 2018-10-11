@@ -1,41 +1,50 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<configuration scan="true" scanPeriod="3 seconds">
-
-  <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
-
-  <appender name="STDOUT"
-            class="ch.qos.logback.core.ConsoleAppender">
-    <layout class="ch.qos.logback.classic.PatternLayout">
-      <pattern>
-        %d{HH:mm:ss.SSS} [%thread] %-5level %logger{32} - %msg%n
-      </pattern>
-    </layout>
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/base.xml" />
+  <property name="LOGS_BASE" value="target"/>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date{yy-MMM-dd@HH:mm:ss}  %level %caller %logger{5} %M => %msg%n</pattern>
+    </encoder>
   </appender>
-
-  <appender name="FILE"
-            class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>logFile.log</File>
-    <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <FileNamePattern>
-        logFile.%d{yyyy-MM-dd_HH-mm}.log.zip
-      </FileNamePattern>
-    </rollingPolicy>
-
-    <layout class="ch.qos.logback.classic.PatternLayout">
-      <Pattern>
-        %d{HH:mm:ss,SSS} [%thread] %-5level %logger{32} - %msg%n
-      </Pattern>
-    </layout>
+  <appender name="ROOT_LOGGER" class="ch.qos.logback.core.FileAppender">
+    <file>${LOGS_BASE}/root.log</file>
+    <encoder>
+      <pattern>%date{yy-MMM-dd; HH:mm:ss} %level %logger{5} msg%n</pattern>
+    </encoder>
   </appender>
-
-  <root>
-    <level value="DEBUG"/>
-    <appender-ref ref="STDOUT"/>
-    <appender-ref ref="FILE"/>
+  <appender name="SERVICE_LOGGER" class="ch.qos.logback.core.FileAppender">
+    <file>${LOGS_BASE}/service.log</file>
+    <encoder>
+      <pattern>%date{yy-MMM-dd@HH:mm:ss}  %level %caller %logger{5} %M => %msg%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="CONTROLLER_LOGGER" class="ch.qos.logback.core.FileAppender">
+  	<file>${LOGS_BASE}/controller.log</file>
+	  <encoder>
+	  	<pattern>%date{yy-MMM-dd@HH:mm:ss}  %level %caller %logger{5} %M => %msg%n</pattern>
+	  </encoder>
+  </appender>
+  <appender name="BEANS_LOGGER" class="ch.qos.logback.core.FileAppender">
+  	<file>${LOGS_BASE}/beans.log</file>
+	  <encoder>
+	  	<pattern>%date{yy-MMM-dd@HH:mm:ss}  %level %caller %logger{5} %M => %msg%n</pattern>
+	  </encoder>
+  </appender>
+  <root level="WARN">
+    <appender-ref ref="CONSOLE" />
+    <appender-ref ref="ROOT_LOGGER" />
   </root>
-
-  <!--<include file="/tmp/logback-demo.xml"/>-->
-
+  <logger name="com.revature.rideforce" level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="com.revature.rideforce.maps.service" level="INFO">
+  	<appender-ref ref="SERVICE_LOGGER"/>
+  </logger>
+  <logger name="com.revature.rideforce.maps.controllers" level="INFO">
+  	<appender-ref ref="CONTROLLER_LOGGER"/>
+  </logger>
+    <logger name="com.revature.rideforce.maps.beans" level="INFO">
+  	<appender-ref ref="BEANS_LOGGER"/>
+  </logger>
 </configuration>

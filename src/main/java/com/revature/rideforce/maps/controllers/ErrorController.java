@@ -38,7 +38,7 @@ public class ErrorController extends AbstractErrorController {
 
 	/**
 	 * class constructor
-	 * @param errorAttributes
+	 * @param errorAttributes which can be logged or presented to the user.
 	 */
 	public ErrorController(ErrorAttributes errorAttributes) {
 		super(errorAttributes);
@@ -46,8 +46,9 @@ public class ErrorController extends AbstractErrorController {
 
 	/**
 	 * Notifies of internal server error
-	 * @param request
-	 * @return ResponseEntity<ResponseError>
+	 * @param request (an HttpServletRequest object)
+	 * @return ResponseEntity<ResponseError> (ResponseError with given message wrapped in ResponseEntity 
+	 * to allow it to be returned from a controller method)
 	 * @RequestMapping(path = "/error", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	 */
 	@RequestMapping(path = "/error", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -66,12 +67,18 @@ public class ErrorController extends AbstractErrorController {
 	}
 
 	/**
-	 * Handles the exception thrown when invalid input is sent to a controller.
+	 * Handles the exception thrown when validation on an argument annotated with @Valid fails.
 	 * @ExceptionHandler(MethodArgumentNotValidException.class)
+	 * @param e (the exception object)
+	 * @return ResponseEntity<ResponseError> (ResponseError with given message and the details to 
+	 * associate with this error wrapped in ResponseEntity to allow it to be returned from a controller 
+	 * method)
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public static ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException e) {
 		BindingResult result = e.getBindingResult();
+		// A stream pipeline consists of a source (array)...
+		
 		// Get a human-readable list of validation failure strings.
 		String[] details = result.getFieldErrors().stream()
 				.map(err -> "Error in property \"" + err.getField() + "\": " + err.getDefaultMessage())
