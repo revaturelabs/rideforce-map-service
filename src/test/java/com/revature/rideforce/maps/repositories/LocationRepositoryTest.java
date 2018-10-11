@@ -57,15 +57,11 @@ public class LocationRepositoryTest {
 		
 		List<CachedLocation> locs = locationRepository.findAll();
 		
-		System.out.println("The list of locations now: " + locs);
+		// System.out.println("The list of locations now: " + locs);
 		
-		for (CachedLocation l : locs) {
-			if (!l.equals(null)) {
-				entityManager.remove(l);
-			}
-		}	
+		removeAllEntitiesFromDb();
 		
-		System.out.println("The list of locations now: " + locs);
+		// System.out.println("The list of locations now: " + locs);
 		
 	}	
 	
@@ -136,22 +132,6 @@ public class LocationRepositoryTest {
 	}
 
 	/**
-	 * private helper method to add entries to db to avoid repeating code
-	 */
-	private void persistCachedLocations() {
-		CachedLocation cloc1 = new CachedLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533);
-		CachedLocation cloc2 = new CachedLocation("2100 Astoria Cir, Herndon, VA 20170",38.96787,-77.414742);
-		CachedLocation cloc3 = new CachedLocation("503 Pride Ave, Herndon, VA 20170",38.966271,-77.388985);
-		
-		// Keep in mind: the call of save on a detached instance creates a new persistent instance and assigns it a new identifier, 
-		// which results in a duplicate record in a database upon committing or flushing.
-		// Whereas, a second call to session.persist() would cause an exception
-		entityManager.persist(cloc1);
-		entityManager.persist(cloc2);
-		entityManager.persist(cloc3);
-	}	
-
-	/**
 	 * This tests if the data that was fetched from db is equal to the expected result, which is
 	 * the cached location saved in db
 	 */
@@ -166,15 +146,14 @@ public class LocationRepositoryTest {
 	}
 	
 	/**
-	 * private helper method to get cached location
-	 * @return the new CachedLocation object
+	 * After putting in 3 entries, size of list should be 3
 	 */
-	private CachedLocation getCachedLocation() {
-		CachedLocation cLoc = new CachedLocation();
-		cLoc.setAddress("1070 Elden St, Herndon, VA 20170"); // Fresh World! :)
-		cLoc.setLatitude(38.9666958);
-		cLoc.setLongitude(-77.3975926);
-		return cLoc;
+	@Test
+	public void testProperSize() {
+		persistCachedLocations();
+		List<CachedLocation> locations = locationRepository.findAll();
+
+		assertTrue(locations.size() == 3);
 	}
 	
 	/**
@@ -188,18 +167,6 @@ public class LocationRepositoryTest {
 		CachedLocation fetchFromDb = locationRepository.findByAddress("1230 Elden St, Herndon, VA 20170");
 		
 		assertThat(fetchFromDb).isNotEqualTo(savedInDb);
-	}
-	
-	/**
-	 * private helper method to get cached location
-	 * @return the new CachedLocation object
-	 */
-	private CachedLocation getCachedLocation2() {
-		CachedLocation cLoc2 = new CachedLocation();
-		cLoc2.setAddress("1228 Elden St, Herndon, VA 20170"); // Giant! :)
-		cLoc2.setLatitude(38.9583948);
-		cLoc2.setLongitude(-77.3887017);
-		return cLoc2;
 	}
 	
 //	@Test
@@ -237,11 +204,108 @@ public class LocationRepositoryTest {
 	 * Should return null when there is invalid id (address)
 	 */
 	@Test
+	public void returnsNullWhenAddressIsOnlyPeriod() {
+		persistCachedLocations();
+		
+		CachedLocation loc = locationRepository.findByAddress(".");
+		assertThat(loc).isNull();
+	}
+	
+	/**
+	 * Should return null when there is only a single character
+	 */
+	@Test
+	public void returnsNullWhenAddressIsOnlySingleCharacter() {
+		persistCachedLocations();
+		
+		CachedLocation loc = locationRepository.findByAddress("A");
+		assertThat(loc).isNull();
+	}
+	
+	/**
+	 * Should return null when there is invalid id (address)
+	 */
+	@Test
 	public void returnsNullWhenAddressIsOnlyNumbers() {
 		persistCachedLocations();
 		
 		CachedLocation loc = locationRepository.findByAddress("2149");
 		assertThat(loc).isNull();
 	}
+	
+	/**
+	 * Should return null when there are no locations in db
+	 */
+	@Test
+	public void returnsNullWhenThereAreNoLocations() {
+		removeAllEntitiesFromDb();
+		
+		CachedLocation loc = locationRepository.findByAddress("2149 Astoria Cir, Herndon, VA 20170");
+		assertThat(loc).isNull();
+	}
+	
+	/**
+	 * Should not return null when the location is actually in DB
+	 */
+	@Test
+	public void returnsNotNullWhenFetchingSpecificResultInDb() {
+		persistCachedLocations();
+		
+		CachedLocation loc = locationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170");
+		assertThat(loc).isNotNull();
+	}	
+	
+	/**
+	 * private helper method to get cached location
+	 * @return the new CachedLocation object
+	 */
+	private CachedLocation getCachedLocation() {
+		CachedLocation cLoc = new CachedLocation();
+		cLoc.setAddress("1070 Elden St, Herndon, VA 20170"); // Fresh World! :)
+		cLoc.setLatitude(38.9666958);
+		cLoc.setLongitude(-77.3975926);
+		return cLoc;
+	}
+	
+	/**
+	 * private helper method to get cached location
+	 * @return the new CachedLocation object
+	 */
+	private CachedLocation getCachedLocation2() {
+		CachedLocation cLoc2 = new CachedLocation();
+		cLoc2.setAddress("1228 Elden St, Herndon, VA 20170"); // Giant! :)
+		cLoc2.setLatitude(38.9583948);
+		cLoc2.setLongitude(-77.3887017);
+		return cLoc2;
+	}
+	
+	/**
+	 * private helper method to add entries to db to avoid repeating code
+	 */
+	private void persistCachedLocations() {
+		CachedLocation cloc1 = new CachedLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533);
+		CachedLocation cloc2 = new CachedLocation("2100 Astoria Cir, Herndon, VA 20170",38.96787,-77.414742);
+		CachedLocation cloc3 = new CachedLocation("503 Pride Ave, Herndon, VA 20170",38.966271,-77.388985);
+		
+		// Keep in mind: the call of save on a detached instance creates a new persistent instance and assigns it a new identifier, 
+		// which results in a duplicate record in a database upon committing or flushing.
+		// Whereas, a second call to session.persist() would cause an exception
+		entityManager.persist(cloc1);
+		entityManager.persist(cloc2);
+		entityManager.persist(cloc3);
+	}
+	
+	/**
+	 * private helper method to remove all locations from repository
+	 */
+	private void removeAllEntitiesFromDb() {
+		List<CachedLocation> locs = locationRepository.findAll();
+		for (CachedLocation l : locs) {
+			if (!l.equals(null)) {
+				entityManager.remove(l);
+			}
+		}	
+	}
+	
 	
 }

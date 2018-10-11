@@ -41,7 +41,7 @@ public class RouteController {
 	 * @return ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
 	 * to allow it to be returned from a controller method or a ResponseEntity<Route> with given route 
 	 * and HTTP status code, and no headers)
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> get(@RequestParam String start, @RequestParam String end) throws Exception {

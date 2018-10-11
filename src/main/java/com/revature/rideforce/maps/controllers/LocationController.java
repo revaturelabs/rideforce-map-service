@@ -25,6 +25,10 @@ import com.revature.rideforce.maps.service.LocationService;
 @RestController
 @RequestMapping(value = "/location")
 public class LocationController {
+	
+	/**
+	 * logger
+	 */
 	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
 	
 	/**

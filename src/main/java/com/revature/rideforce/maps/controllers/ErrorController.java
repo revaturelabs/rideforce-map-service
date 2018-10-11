@@ -69,8 +69,9 @@ public class ErrorController extends AbstractErrorController {
 	 * Handles the exception thrown when validation on an argument annotated with @Valid fails.
 	 * @ExceptionHandler(MethodArgumentNotValidException.class)
 	 * @param e (the exception object)
-	 * @return ResponseEntity<ResponseError> (ResponseError with given message wrapped in ResponseEntity 
-	 * to allow it to be returned from a controller method)
+	 * @return ResponseEntity<ResponseError> (ResponseError with given message and the details to 
+	 * associate with this error wrapped in ResponseEntity to allow it to be returned from a controller 
+	 * method)
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException e) {
