@@ -30,7 +30,7 @@ public class RouteService {
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
 
   	/**
-  	 * Injecting the GeoApiContext
+  	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
   	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
@@ -70,7 +70,7 @@ public class RouteService {
 	}
 
 	/**
-	 * get the route
+	 * get the route using Driving travel mode
 	 * @param origin (a starting address)
 	 * @param destination (an ending address)
 	 * @return Route (in meters and seconds)
