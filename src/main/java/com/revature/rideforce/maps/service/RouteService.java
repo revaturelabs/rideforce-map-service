@@ -71,10 +71,9 @@ public class RouteService {
 
 	/**
 	 * get the route
-	 * @param origin
-	 * @param destination
-	 * @return Route
-	 * @throws Exception 
+	 * @param origin (a starting address)
+	 * @param destination (an ending address)
+	 * @return Route (in meters and seconds)
 	 */
 	public Route getRoute(String origin, String destination){
 		try {
