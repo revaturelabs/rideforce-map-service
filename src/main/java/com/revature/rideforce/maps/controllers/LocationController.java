@@ -1,5 +1,7 @@
 package com.revature.rideforce.maps.controllers;
 
+import javax.validation.Valid;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +49,7 @@ public class LocationController {
 	 * @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<?> get(@RequestParam String address) {
+	public ResponseEntity<?> get(@Valid @RequestParam String address) {
 		if (address.isEmpty()) {
 			return new ResponseError("Must specify an address.").toResponseEntity(HttpStatus.BAD_REQUEST);
 		}
