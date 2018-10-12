@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.revature.rideforce.maps.beans.CachedLocation;
+import com.revature.rideforce.maps.beans.FavoriteLocation;
 import com.revature.rideforce.maps.service.RouteService;
 
 /**
@@ -14,6 +15,6 @@ import com.revature.rideforce.maps.service.RouteService;
  */
 @Repository
 public interface LocationRepository extends JpaRepository<CachedLocation, Integer> {
-	
-public CachedLocation findByAddress(String address);
+
+	public CachedLocation findByAddress(String address);
 }
