@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.BDDMockito.given;
 
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +16,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.DirectionsRoute;
+import com.google.maps.model.TravelMode;
 import com.netflix.discovery.shared.Application;
 import com.revature.rideforce.maps.beans.Route;
 import com.revature.rideforce.maps.service.RouteService;
@@ -23,15 +29,45 @@ import com.revature.rideforce.maps.service.RouteService;
 @SpringBootTest(classes = Application.class)
 public class RouteServiceTest {
 	
+	private GeoApiContext geoApiContext;
+	private GeoApiContext.Builder builder;
+	@Before
+	  public void Setup() {
+	    builder = new GeoApiContext.Builder();
+	  }
 	@MockBean
 	private RouteService routeService;
-	
 	
 	@Before
 	public void validate() {
 		assertNotNull(routeService);
 		Assert.assertThat(routeService, instanceOf(RouteService.class));
 	}
+	
+	@Test
+	public void geoApiTest() {
+		this.geoApiContext = geoApiContext;
+	}
+	
+	@Test
+	public void getDirectionsTest() throws ApiException, InterruptedException, IOException{
+		String origin = "2925 Rensselaer Ct. Vienna, VA 22181";
+		String destination = "11730 Plaza America Dr. Reston, VA";
+		
+		DirectionsRoute routes = DirectionsApi.getDirections(geoApiContext, origin, destination).mode(TravelMode.DRIVING).await().routes[0];
+		if(routes !=null) {
+		assertNotNull(routes);
+		}
+		else {
+			assertNull(routes);
+		}
+	}
+	
+	@Test
+    public void routeServiceConstructorTest() {
+    	routeService = new RouteService();
+    	assertNotNull(routeService);
+    }
 	
 	@Test
 	public void goodRoute(){
@@ -84,6 +120,16 @@ public class RouteServiceTest {
 	given(routeService.getRoute("-80302", "80302")).willReturn(null);
 	
 	Assert.assertEquals(routeService.getRoute("-80302", "80302"), null);
+}
+	
+	@Test
+	public void testNegativeParams2() {
+		String origin = "-80302";
+		String destination = "80302";
+		
+		DirectionsApi.getDirections(geoApiContext, origin, destination);
+	
+		Assert.assertEquals(routeService.getRoute("-80302", "80302"), null);
 }
 	
 	@Test
