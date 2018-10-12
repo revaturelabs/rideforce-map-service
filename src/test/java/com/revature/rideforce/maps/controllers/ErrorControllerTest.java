@@ -63,22 +63,22 @@ public class ErrorControllerTest {
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
 	}
 	
-//	@Test(expected = MethodArgumentNotValidException.class)
-//	public void validateHandleException() throws Exception, MethodArgumentNotValidException {
-//		// if the following lines actually throw an exception, then this test will pass
-//		mockMvc.perform(get("/location").param("address", "555555")
-//				.contentType(MediaType.APPLICATION_JSON)
-//				.accept(MediaType.APPLICATION_JSON));
-//	}
+	@Test(expected = MethodArgumentNotValidException.class)
+	public void validateHandleException() throws Exception, MethodArgumentNotValidException {
+		// if the following lines actually throw an exception, then this test will pass
+		mockMvc.perform(get("/location").param("address", "****")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON));
+	}
 	
 	// remove this test, test for exception
-	@Test(expected=MethodArgumentNotValidException.class)
-	public void testRandoException() {
-
-		//getBindingResult() - Return the results of the failed validation
-		BindingResult result = mock(BindingResult.class);
-		when(result.hasErrors()).thenThrow(MethodArgumentNotValidException.class);
-	} 
+//	@Test(expected=MethodArgumentNotValidException.class)
+//	public void testRandoException() {
+//
+//		//getBindingResult() - Return the results of the failed validation
+//		BindingResult result = mock(BindingResult.class);
+//		when(result.hasErrors()).thenThrow(MethodArgumentNotValidException.class);
+//	} 
 
 
 }
