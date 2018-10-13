@@ -5,14 +5,138 @@
 	<groupId>com.revature.rideforce</groupId>
 	<artifactId>rideforce-maps-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
+	 <scm>
+       <connection>scm:git:file://localhost/C:/GitRepo/MyProject/</connection>
+       <developerConnection>scm:git:file://localhost/C:/GitRepo/MyProject/</developerConnection>
+       <tag>HEAD</tag>
+    </scm>
+	<properties>
+	        <release.javadoc.root.path>C:/Program Files/apache-tomcat-9.0.11/webapps/api-documentation/</release.javadoc.root.path>
+	
+	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-
+<profiles>
+        <!--
+            Profile for generation and publishing of release JavaDoc
+            documentation.
+            Use: mvn -P releaseDocumentation site
+            References: http://maven.apache.org/guides/introduction/introduction-to-profiles.html
+        -->
+        <profile>
+            <!-- 
+                Name of the Maven build profile.
+                Used in project's Jenkins job configuration.
+            -->
+            <id>releaseDocumentation</id>
+            <build>
+                <plugins>
+                    <!--
+                        In preparation of site generation, extract the release
+                        version number to a maven property.
+                        Performed during pre-site phase.
+                    -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <phase>pre-site</phase>
+                                <id>regex-property</id>
+                                <goals>
+                                    <goal>regex-property</goal>
+                                </goals>
+                                <configuration>
+                                    <name>release_version</name>
+                                    <value>${project.version}</value>
+                                    <regex>-SNAPSHOT</regex>
+                                    <replacement />
+                                    <failIfNoMatch>false</failIfNoMatch>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!--
+                        JavaDoc generation.
+                        JavaDoc is generated during pre-site phase.
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <phase>pre-site</phase>
+                                <goals>
+                                    <goal>javadoc</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <show>private</show>
+                        </configuration>
+                    </plugin>
+                    <!--
+                        Copy JavaDoc to publish directory.
+                        Performed during the site phase.
+                        If changing the phase, make sure that copying the
+                        documentation is performed after having generated
+                        the JavaDoc.
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>2.6</version>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <phase>site</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <generateProjectInfo>false</generateProjectInfo>
+                                    <generateReports>false</generateReports>
+                                    <outputDirectory>${release.javadoc.root.path}${project.artifactId}-${release_version}/</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.build.directory}/site/</directory>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <!--
+                Include this section to disable, or configure, generation
+                of project info report(s).
+                In this case, all project info reports have been disabled.
+            -->
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>2.7</version>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+    </profiles>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -118,7 +242,7 @@
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc7</artifactId>
-			<version>11.2.0</version>
+			<version>12.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
