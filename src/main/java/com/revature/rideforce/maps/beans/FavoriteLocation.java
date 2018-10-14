@@ -2,13 +2,9 @@ package com.revature.rideforce.maps.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
@@ -95,7 +91,7 @@ public class FavoriteLocation {
 	}
 
 	/**
-	 * 
+	 * get address
 	 * @return address
 	 */
 	public String getAddress() {
@@ -103,7 +99,7 @@ public class FavoriteLocation {
 	}
 
 	/**
-	 * 
+	 * set this address to 'address'
 	 * @param address
 	 */
 	public void setAddress(String address) {
@@ -111,7 +107,7 @@ public class FavoriteLocation {
 	}
 
 	/**
-	 * 
+	 * get latitude
 	 * @return latitude
 	 */
 	public double getLatitude() {
@@ -119,7 +115,7 @@ public class FavoriteLocation {
 	}
 
 	/**
-	 * 
+	 * set this latitude to 'latitude'
 	 * @param latitude
 	 */
 	public void setLatitude(double latitude) {
@@ -127,7 +123,7 @@ public class FavoriteLocation {
 	}
 
 	/**
-	 * 
+	 * get longitude
 	 * @return longitude
 	 */
 	public double getLongitude() {
@@ -135,7 +131,7 @@ public class FavoriteLocation {
 	}
 
 	/**
-	 * 
+	 * set this longitude to 'longitude'
 	 * @param longitude
 	 */
 	public void setLongitude(double longitude) {
@@ -143,7 +139,7 @@ public class FavoriteLocation {
 	}
 
 	/**
-	 * 
+	 * get name
 	 * @return name
 	 */
 	public String getName() {
@@ -151,7 +147,7 @@ public class FavoriteLocation {
 	}
 
 	/**
-	 * 
+	 * set name
 	 * @param name
 	 */
 	public void setName(String name) {
@@ -159,15 +155,15 @@ public class FavoriteLocation {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * get user id
+	 * @return userId
 	 */
 	public int getUserId() {
 		return userId;
 	}
 
 	/**
-	 * 
+	 * set this user id to 'userId'
 	 * @param userId
 	 */
 	public void setUserId(int userId) {

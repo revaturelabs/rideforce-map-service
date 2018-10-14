@@ -40,7 +40,7 @@ public class FavoriteLocationService {
 	private GeoApiContext geoApiContext;
 
 	/**
-	 * Injecting the LocationRepository
+	 * Injecting the FavoriteLocationRepository
 	 */
 	@Autowired
 	private FavoriteLocationRepository favoriteLocationRepo;
@@ -48,6 +48,7 @@ public class FavoriteLocationService {
 	/**
 	 * get a favorite location
 	 * @param address
+	 * @param userId
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */
 	public LatLng getOne(String address, @Min(1) int userId) {
@@ -66,14 +67,14 @@ public class FavoriteLocationService {
 		}
 		return location.getFavoriteLocation();
 	}
-	
+
 	/**
 	 * fetching the favorite locations by the user's id
 	 * @param userId
 	 * @return List<FavoriteLocation>
 	 */
 	public List<FavoriteLocation> findFavoriteLocationByUserId(int userId) {
-        return favoriteLocationRepo.findFavoriteLocationByUserId(userId);
-    }
+		return favoriteLocationRepo.findFavoriteLocationByUserId(userId);
+	}
 
 }

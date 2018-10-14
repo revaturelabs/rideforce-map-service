@@ -5,7 +5,6 @@
 	<groupId>com.revature.rideforce</groupId>
 	<artifactId>rideforce-maps-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

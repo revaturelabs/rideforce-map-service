@@ -4,12 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.revature.rideforce.maps.beans.CachedLocation;
-import com.revature.rideforce.maps.beans.FavoriteLocation;
-import com.revature.rideforce.maps.service.RouteService;
 
 /**
  * Interface providing CRUD functionality for CachedLocation
- * primary key is Integer
  * @author Revature Java batch
  * @Repository
  */
