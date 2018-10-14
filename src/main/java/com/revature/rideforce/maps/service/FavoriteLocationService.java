@@ -52,21 +52,62 @@ public class FavoriteLocationService {
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */
 	public LatLng getOne(String address, @Min(1) int userId) {
-		FavoriteLocation location = favoriteLocationRepo.findByAddress(address);
-		if (location == null) {
-			try {
-				GeocodingResult[] results = GeocodingApi.geocode(geoApiContext, address).await();
-				location = new FavoriteLocation(address, results[0].geometry.location, userId);
+		System.out.println("shit!!!!!!!!!!!!");
+		FavoriteLocation location;
+		FavoriteLocation location2;
+		try {
+			System.out.println("saving even though it aint right1");
+			GeocodingResult[] results = GeocodingApi.geocode(geoApiContext, address).await();
+			location = new FavoriteLocation(address, results[0].geometry.location, userId);
+			System.out.println("right before the findbylatitude!!!!!!!!!!");
+			location2 = favoriteLocationRepo.findByLatitude(location.getLatitude());
+			System.out.println("made it to the if!!!!");
+			if (location2 == null) {
+				System.out.println("saving even though it aint right2");
 				favoriteLocationRepo.save(location);
 				return results[0].geometry.location;
-			} catch (ApiException | InterruptedException | IOException e) {
-				log.error("Unexpected exception when fetching location.", e);
-				Thread.currentThread().interrupt();
-				return null;
 			}
+			else if((location.getLatitude() == location2.getLatitude()) && (location.getLongitude() == location2.getLongitude())) {
+				System.out.println("Location already in saved location database");
+			}
+			else {
+				System.out.println("saving even though it aint right3");
+				favoriteLocationRepo.save(location2);
+				return results[0].geometry.location;
+			}
+		} catch (ApiException | InterruptedException | IOException e) {
+			log.error("Unexpected exception when fetching location.", e);
+			Thread.currentThread().interrupt();
+			return null;
 		}
 		return location.getFavoriteLocation();
-	}
+}
+			
+//						System.out.println("saving even though it aint right1");
+//						GeocodingResult[] results = GeocodingApi.geocode(geoApiContext, address).await();
+//						location = new FavoriteLocation(address, results[0].geometry.location, userId);
+//				FavoriteLocation location2 = favoriteLocationRepo.findByLatitude(location.getLatitude());
+//				if(location2 == null) {
+//					System.out.println("saving even though it aint right2");
+//					favoriteLocationRepo.save(location2);
+//					return results[0].geometry.location;
+//				}
+//				else if((location.getLatitude() == location2.getLatitude()) && (location.getLongitude() == location2.getLongitude())) {
+//					System.out.println("Location already in saved location database");
+//				}
+//				else {
+//					System.out.println("saving even though it aint right3");
+//					favoriteLocationRepo.save(location2);
+//					return results[0].geometry.location;
+//				}
+//			} catch (ApiException | InterruptedException | IOException e) {
+//				log.error("Unexpected exception when fetching location.", e);
+//				Thread.currentThread().interrupt();
+//				return null;
+//			}
+//		}
+//		return location.getFavoriteLocation();
+//	}
 
 	/**
 	 * fetching the favorite locations by the user's id
