@@ -6,8 +6,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.BDDMockito.given;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,37 +39,67 @@ import com.revature.rideforce.maps.service.RouteService;
 @ComponentScan(basePackages = {"com.revature.rideforce.maps.service"})
 public class RouteServiceTest {
 	
-//	@Autowired
 	@MockBean
 	GeoApiContext geoApiContext;
 	//static private before
 	
 	@MockBean
-//	@Autowired
 	RouteService routeService;
 	
+	@Autowired
+	GeoApiContext autoGeoApiContext;
+	
+	@Autowired
+	RouteService autoRouteService;
 	
 //	real values
-	public RouteService routeService1= new RouteService();
-	public GeoApiContext realGeo;
-	public RouteService routeService2= new RouteService(realGeo);
+	public RouteService realRouteService1= new RouteService();
+//	public GeoApiContext realGeo; //remains null
+	
+	//get system variables
+	static final String apiKey= System.getenv("MAPS_API_KEY");
+//			System.out.println(apiKey);
+
+	static final GeoApiContext realGeo = new GeoApiContext.Builder()
+		    .apiKey(apiKey)
+		    .build();
+	
+	public RouteService realRouteService2= new RouteService(realGeo);
+	
+	@BeforeClass
+	public static void resourceBuilder() {
+		
+	}
+	
+	@AfterClass
+	public static void resourceCloser() {
+		realGeo.shutdown();
+	}
+	
 	
 	@Before
-	public void validate() {
+	public void mockBeanValidate() {
 //		final RouteService routeService1= new RouteService();
 //		final GeoApiContext realGeo = null;
 //		final RouteService routeService2= new RouteService(realGeo);
 		assertNotNull(routeService);
 		Assert.assertThat(routeService, instanceOf(RouteService.class));
+		assertNotNull(autoRouteService);
+		Assert.assertThat(autoRouteService, instanceOf(RouteService.class));
+		assertNotNull(autoGeoApiContext);
 	}
 	
+	//tests the initialized instances of the routeService and GeoContextApi
 	@Test
-	public void nullTest() {
-		assertNotNull(routeService1);
-		assertNotNull(routeService2);
-//		assertNotNull(routeService2.getGeoApiContext());
+	public void instanceValidate() {
+		assertNotNull(realRouteService1);
+		assertNotNull(realRouteService2);
+
+		//realGeoApiContext no longer null
+		assertNotNull(realRouteService2.getGeoApiContext());
 		
-//		assertNotNull(realGeo);
+		// realGeo no longer null
+			assertNotNull(realGeo);
 	}
 	
 	
@@ -124,9 +156,9 @@ public class RouteServiceTest {
 			final String end = "11730 Plaza America Dr. Reston, VA";
 			final Route route = new Route(12714, 9600);
 
-//			given(routeService1.getRoute(start, end)).willReturn(route);
-//			assertEquals(routeService.getRoute(start, end), route);
-//			Assert.assertEquals(routeService1.getRoute(start, end), route);
+			given(routeService.getRoute(start, end)).willReturn(route);
+			assertEquals(routeService.getRoute(start, end), route);
+			Assert.assertEquals(routeService.getRoute(start, end), route);
 		}
 	
 	@Test
