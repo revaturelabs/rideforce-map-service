@@ -11,8 +11,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -22,44 +30,61 @@ import com.revature.rideforce.maps.beans.Route;
 import com.revature.rideforce.maps.configuration.TestConfiguration;
 import com.revature.rideforce.maps.service.RouteService;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = Application.class)
-@ContextConfiguration(classes=TestConfiguration.class) 
+@RunWith(SpringRunner.class)
+@Configuration
+@ComponentScan(basePackages = {"com.revature.rideforce.maps.service"})
 public class RouteServiceTest {
 	
+//	@Autowired
 	@MockBean
-	private RouteService routeService;
-	
-	@Autowired
 	GeoApiContext geoApiContext;
+	//static private before
 	
-	//real values
+	@MockBean
+//	@Autowired
+	RouteService routeService;
+	
+	
+//	real values
 	public RouteService routeService1= new RouteService();
 	public GeoApiContext realGeo;
 	public RouteService routeService2= new RouteService(realGeo);
 	
 	@Before
 	public void validate() {
+//		final RouteService routeService1= new RouteService();
+//		final GeoApiContext realGeo = null;
+//		final RouteService routeService2= new RouteService(realGeo);
 		assertNotNull(routeService);
 		Assert.assertThat(routeService, instanceOf(RouteService.class));
+	}
+	
+	@Test
+	public void nullTest() {
+		assertNotNull(routeService1);
+		assertNotNull(routeService2);
+//		assertNotNull(routeService2.getGeoApiContext());
+		
+//		assertNotNull(realGeo);
 	}
 	
 	
 	@Test
 	public void getGeoApi() {
 		routeService.setGeoApiContext(geoApiContext);
-		routeService1.setGeoApiContext(geoApiContext);
 		given(routeService.getGeoApiContext()).willReturn(geoApiContext);
-		GeoApiContext geo=routeService1.getGeoApiContext();
+		//use instantiated route service
+		GeoApiContext geo=routeService.getGeoApiContext();
 		Assert.assertThat(geo,instanceOf(GeoApiContext.class));
-//		assertEquals(geo,geoApiContext);
 }
 	
 	@Test
 	public void goodRoute(){
 //		final RouteService routeService1= new RouteService(geoApiContext);
 		routeService.setGeoApiContext(geoApiContext);
-		routeService1.setGeoApiContext(geoApiContext);
+//		routeService1.setGeoApiContext(geoApiContext);
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA 20190";
 		Route route = new Route(12714, 9600);
@@ -99,16 +124,15 @@ public class RouteServiceTest {
 			final String end = "11730 Plaza America Dr. Reston, VA";
 			final Route route = new Route(12714, 9600);
 
-			given(routeService.getRoute(start, end)).willReturn(route);
-			
-			Assert.assertEquals(routeService.getRoute(start, end), route);
+//			given(routeService1.getRoute(start, end)).willReturn(route);
+//			assertEquals(routeService.getRoute(start, end), route);
+//			Assert.assertEquals(routeService1.getRoute(start, end), route);
 		}
 	
 	@Test
 	public void testNegativeParams() {
 	given(routeService.getRoute("-80302", "80302")).willReturn(null);
 	Route negRoute= routeService.getRoute("-80302", "80302");
-	
 	assertNull(negRoute);
 }
 	

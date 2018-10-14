@@ -32,6 +32,8 @@ public class TestConfiguration {
 	
 	@Autowired
 	static private GeoApiContext service;
+//	@Autowired
+//	static
 	
 	@Test
 	public void notNull() {
