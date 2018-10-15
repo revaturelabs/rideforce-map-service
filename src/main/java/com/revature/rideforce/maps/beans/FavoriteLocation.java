@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
@@ -25,25 +24,36 @@ public class FavoriteLocation {
 	@Column(name = "ADDRESS")
 	String address;
 	
+	/**
+	 * geographic coordinate latitude
+	 */
 	@Column(name = "LATITUDE")
 	double latitude;
 	
+	/**
+	 * geographic coordinate longitude
+	 */
 	@Column(name = "LONGITUDE")
 	double longitude;
 	
-	@Column(name = "FAVORITED_LOCATION_NAME")
+	/**
+	 * the type of favorite location (ie: home, work, etc)
+	 */
+	@Column (name="FAVORITED_LOCATION_NAME")
 	String name;
 	
+	/**
+	 * the current user's id
+	 */
 	@Min(1)
-	@Column
+	@Column(name = "USER_ID")
 	private int userId;
 
 	/**
-	 * 
+	 * class constructor (no args)
 	 */
 	public FavoriteLocation() {
 		super();
-	
 	}
 	
 	/**
@@ -63,13 +73,14 @@ public class FavoriteLocation {
 	}
 
 	/**
+	 * class constructor
 	 * @param address
 	 * @param latitude
 	 * @param longitude
 	 * @param name
 	 * @param userId
 	 */
-	public FavoriteLocation(@Size(max = 85) @NotNull String address, double latitude, double longitude, String name,
+	public FavoriteLocation(@Size(max = 85) String address, double latitude, double longitude, String name,
 			@Min(1) int userId) {
 		super();
 		this.address = address;
@@ -79,44 +90,92 @@ public class FavoriteLocation {
 		this.userId = userId;
 	}
 
+	/**
+	 * get address
+	 * @return address
+	 */
 	public String getAddress() {
 		return address;
 	}
 
+	/**
+	 * set this address to 'address'
+	 * @param address
+	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
+	/**
+	 * get latitude
+	 * @return latitude
+	 */
 	public double getLatitude() {
 		return latitude;
 	}
 
+	/**
+	 * set this latitude to 'latitude'
+	 * @param latitude
+	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
+	/**
+	 * get longitude
+	 * @return longitude
+	 */
 	public double getLongitude() {
 		return longitude;
 	}
 
+	/**
+	 * set this longitude to 'longitude'
+	 * @param longitude
+	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
+	/**
+	 * get name
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * set name
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * get user id
+	 * @return userId
+	 */
 	public int getUserId() {
 		return userId;
 	}
 
+	/**
+	 * set this user id to 'userId'
+	 * @param userId
+	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	/**
+	 * get favorite location
+	 * @return latitude and longitude of location
+	 */
+	public LatLng getFavoriteLocation() {
+		return new LatLng(latitude, longitude);	
 	}
 
 	@Override
@@ -164,16 +223,8 @@ public class FavoriteLocation {
 
 	@Override
 	public String toString() {
-		return "FavoritedLocation [address=" + address + ", latitude=" + latitude + ", longitude=" + longitude
+		return "FavoriteLocation [address=" + address + ", latitude=" + latitude + ", longitude=" + longitude
 				+ ", name=" + name + ", userId=" + userId + "]";
 	}
 
-	/**
-	 * get favorite location
-	 * @return latitude and longitude of location
-	 */
-	public LatLng getFavoriteLocation() {
-		return new LatLng(latitude, longitude);	
-	}
-	
 }

@@ -16,15 +16,22 @@ import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
-import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.beans.FavoriteLocation;
 import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
-import com.revature.rideforce.maps.repository.LocationRepository;
 
+/**
+ * The FavoriteLocationService
+ * @author Revature Java batch
+ * @Service
+ * @Transactional
+ */
 @Service
 @Transactional
 public class FavoriteLocationService {
-	private static final Logger log = LoggerFactory.getLogger(LocationService.class);
+	/**
+	 * logger
+	 */
+	private static final Logger log = LoggerFactory.getLogger(FavoriteLocationService.class);
 
 	/**
 	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
@@ -33,24 +40,24 @@ public class FavoriteLocationService {
 	private GeoApiContext geoApiContext;
 
 	/**
-	 * Injecting the LocationRepository
+	 * Injecting the FavoriteLocationRepository
 	 */
 	@Autowired
-	private FavoriteLocationRepository flr;
+	private FavoriteLocationRepository favoriteLocationRepo;
 
 	/**
-	 * get a location
+	 * get a favorite location
 	 * @param address
-	 * @param userId 
+	 * @param userId
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */
 	public LatLng getOne(String address, @Min(1) int userId) {
-		FavoriteLocation location = flr.findByAddress(address);
+		FavoriteLocation location = favoriteLocationRepo.findByAddress(address);
 		if (location == null) {
 			try {
 				GeocodingResult[] results = GeocodingApi.geocode(geoApiContext, address).await();
 				location = new FavoriteLocation(address, results[0].geometry.location, userId);
-				flr.save(location);
+				favoriteLocationRepo.save(location);
 				return results[0].geometry.location;
 			} catch (ApiException | InterruptedException | IOException e) {
 				log.error("Unexpected exception when fetching location.", e);
@@ -60,10 +67,14 @@ public class FavoriteLocationService {
 		}
 		return location.getFavoriteLocation();
 	}
-	
-	
+
+	/**
+	 * fetching the favorite locations by the user's id
+	 * @param userId
+	 * @return List<FavoriteLocation>
+	 */
 	public List<FavoriteLocation> findFavoriteLocationByUserId(int userId) {
-		return flr.findFavoriteLocationByUserId(userId);
+		return favoriteLocationRepo.findFavoriteLocationByUserId(userId);
 	}
-	
+
 }

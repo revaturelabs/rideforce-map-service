@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.BDDMockito.given;
 
-
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -46,13 +46,7 @@ public class RouteServiceTest {
 	
 	@MockBean
 	GeoApiContext geoApiContext;
-	
-	private GeoApiContext geoApiContext;
-	private GeoApiContext.Builder builder;
-	@Before
-	  public void Setup() {
-	    builder = new GeoApiContext.Builder();
-	  }
+
 	@MockBean
 	RouteService routeService;
 	
@@ -73,6 +67,7 @@ public class RouteServiceTest {
 		    .apiKey(apiKey)
 		    .build();
 	
+	public RouteService realRouteService2= new RouteService(realGeo);
 
 	@Before
 	public void mockBeanValidate() {
@@ -111,7 +106,7 @@ public class RouteServiceTest {
 	}
 	
 	@Test
-
+	public void validParameterGetRoute() {
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA 20190";
 		Route route = new Route(14988, 1166);
