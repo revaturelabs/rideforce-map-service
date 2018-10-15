@@ -18,6 +18,8 @@ public interface FavoriteLocationRepository extends JpaRepository<FavoriteLocati
 	public List<FavoriteLocation> findFavoriteLocationByUserId(int userId);
 	public FavoriteLocation findByAddress(String address);
 	public FavoriteLocation findByLongitude(double d);
-	public FavoriteLocation findByLatitude(double d);
+	public FavoriteLocation findByLatitude(double d); 
+	public FavoriteLocation findByName(String name);
+	public FavoriteLocation findByNameAndUserId(String name, int userId);
 	
 }
