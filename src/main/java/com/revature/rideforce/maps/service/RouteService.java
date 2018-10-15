@@ -95,8 +95,9 @@ public class RouteService {
 					return null;
 				}
 			}
-			if(StringUtils.isNumeric(destination)) {
-				if(Integer.parseInt(destination)<0) {
+			String[] splitDestination=destination.split(" ");
+			if(StringUtils.isNumeric(splitDestination[0])) {
+				if(Integer.parseInt(splitDestination[0])<0) {
 					log.info("Can't input a negative origin");
 					return null;
 				}
