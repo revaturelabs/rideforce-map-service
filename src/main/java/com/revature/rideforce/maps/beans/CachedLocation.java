@@ -18,7 +18,6 @@ import com.google.maps.model.LatLng;
 @Component
 @Entity
 @Table(name = "ADDRESS")
-//put constructors between fields and getters and setters
 public class CachedLocation {
 	/**
 	 * An address string denoted as the id

@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
@@ -16,24 +16,18 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.TravelMode;
 import com.revature.rideforce.maps.beans.Route;
 
-
-
-
-
 /**
  * The route service
  * @author Revature Java batch
- * @Component
+ * @Service
  */
-
-@Component
+@Service // changed from @Component
 public class RouteService {
 	
 	/**
 	 * logger
 	 */
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
-
 	
   	/**
   	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 

@@ -42,7 +42,6 @@ public class LocationControllerTest {
 		mvc.perform(get("/location")).andExpect(status().isBadRequest());
 		mvc.perform(get("/location").param("address", "")).andExpect(status().isBadRequest());
 		
-
 	}
 	@Test
 	public void testGetBadParams2() throws Exception {
