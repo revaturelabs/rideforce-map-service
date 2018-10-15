@@ -17,6 +17,7 @@ import com.google.maps.GeoApiContext;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan(basePackages=  {"com.revature.rideforce.maps.service","com.revature.rideforce.maps.configuration"})
 public class TestConfiguration {
+	
 	@Autowired
 	static private GeoApiContext service;
 	
