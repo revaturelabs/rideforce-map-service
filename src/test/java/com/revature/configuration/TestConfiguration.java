@@ -20,34 +20,11 @@ import com.google.maps.GeoApiContext;
 import com.revature.rideforce.maps.repository.LocationRepository;
 
 @Configuration
-//@EnableJpaRepositories("com.revature.rideforce.maps.repository")
-//@EnableTransactionManagement
-@RunWith(SpringJUnit4ClassRunner.class)
-@ComponentScan(basePackages = {"com.revature.rideforce.maps.service","com.revature.map.configuration"})
-// @ComponentScan(basePackages = "com.revature.rideforce", excludeFilters = @Filter(type = FilterType.REGEX, pattern = "com\\.revature\\.rideforce\\.maps\\.repository\\.config"))
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan(basePackages=  {"com.revature.rideforce.maps.service","com.revature.rideforce.maps.configuration"})
-//@ContextConfiguration(classes= {GeoApiContext.class, ServiceTestConfiguration.class}, loader=AnnotationConfigContextLoader.class)
 public class TestConfiguration {
 	@Autowired
 	static private GeoApiContext service;
-	
-	@Test
-	public void notNull() {
-		assertThat(service).isNull();
-	
-//	@Autowired
-//	static private ServiceTestConfiguration service;
-//	
-//	@Test
-//	public void notNull() {
-//		assertThat(service).isNull();
-//	}
-	
-	@Autowired
-	static private GeoApiContext service;
-//	@Autowired
-//	static
 	
 	@Test
 	public void notNull() {
