@@ -124,6 +124,16 @@ public class RouteServiceTest {
 	
 	@Test
 	public void testNegativeParams2() {
+		String origin = "-2925 Rensselaer Ct. Vienna, VA 22181";
+		String destination = "80302";
+		
+		DirectionsApi.getDirections(geoApiContext, origin, destination);
+	
+		Assert.assertEquals(routeService.getRoute("-2925 Rensselaer Ct. Vienna, VA 22181", "80302"), null);
+}
+	
+	@Test
+	public void testNegativeParams3() {
 		String origin = "-80302";
 		String destination = "80302";
 		
