@@ -88,24 +88,20 @@ public class RouteService {
 		try {
 			DirectionsRoute route = DirectionsApi.getDirections(geoApiContext, origin, destination)
 					.mode(TravelMode.DRIVING).await().routes[0];
-			String[] newOrigin = origin.split(" ");
-			if(Integer.parseInt(newOrigin [0])<0) {
-				log.warn(String.format("User attempted to input address with negative numbers; address: %s", origin));
-				return null;
+			String[] splitOrigin= origin.split(" ");
+			if(StringUtils.isNumeric(splitOrigin[0]) ) {
+				if(Integer.parseInt(splitOrigin[0])<0) {
+					log.warn(String.format("User attempted to input address with negative numbers; address: %s", origin));
+					return null;
+				}
 			}
-			
-//			if(StringUtils.isNumeric(origin)) {
-//				if(Integer.parseInt(origin)<0) {
-//					log.warn(String.format("User attempted to input address with negative numbers; address: %s", origin));
-//					return null;
-//				}
-//			}
-//			if(StringUtils.isNumeric(destination)) {
-//				if(Integer.parseInt(destination)<0) {
-//					log.info("Can't input a negative origin");
-//					return null;
-//				}
-//			}
+			String[] splitDestination=destination.split(" ");
+			if(StringUtils.isNumeric(splitDestination[0])) {
+				if(Integer.parseInt(splitDestination[0])<0) {
+					log.info("Can't input a negative origin");
+					return null;
+				}
+			}
 			long distance = 0;
 			long duration = 0;
 
