@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,7 +56,8 @@ public class FavoriteLocationController {
 	 */
 	@RequestMapping(value="/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> getLocationsByUserId(@RequestParam String address, @PathVariable("id") int userId){
-        log.info("finding locations by user");
+        //get should only retreive information and the post request should save the actual information
+		log.info("finding locations by user");
         if(fls.findFavoriteLocationByUserId(userId).size() > 5) {
             log.debug("User with id: " + userId + "tried to favorite more than 5 locations");
             return null;
@@ -64,6 +66,13 @@ public class FavoriteLocationController {
             return new ResponseEntity<LatLng>(fls.getOne(address, userId), HttpStatus.OK);
         }
     }
+	
+	
+	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> saveNewFavoriteLocation(@RequestParam String name, @RequestParam int id){
+		
+		return null;
+	}
 	@RequestMapping(value="/users/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteLocationByUserId(@RequestParam String name, @PathVariable("id") int userId){
 		log.info("DELETING locations by user");
