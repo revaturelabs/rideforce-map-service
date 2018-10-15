@@ -45,6 +45,8 @@ public class FavoriteLocationController {
 	 * list of favorite locations
 	 */
 	private List<FavoriteLocation> favoriteLocations = new ArrayList<>();
+	
+	
 
 	/** 
 	 * This method finds favorite locations by user id then limits that list to 5 locations
@@ -61,6 +63,15 @@ public class FavoriteLocationController {
         else {
             return new ResponseEntity<LatLng>(fls.getOne(address, userId), HttpStatus.OK);
         }
-    
+    }
+	@RequestMapping(value="/users/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteLocationByUserId(@RequestParam String name, @PathVariable("id") int userId){
+		log.info("DELETING locations by user");
+		FavoriteLocation favorite = fls.deleteFavoriteLocationByNameAndUserId(name, userId);
+		if(favorite == new FavoriteLocation()) {
+			return new ResponseEntity<FavoriteLocation>(favorite,HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<FavoriteLocation>(favorite,HttpStatus.OK);
+		
     }
 }

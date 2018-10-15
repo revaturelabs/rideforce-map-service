@@ -2,6 +2,8 @@ package com.revature.rideforce.maps.controllers;
 
 import java.util.logging.Logger;
 
+import javax.validation.Valid;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
