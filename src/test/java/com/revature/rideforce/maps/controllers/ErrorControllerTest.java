@@ -63,12 +63,12 @@ public class ErrorControllerTest {
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
 	}
 	
-	@Test(expected = MethodArgumentNotValidException.class)
+	@Test
 	public void validateHandleException() throws Exception, MethodArgumentNotValidException {
 		// if the following lines actually throw an exception, then this test will pass
 		mockMvc.perform(get("/location").param("address", "****")
 				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON));
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
 	}
 	
 	// remove this test, test for exception
