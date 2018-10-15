@@ -16,7 +16,6 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.CachedLocation;
-import com.revature.rideforce.maps.repository.LocationRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Service
 @Transactional
-@Slf4j
 public class LocationService {
 	/**
 	 * logger
