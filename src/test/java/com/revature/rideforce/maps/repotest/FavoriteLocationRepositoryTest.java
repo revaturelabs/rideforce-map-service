@@ -42,7 +42,7 @@ public class FavoriteLocationRepositoryTest {
 	private TestEntityManager entityManager;
 	
 	/** 
-	 * The location repository
+	 * The FavoriteLocation repository
 	 */
 	@Autowired
 	private FavoriteLocationRepository favoriteLocationRepository;
