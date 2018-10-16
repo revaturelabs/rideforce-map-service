@@ -54,7 +54,7 @@ public class FavoriteLocationService {
 	 * @param userId
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */
-	public FavoriteLocation saveFavoriteLocation(String address, @Min(1) int userId, String name) {
+	public FavoriteLocation saveFavoriteLocation(String address, int userId, String name) {
 		FavoriteLocation location;
 		FavoriteLocation location2;
 		try {
@@ -91,8 +91,9 @@ public class FavoriteLocationService {
 			fav = new FavoriteLocation();
 			return fav;
 		}
-		favoriteLocationCRUDRepo.removeByNameAndUserId(name, userId);
+		favoriteLocationRepo.delete(fav);
 		return fav;
+		//returns the location if successful, empty location if not presents
 	}
 
 	/**
