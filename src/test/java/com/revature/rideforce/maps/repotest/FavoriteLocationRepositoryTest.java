@@ -19,7 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.rideforce.maps.Application;
-import com.revature.rideforce.maps.beans.CachedLocation;
+import com.revature.rideforce.maps.beans.FavoriteLocation;
+import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
 import com.revature.rideforce.maps.repository.LocationRepository;
 
 /**
@@ -29,11 +30,10 @@ import com.revature.rideforce.maps.repository.LocationRepository;
  */
 @SpringBootTest(classes = Application.class)
 @RunWith(SpringRunner.class)
-//@ContextConfiguration(classes=Application.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Transactional
-public class LocationRepositoryTest {
+public class FavoriteLocationRepositoryTest {
 	
 	/**
 	 * The entity manager provided by Spring Data JPA for testing
@@ -45,7 +45,7 @@ public class LocationRepositoryTest {
 	 * The location repository
 	 */
 	@Autowired
-	private LocationRepository locationRepository;
+	private FavoriteLocationRepository favoriteLocationRepository;
 	
 	/** 
 	 * Assert that the beans get autowired
@@ -54,7 +54,7 @@ public class LocationRepositoryTest {
 	public void validate() {
 		assertNotNull(entityManager);
 		
-		List<CachedLocation> locs = locationRepository.findAll();
+		List<FavoriteLocation> locs = favoriteLocationRepository.findAll();
 		
 		// System.out.println("The list of locations now: " + locs);
 		
@@ -69,9 +69,9 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void databaseShouldNotBeEmpty() {
-		persistCachedLocations();
+		persistFavoriteLocations();
 		
-		List<CachedLocation> locations = locationRepository.findAll();
+		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
 		assertFalse(locations.size() == 0);
 	}
 	
@@ -80,9 +80,9 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void databaseShouldHaveThreeAddresses() {
-		persistCachedLocations();
+		persistFavoriteLocations();
 		
-		List<CachedLocation> locations = locationRepository.findAll();
+		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
 		assertTrue(locations.size() == 3);
 	}
 	
@@ -91,9 +91,9 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void databaseShouldNotHaveMoreThanThreeAddresses() {
-		persistCachedLocations();
+		persistFavoriteLocations();
 		
-		List<CachedLocation> locations = locationRepository.findAll();
+		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
 		assertFalse(locations.size() > 3);
 	}
 	
@@ -101,15 +101,15 @@ public class LocationRepositoryTest {
 	 * After removing all entries, database should be empty
 	 */
 	@Test
-	public void testRemoveCachedLocations() {
-		persistCachedLocations();
+	public void testRemoveFavoriteLocations() {
+		persistFavoriteLocations();
 		
 		// remove everything just added to db
-		entityManager.remove(locationRepository.findByAddress("11730 Plaza America Dr #205, Reston, VA 20190"));
-		entityManager.remove(locationRepository.findByAddress("2100 Astoria Cir, Herndon, VA 20170"));
-		entityManager.remove(locationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170"));
+		entityManager.remove(favoriteLocationRepository.findByAddress("11730 Plaza America Dr #205, Reston, VA 20190"));
+		entityManager.remove(favoriteLocationRepository.findByAddress("2100 Astoria Cir, Herndon, VA 20170"));
+		entityManager.remove(favoriteLocationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170"));
 		
-		List<CachedLocation> locations = locationRepository.findAll();
+		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
 //		System.out.println();
 //		System.out.println("The current location Repository:  " + locations.toString());
 //		System.out.println();
@@ -120,13 +120,13 @@ public class LocationRepositoryTest {
 	 * After removing two entries, db should have one entry remaining
 	 */
 	@Test
-	public void testRemoveTwoCachedLocations() {
-		persistCachedLocations();
+	public void testRemoveTwoFavoriteLocations() {
+		persistFavoriteLocations();
 		
-		entityManager.remove(locationRepository.findByAddress("11730 Plaza America Dr #205, Reston, VA 20190"));
-		entityManager.remove(locationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170"));
+		entityManager.remove(favoriteLocationRepository.findByAddress("11730 Plaza America Dr #205, Reston, VA 20190"));
+		entityManager.remove(favoriteLocationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170"));
 		
-		List<CachedLocation> locations = locationRepository.findAll();
+		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
 		assertTrue(locations.size() == 1);
 	}
 
@@ -135,11 +135,11 @@ public class LocationRepositoryTest {
 	 * the cached location saved in db
 	 */
 	@Test
-	public void testSaveCachedLocation() {
-		CachedLocation cachedLocation = getCachedLocation();
-		CachedLocation savedInDb = entityManager.persist(cachedLocation);
-		// query by address because id for CachedLocation is address
-		CachedLocation fetchFromDb = locationRepository.findByAddress(savedInDb.getAddress());
+	public void testSaveFavoriteLocation() {
+		FavoriteLocation favoriteLocation = getFavoriteLocation();
+		FavoriteLocation savedInDb = entityManager.persist(favoriteLocation);
+		// query by address because id for FavoriteLocation is address
+		FavoriteLocation fetchFromDb = favoriteLocationRepository.findByAddress(savedInDb.getAddress());
 		
 		assertThat(fetchFromDb).isEqualTo(savedInDb);
 	}
@@ -149,8 +149,8 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void testProperSize() {
-		persistCachedLocations();
-		List<CachedLocation> locations = locationRepository.findAll();
+		persistFavoriteLocations();
+		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
 
 		assertTrue(locations.size() == 3);
 	}
@@ -160,20 +160,20 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void testAddressNotInDb() {
-		CachedLocation cachedLocation = getCachedLocation2();
-		CachedLocation savedInDb = entityManager.persist(cachedLocation);
-		// query by address because id for CachedLocation is address
-		CachedLocation fetchFromDb = locationRepository.findByAddress("1230 Elden St, Herndon, VA 20170");
+		FavoriteLocation favoriteLocation = getFavoriteLocation2();
+		FavoriteLocation savedInDb = entityManager.persist(favoriteLocation);
+		// query by address because id for FavoriteLocation is address
+		FavoriteLocation fetchFromDb = favoriteLocationRepository.findByAddress("1230 Elden St, Herndon, VA 20170");
 		
 		assertThat(fetchFromDb).isNotEqualTo(savedInDb);
 	}
 	
 //	@Test
 //	public void canFindByThing2() {
-//		//List<CachedLocation> locations = locationRepository.findAll();
+//		//List<FavoriteLocation> locations = locationRepository.findAll();
 //		//System.out.println("locations: " + locations);
 //        //Assertions.assertThat(locationRepository).isNotNull();
-//		CachedLocation cLoc = locationRepository.save(new CachedLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533 ));
+//		FavoriteLocation cLoc = locationRepository.save(new FavoriteLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533 ));
 //		Assertions.assertThat(locationRepository.findAll()).isNotNull();
 //	}
 	
@@ -182,9 +182,9 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void returnsNullWhenAddressIsEmptyString() {
-		persistCachedLocations();
+		persistFavoriteLocations();
 		
-		CachedLocation loc = locationRepository.findByAddress("");
+		FavoriteLocation loc = favoriteLocationRepository.findByAddress("");
 		assertThat(loc).isNull();
 	}
 	
@@ -193,9 +193,9 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void returnsNullWhenAddressIsOnlySpace() {
-		persistCachedLocations();
+		persistFavoriteLocations();
 		
-		CachedLocation loc = locationRepository.findByAddress(" ");
+		FavoriteLocation loc = favoriteLocationRepository.findByAddress(" ");
 		assertThat(loc).isNull();
 	}
 	
@@ -204,9 +204,9 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void returnsNullWhenAddressIsOnlyPeriod() {
-		persistCachedLocations();
+		persistFavoriteLocations();
 		
-		CachedLocation loc = locationRepository.findByAddress(".");
+		FavoriteLocation loc = favoriteLocationRepository.findByAddress(".");
 		assertThat(loc).isNull();
 	}
 	
@@ -215,9 +215,9 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void returnsNullWhenAddressIsOnlySingleCharacter() {
-		persistCachedLocations();
+		persistFavoriteLocations();
 		
-		CachedLocation loc = locationRepository.findByAddress("A");
+		FavoriteLocation loc = favoriteLocationRepository.findByAddress("A");
 		assertThat(loc).isNull();
 	}
 	
@@ -226,9 +226,9 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void returnsNullWhenAddressIsOnlyNumbers() {
-		persistCachedLocations();
+		persistFavoriteLocations();
 		
-		CachedLocation loc = locationRepository.findByAddress("2149");
+		FavoriteLocation loc = favoriteLocationRepository.findByAddress("2149");
 		assertThat(loc).isNull();
 	}
 	
@@ -239,7 +239,7 @@ public class LocationRepositoryTest {
 	public void returnsNullWhenThereAreNoLocations() {
 		removeAllEntitiesFromDb();
 		
-		CachedLocation loc = locationRepository.findByAddress("2149 Astoria Cir, Herndon, VA 20170");
+		FavoriteLocation loc = favoriteLocationRepository.findByAddress("2149 Astoria Cir, Herndon, VA 20170");
 		assertThat(loc).isNull();
 	}
 	
@@ -248,18 +248,18 @@ public class LocationRepositoryTest {
 	 */
 	@Test
 	public void returnsNotNullWhenFetchingSpecificResultInDb() {
-		persistCachedLocations();
+		persistFavoriteLocations();
 		
-		CachedLocation loc = locationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170");
+		FavoriteLocation loc = favoriteLocationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170");
 		assertThat(loc).isNotNull();
 	}	
 	
 	/**
 	 * private helper method to get cached location
-	 * @return the new CachedLocation object
+	 * @return the new FavoriteLocation object
 	 */
-	private CachedLocation getCachedLocation() {
-		CachedLocation cLoc = new CachedLocation();
+	private FavoriteLocation getFavoriteLocation() {
+		FavoriteLocation cLoc = new FavoriteLocation();
 		cLoc.setAddress("1070 Elden St, Herndon, VA 20170"); // Fresh World! :)
 		cLoc.setLatitude(38.9666958);
 		cLoc.setLongitude(-77.3975926);
@@ -268,10 +268,10 @@ public class LocationRepositoryTest {
 	
 	/**
 	 * private helper method to get cached location
-	 * @return the new CachedLocation object
+	 * @return the new FavoriteLocation object
 	 */
-	private CachedLocation getCachedLocation2() {
-		CachedLocation cLoc2 = new CachedLocation();
+	private FavoriteLocation getFavoriteLocation2() {
+		FavoriteLocation cLoc2 = new FavoriteLocation();
 		cLoc2.setAddress("1228 Elden St, Herndon, VA 20170"); // Giant! :)
 		cLoc2.setLatitude(38.9583948);
 		cLoc2.setLongitude(-77.3887017);
@@ -281,10 +281,10 @@ public class LocationRepositoryTest {
 	/**
 	 * private helper method to add entries to db to avoid repeating code
 	 */
-	private void persistCachedLocations() {
-		CachedLocation cloc1 = new CachedLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533);
-		CachedLocation cloc2 = new CachedLocation("2100 Astoria Cir, Herndon, VA 20170",38.96787,-77.414742);
-		CachedLocation cloc3 = new CachedLocation("503 Pride Ave, Herndon, VA 20170",38.966271,-77.388985);
+	private void persistFavoriteLocations() {
+		FavoriteLocation cloc1 = new FavoriteLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533, null, 1);
+		FavoriteLocation cloc2 = new FavoriteLocation("2100 Astoria Cir, Herndon, VA 20170",38.96787,-77.414742, null, 1);
+		FavoriteLocation cloc3 = new FavoriteLocation("503 Pride Ave, Herndon, VA 20170",38.966271,-77.388985, null, 1);
 		
 		// Keep in mind: the call of save on a detached instance creates a new persistent instance and assigns it a new identifier, 
 		// which results in a duplicate record in a database upon committing or flushing.
@@ -298,8 +298,8 @@ public class LocationRepositoryTest {
 	 * private helper method to remove all locations from repository
 	 */
 	private void removeAllEntitiesFromDb() {
-		List<CachedLocation> locs = locationRepository.findAll();
-		for (CachedLocation l : locs) {
+		List<FavoriteLocation> locs = favoriteLocationRepository.findAll();
+		for (FavoriteLocation l : locs) {
 			if (!l.equals(null)) {
 				entityManager.remove(l);
 			}

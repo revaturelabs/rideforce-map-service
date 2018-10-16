@@ -63,4 +63,22 @@ public class FavoriteLocationController {
         }
     
     }
+	
+	/** 
+	 * This method finds favorite locations by user id then limits that list to 5 locations
+	 * @param userId
+	 * @return List<FavoriteLocation> (the list of favorite locations)
+	 */
+	@RequestMapping(value="/users/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> postLocationsByUserId(@RequestParam String address, @PathVariable("id") int userId){
+        log.info("finding locations by user");
+        if(fls.findFavoriteLocationByUserId(userId).size() >= 5) {
+            log.debug("User with id: " + userId + "tried to favorite more than 5 locations");
+            return null;
+        }
+        else {
+            return new ResponseEntity<LatLng>(fls.getOne(address, userId), HttpStatus.OK);
+        }
+    
+    }
 }
