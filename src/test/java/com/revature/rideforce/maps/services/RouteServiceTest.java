@@ -26,7 +26,11 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.DirectionsRoute;
+import com.google.maps.model.TravelMode;
 import com.netflix.discovery.shared.Application;
 import com.revature.rideforce.maps.beans.Route;
 import com.revature.rideforce.maps.configuration.TestConfiguration;
@@ -42,7 +46,7 @@ public class RouteServiceTest {
 	
 	@MockBean
 	GeoApiContext geoApiContext;
-	
+
 	@MockBean
 	RouteService routeService;
 	
@@ -64,7 +68,7 @@ public class RouteServiceTest {
 		    .build();
 	
 	public RouteService realRouteService2= new RouteService(realGeo);
-	
+
 	@Before
 	public void mockBeanValidate() {
 		//mock bean route service
@@ -156,6 +160,26 @@ public class RouteServiceTest {
 	given(routeService.getRoute("-80302", "80302")).willReturn(null);
 	Route negRoute= routeService.getRoute("-80302", "80302");
 	assertNull(negRoute);
+}
+	
+	@Test
+	public void testNegativeParams2() {
+		String origin = "-2925 Rensselaer Ct. Vienna, VA 22181";
+		String destination = "80302";
+		
+		DirectionsApi.getDirections(geoApiContext, origin, destination);
+	
+		Assert.assertEquals(routeService.getRoute("-2925 Rensselaer Ct. Vienna, VA 22181", "80302"), null);
+}
+	
+	@Test
+	public void testNegativeParams3() {
+		String origin = "-80302";
+		String destination = "80302";
+		
+		DirectionsApi.getDirections(geoApiContext, origin, destination);
+	
+		Assert.assertEquals(routeService.getRoute("-80302", "80302"), null);
 }
 	
 	@Test

@@ -17,6 +17,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.FavoriteLocation;
+import com.revature.rideforce.maps.repository.FavoriteLocationCRUDRepository;
 import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
 
 /**
@@ -45,27 +46,46 @@ public class FavoriteLocationService {
 	@Autowired
 	private FavoriteLocationRepository favoriteLocationRepo;
 
+	@Autowired
+	private FavoriteLocationCRUDRepository favoriteLocationCRUDRepo;
 	/**
 	 * get a favorite location
 	 * @param address
 	 * @param userId
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */
-	public LatLng getOne(String address, @Min(1) int userId) {
-		FavoriteLocation location = favoriteLocationRepo.findByAddress(address);
-		if (location == null) {
-			try {
-				GeocodingResult[] results = GeocodingApi.geocode(geoApiContext, address).await();
-				location = new FavoriteLocation(address, results[0].geometry.location, userId);
-				favoriteLocationRepo.save(location);
-				return results[0].geometry.location;
-			} catch (ApiException | InterruptedException | IOException e) {
-				log.error("Unexpected exception when fetching location.", e);
-				Thread.currentThread().interrupt();
-				return null;
+	public FavoriteLocation saveFavoriteLocation(String address, int userId, String name) {
+		FavoriteLocation location;
+		FavoriteLocation location2;
+		try {
+			GeocodingResult[] results = GeocodingApi.geocode(geoApiContext, address).await();
+			//bean initialization
+			location = new FavoriteLocation(address, results[0].geometry.location.lat,results[0].geometry.location.lng,name, userId);
+			location2 = favoriteLocationRepo.findByLatitudeAndLongitudeAndUserId(location.getLatitude(), location.getLongitude(), userId);
+			FavoriteLocation locationByName= favoriteLocationRepo.findByNameAndUserId(name, userId);
+			if (location2 == null && locationByName==null) {
+				return favoriteLocationRepo.save(location);
 			}
+			else {
+				return new FavoriteLocation();
+			}
+		} catch (ApiException | InterruptedException | IOException e) {
+			log.error("Unexpected exception when fetching location.", e);
+			Thread.currentThread().interrupt();
+			return new FavoriteLocation();
 		}
-		return location.getFavoriteLocation();
+}
+			
+	public FavoriteLocation deleteFavoriteLocationByNameAndUserId(String name, int userId) {
+		//favoriteLocationCRUDRepo
+		FavoriteLocation fav = favoriteLocationRepo.findByNameAndUserId(name, userId);
+		if(fav == null) {
+			fav = new FavoriteLocation();
+			return fav;
+		}
+		favoriteLocationRepo.delete(fav);
+		return fav;
+		//returns the location if successful, empty location if not presents
 	}
 
 	/**
@@ -74,7 +94,7 @@ public class FavoriteLocationService {
 	 * @return List<FavoriteLocation>
 	 */
 	public List<FavoriteLocation> findFavoriteLocationByUserId(int userId) {
-		return favoriteLocationRepo.findFavoriteLocationByUserId(userId);
+		return favoriteLocationRepo.findByUserId(userId);
 	}
-
+	
 }
