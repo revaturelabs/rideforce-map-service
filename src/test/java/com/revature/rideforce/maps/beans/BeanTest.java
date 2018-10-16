@@ -3,6 +3,7 @@ package com.revature.rideforce.maps.beans;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -13,6 +14,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.assertj.core.api.Assertions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -91,6 +93,8 @@ public class BeanTest{
     public void routeEqualsReflexive(){	
     	Route route = new Route(12714, 9600);
         assertEquals(route, route);
+        assertFalse(route.equals(null));
+        
     }
     
     @Test
@@ -99,6 +103,7 @@ public class BeanTest{
     	Route route1 = new Route(12714, 9600);
         assertEquals(route, route1);
         assertEquals(route1, route);
+        
     }
     
     @Test
@@ -133,6 +138,7 @@ public class BeanTest{
     public void cachedLocationEqualsReflexive(){	
     	CachedLocation location = new CachedLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35);
         assertEquals(location, location);
+        assertNotNull(location);
     }
     
     @Test
