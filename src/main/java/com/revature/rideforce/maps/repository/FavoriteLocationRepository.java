@@ -15,11 +15,15 @@ import com.revature.rideforce.maps.beans.FavoriteLocation;
 @Repository
 public interface FavoriteLocationRepository extends JpaRepository<FavoriteLocation, Integer> {
 	
-	public List<FavoriteLocation> findFavoriteLocationByUserId(int userId);
+	public List<FavoriteLocation> findByUserId(int userId);
 	public FavoriteLocation findByAddress(String address);
 	public FavoriteLocation findByLongitude(double d);
 	public FavoriteLocation findByLatitude(double d); 
+	public FavoriteLocation findByLongitudeAndUserId(double d, int userId);
+	public FavoriteLocation findByLatitudeAndUserId(double d, int userId);
+	public FavoriteLocation findByLatitudeAndLongitudeAndUserId(double lat, double lng, int userId);
 	public FavoriteLocation findByName(String name);
 	public FavoriteLocation findByNameAndUserId(String name, int userId);
+//	public FavoriteLocation findFavoriteLocationByLatitudeAndLongitude(double )
 	
 }
