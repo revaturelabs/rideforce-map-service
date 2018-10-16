@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.maps.model.LatLng;
 
 @Component
@@ -21,26 +22,27 @@ public class FavoriteLocation {
 	 */
 	@Id
 	@Size(max = 85)
+	@JsonProperty
 	@Column(name = "ADDRESS")
-	String address;
+	private String address;
 	
 	/**
 	 * geographic coordinate latitude
 	 */
 	@Column(name = "LATITUDE")
-	double latitude;
+	private double latitude;
 	
 	/**
 	 * geographic coordinate longitude
 	 */
 	@Column(name = "LONGITUDE")
-	double longitude;
+	private double longitude;
 	
 	/**
 	 * the type of favorite location (ie: home, work, etc)
 	 */
 	@Column (name="FAVORITED_LOCATION_NAME")
-	String name;
+	private String name;
 	
 	/**
 	 * the current user's id
