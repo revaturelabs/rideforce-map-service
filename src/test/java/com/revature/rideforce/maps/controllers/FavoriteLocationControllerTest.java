@@ -33,7 +33,7 @@ public class FavoriteLocationControllerTest {
 	@Test
 	public void getOneTest() {
 		String address= "2925 Rensselaer Ct. Vienna, VA 22181";
-		LatLng expectedLatLng= favoriteLocationService.getOne(address, 1);
+//		LatLng expectedLatLng= favoriteLocationService.saveFavoriteLocation(address, 1);
 		
 	}
 

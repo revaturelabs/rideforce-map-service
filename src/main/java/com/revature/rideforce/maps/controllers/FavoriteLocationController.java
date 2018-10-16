@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.FavoriteLocation;
+import com.revature.rideforce.maps.beans.ResponseError;
 import com.revature.rideforce.maps.service.FavoriteLocationService;
 
 /**
@@ -54,33 +55,39 @@ public class FavoriteLocationController {
 	 * @param userId
 	 * @return List<FavoriteLocation> (the list of favorite locations)
 	 */
-	@RequestMapping(value="/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getLocationsByUserId(@RequestParam String address, @PathVariable("id") int userId){
+	@RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getLocationsByUserId(@PathVariable("id") int userId){
         //get should only retreive information and the post request should save the actual information
 		log.info("finding locations by user");
-        if(fls.findFavoriteLocationByUserId(userId).size() > 5) {
-            log.debug("User with id: " + userId + "tried to favorite more than 5 locations");
-            return null;
-        }
-        else {
-            return new ResponseEntity<LatLng>(fls.getOne(address, userId), HttpStatus.OK);
-        }
+    	List<FavoriteLocation> userLocationsList= fls.findFavoriteLocationByUserId(userId);
+        String getMessage= String.format("User retreived the following saved locations %s",userLocationsList);
+        log.info(getMessage);
+        return new ResponseEntity<>(userLocationsList, HttpStatus.OK);
+        
     }
-	
-	
+	 
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> saveNewFavoriteLocation(@RequestParam String name, @RequestParam int id){
-		
-		return null;
+	public ResponseEntity<?> saveNewFavoriteLocation(@RequestParam String address,@RequestParam String name, @RequestParam int userId){
+		 if(fls.findFavoriteLocationByUserId(userId).size() > 5) {
+	            log.warn("User with id: " + userId + "tried to favorite more than 5 locations");
+	            return new ResponseError("Cannot save that many locations").toResponseEntity(HttpStatus.BAD_REQUEST);
+	        }
+		FavoriteLocation result =fls.saveFavoriteLocation(address, userId, name);
+		if(result==null) {
+			return new ResponseError("Unable to save location").toResponseEntity(HttpStatus.EXPECTATION_FAILED);
+		}
+		else {
+			return new ResponseEntity<>(result,HttpStatus.OK);
+		}
 	}
 	@RequestMapping(value="/users/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteLocationByUserId(@RequestParam String name, @PathVariable("id") int userId){
 		log.info("DELETING locations by user");
 		FavoriteLocation favorite = fls.deleteFavoriteLocationByNameAndUserId(name, userId);
 		if(favorite == new FavoriteLocation()) {
-			return new ResponseEntity<FavoriteLocation>(favorite,HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(favorite,HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<FavoriteLocation>(favorite,HttpStatus.OK);
+		return new ResponseEntity<>(favorite,HttpStatus.OK);
 		
     }
 }
