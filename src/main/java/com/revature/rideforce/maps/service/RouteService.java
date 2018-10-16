@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
@@ -16,24 +16,18 @@ import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.TravelMode;
 import com.revature.rideforce.maps.beans.Route;
 
-
-
-
-
 /**
  * The route service
  * @author Revature Java batch
- * @Component
+ * @Service
  */
-
-@Component
+@Service // changed from @Component
 public class RouteService {
 	
 	/**
 	 * logger
 	 */
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
-
 	
   	/**
   	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
@@ -88,14 +82,16 @@ public class RouteService {
 		try {
 			DirectionsRoute route = DirectionsApi.getDirections(geoApiContext, origin, destination)
 					.mode(TravelMode.DRIVING).await().routes[0];
-			if(StringUtils.isNumeric(origin)) {
-				if(Integer.parseInt(origin)<0) {
+			String[] splitOrigin= origin.split(" ");
+			if(StringUtils.isNumeric(splitOrigin[0]) ) {
+				if(Integer.parseInt(splitOrigin[0])<0) {
 					log.warn(String.format("User attempted to input address with negative numbers; address: %s", origin));
 					return null;
 				}
 			}
-			if(StringUtils.isNumeric(destination)) {
-				if(Integer.parseInt(destination)<0) {
+			String[] splitDestination=destination.split(" ");
+			if(StringUtils.isNumeric(splitDestination[0])) {
+				if(Integer.parseInt(splitDestination[0])<0) {
 					log.info("Can't input a negative origin");
 					return null;
 				}

@@ -3,8 +3,8 @@ package com.revature.rideforce.maps.service;
 import java.io.IOException;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,8 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.repository.LocationRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The LocationService
@@ -49,6 +51,7 @@ public class LocationService {
 	 * @param address
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */
+	
 	public LatLng getOne(String address) {
 		CachedLocation location = locationRepo.findByAddress(address);
 		if (location == null) {
@@ -65,4 +68,5 @@ public class LocationService {
 		}
 		return location.getLocation();
 	}
+	
 }

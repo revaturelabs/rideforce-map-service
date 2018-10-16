@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.ResponseError;
 import com.revature.rideforce.maps.service.LocationService;
+import com.revature.rideforce.maps.validate.Validate;
 
 /**
  * The controller for obtaining the location
@@ -48,10 +49,11 @@ public class LocationController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> get(@RequestParam String address) {
+		Validate normalize = new Validate();
 		if (address.isEmpty()) {
 			return new ResponseError("Must specify an address.").toResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		address = address.trim();
+		address = normalize.validateAddress(address);
 		if(address.matches("^[^\\w].*")) {
 			address = address.substring(1, (address.length()));
 		}
@@ -70,4 +72,5 @@ public class LocationController {
 		}
 		return new ResponseEntity<LatLng>(ls.getOne(address), HttpStatus.OK);
 	}
+	
 }
