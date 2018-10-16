@@ -18,10 +18,12 @@ environment variables that are necessary for proper program execution:
 - `JDBC_PASSWORD`: the database password
 - `MAPS_API_KEY`: the Google Maps API key
 
-###Setting up environment variables in STS:
+### Setting up environment variables in STS:
 
 - In the run dropdown menu, select run configurations
+
 	![Image of run bttn](https://i.imgur.com/PwGMq8B.png)
+	
 - Select the proper configuration context to specify the scope of your application variables
 	![Image of conf context](https://i.imgur.com/PQGfgXW.png)
 - Select the environment variables tab
