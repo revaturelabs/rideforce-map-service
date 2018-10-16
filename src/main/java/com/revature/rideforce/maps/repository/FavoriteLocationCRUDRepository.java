@@ -13,5 +13,6 @@ public interface FavoriteLocationCRUDRepository extends CrudRepository<FavoriteL
 	Long deleteByName(String name);
 	@Transactional
 	FavoriteLocation removeByNameAndUserId(String Name, int userId);
-	
+	@Transactional
+	void delete(FavoriteLocation location);
 }
