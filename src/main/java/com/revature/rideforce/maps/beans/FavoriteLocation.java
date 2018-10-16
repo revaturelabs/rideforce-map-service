@@ -24,25 +24,25 @@ public class FavoriteLocation {
 	@Size(max = 85)
 	@JsonProperty
 	@Column(name = "ADDRESS")
-	String address;
+	private String address;
 	
 	/**
 	 * geographic coordinate latitude
 	 */
 	@Column(name = "LATITUDE")
-	double latitude;
+	private double latitude;
 	
 	/**
 	 * geographic coordinate longitude
 	 */
 	@Column(name = "LONGITUDE")
-	double longitude;
+	private double longitude;
 	
 	/**
 	 * the type of favorite location (ie: home, work, etc)
 	 */
 	@Column (name="FAVORITED_LOCATION_NAME")
-	String name;
+	private String name;
 	
 	/**
 	 * the current user's id
