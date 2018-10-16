@@ -66,22 +66,14 @@ public class FavoriteLocationService {
 			if (location2 == null && locationByName==null) {
 				return favoriteLocationRepo.save(location);
 			}
-//			else if((location.getLatitude() == location2.getLatitude()) && (location.getLongitude() == location2.getLongitude())) {
-//				//add logging in here
-//				return null;
-//			}
-		
 			else {
-				//saves afte
-//				FavoriteLocation savedLocation= favoriteLocationRepo.save(location);
-				return null;
+				return new FavoriteLocation();
 			}
 		} catch (ApiException | InterruptedException | IOException e) {
 			log.error("Unexpected exception when fetching location.", e);
 			Thread.currentThread().interrupt();
-			return null;
+			return new FavoriteLocation();
 		}
-//		return location.getFavoriteLocation();
 }
 			
 	public FavoriteLocation deleteFavoriteLocationByNameAndUserId(String name, int userId) {

@@ -74,7 +74,7 @@ public class FavoriteLocationController {
 	            return new ResponseError("Cannot save that many locations").toResponseEntity(HttpStatus.BAD_REQUEST);
 	        }
 		FavoriteLocation result =fls.saveFavoriteLocation(address, userId, name);
-		if(result==null) {
+		if(result.equals(new FavoriteLocation())) {
 			return new ResponseError("Unable to save location").toResponseEntity(HttpStatus.EXPECTATION_FAILED);
 		}
 		else {
