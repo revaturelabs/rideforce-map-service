@@ -31,6 +31,12 @@
 	  	<pattern>%date{yy-MMM-dd@HH:mm:ss}  %level %caller %logger{5} %M => %msg%n</pattern>
 	  </encoder>
   </appender>
+  <appender name="VALIDATE_LOGGER" class="ch.qos.logback.core.FileAppender">
+  	<file>${LOGS_BASE}/validate.log</file>
+	  <encoder>
+	  	<pattern>%date{yy-MMM-dd@HH:mm:ss}  %level %caller %logger{5} %M => %msg%n</pattern>
+	  </encoder>
+  </appender>
   <root level="WARN">
     <appender-ref ref="CONSOLE" />
     <appender-ref ref="ROOT_LOGGER" />
@@ -47,4 +53,8 @@
     <logger name="com.revature.rideforce.maps.beans" level="INFO">
   	<appender-ref ref="BEANS_LOGGER"/>
   </logger>
+  <logger name="com.revature.rideforce.maps.validate" level="INFO">
+  	<appender-ref ref="VALIDATE_LOGGER"/>
+  </logger>
+  
 </configuration>
