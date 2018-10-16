@@ -7,8 +7,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -18,14 +20,21 @@ import org.assertj.core.api.Assertions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.google.maps.model.LatLng;
+import com.revature.rideforce.maps.service.FavoriteLocationService;
 
 import org.junit.Assert;
 public class BeanTest{
 	private static ValidatorFactory validatorFactory;
     private static Validator validator;
     
+	@Autowired
+	private FavoriteLocationService fls;
+	
     @BeforeClass
     public static void createValidator() {
         validatorFactory = Validation.buildDefaultValidatorFactory();
@@ -368,9 +377,7 @@ public class BeanTest{
     public void hashCodeFLConsistencyTest()
     {
     	FavoriteLocation location = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", new LatLng(38.95, -77.35), 1);
-       
         assertEquals(location.hashCode(), location.hashCode());
-        
     }
     
     @Test
@@ -380,9 +387,63 @@ public class BeanTest{
     	FavoriteLocation location = new FavoriteLocation(address, new LatLng(38.95, -77.35), 1);
     	FavoriteLocation location1 = new FavoriteLocation(address, new LatLng(38.95, -77.35), 1);
         assertEquals(location.hashCode(), location1.hashCode());
+    }
+    
+    //ResponseError
+    
+    @Test
+    public void responseEqualsReflexive(){
+    	ResponseError responseError = new ResponseError("message");
+        assertEquals(responseError, responseError);
+        assertFalse(responseError.equals(null));
         
     }
     
+    @Test
+    public void responseEqualsSymmetric(){
+    	HttpServletRequest request;
+    	ResponseError responseError = new ResponseError("message");
+    	ResponseError responseError1 = new ResponseError("message");
+        assertEquals(responseError, responseError1);
+        assertEquals(responseError, responseError1);
+        
+    }
+    
+    @Test
+    public void responseEqualsTransitive() {
+    	ResponseError responseError = new ResponseError("message");
+    	ResponseError responseError1 = new ResponseError("message");
+    	ResponseError responseError2 = new ResponseError("message");
+    	
+        assertThat(responseError.equals(responseError1));
+        assertThat(responseError1.equals(responseError2));
+        assertThat(responseError.equals(responseError2));
+    }
+    
+    @Test
+    public void hashCodeResponseConsistencyTest()
+    {
+    	ResponseError responseError = new ResponseError("message");
+        assertEquals(responseError.hashCode(), responseError.hashCode());
+    }
+    
+    @Test
+    public void hashCodeResponseTest()
+    {
+    	ResponseError responseError = new ResponseError("message");
+    	ResponseError responseError1 = new ResponseError("message");
+        assertEquals(responseError.hashCode(), responseError1.hashCode());
+    }
+    
+    @Test
+    public void errorResponseToStringTest(){
+    		
+    	ResponseError responseError = new ResponseError("message");
+    	String[] details = {};
+        String expected = "ResponseError [message=" + "message" + ", details=" + Arrays.toString(details) + "]";
+        Assert.assertEquals(expected, responseError.toString());
+    }
+
     
     
 }
