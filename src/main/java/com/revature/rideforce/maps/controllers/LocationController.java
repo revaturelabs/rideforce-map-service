@@ -70,7 +70,7 @@ public class LocationController {
 				return new ResponseError("Address cannot be a number that is not a Zip code.").toResponseEntity(HttpStatus.BAD_REQUEST);
 			}	
 		}
-		return new ResponseEntity<LatLng>(ls.getOne(address), HttpStatus.OK);
+		return new ResponseEntity<>(ls.getOne(address), HttpStatus.OK);
 	}
 	
 }

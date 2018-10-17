@@ -8,17 +8,27 @@ import static org.junit.Assert.assertNull;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.LatLng;
+import com.netflix.discovery.shared.Application;
 import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.beans.Route;
 import com.revature.rideforce.maps.repository.LocationRepository;
 import com.revature.rideforce.maps.service.LocationService;
 import com.revature.rideforce.maps.service.RouteService;
 
+@SpringBootTest(classes = Application.class)
+@RunWith(SpringRunner.class)
+@Configuration
+@ComponentScan(basePackages = {"com.revature.rideforce.maps.service"})
 public class LocationServiceTest {
 	@Autowired
 	GeoApiContext autoGeoApiContext;
@@ -26,6 +36,8 @@ public class LocationServiceTest {
 	LocationService locationService;
 	@MockBean
 	GeoApiContext geoApiContext;
+	@MockBean
+	LocationRepository locationRepo;
 	@Autowired
 	LocationService autoLocationService;
 	public LocationService realLocationService1= new LocationService();
@@ -37,10 +49,10 @@ public class LocationServiceTest {
 	
 	@Before
 	public void mockBeanValidate() {
-		//mock bean route service
+		//mock bean location service
 		assertNotNull(locationService);
 		Assert.assertThat(locationService, instanceOf(LocationService.class));
-		//autowired route service and GeoApiContext
+		//autowired location service and GeoApiContext
 		assertNotNull(autoLocationService);
 		Assert.assertThat(autoLocationService, instanceOf(LocationService.class));
 		assertNotNull(autoGeoApiContext);
@@ -56,16 +68,15 @@ public class LocationServiceTest {
 	
 	@Test
 	public void noEndParameters(){
-		LatLng badLocation = realLocationService2.getOne("");
+		LatLng badLocation = locationService.getOne("");
 		assertNull(badLocation);
 	}
 	
-	@Test
-	public void validParameterGetOne() {
-		final String address = "2925 Rensselaer Ct. Vienna, VA 22181";
-		LatLng location = new LatLng(14988, 1166);
-		LatLng testLatLng= realLocationService2.getOne(address);
-		assertEquals(location, testLatLng);
-	}
-	
+//	@Test
+//	public void locationTest() {
+//		String address = "12160 Sunset Hills Rd, Reston, VA 20190";
+//		CachedLocation location = locationRepo.findByAddress(address);
+//		assertEquals(location, );
+//	}
+//	
 }
