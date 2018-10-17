@@ -46,6 +46,16 @@ public class LocationService {
 	@Autowired
 	private LocationRepository locationRepo;
 
+	public LocationService(GeoApiContext geoApiContext) {
+		super();
+		this.geoApiContext = geoApiContext;
+		log.info("RouteService instantiated");
+	}
+
+	public LocationService() {
+		super();
+	}
+
 	/**
 	 * get a location
 	 * @param address
@@ -67,6 +77,10 @@ public class LocationService {
 			}
 		}
 		return location.getLocation();
+	}
+
+	public Object getGeoApiContext() {
+		return geoApiContext;
 	}
 	
 }
