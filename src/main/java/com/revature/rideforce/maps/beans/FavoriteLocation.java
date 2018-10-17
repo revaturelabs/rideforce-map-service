@@ -2,6 +2,7 @@ package com.revature.rideforce.maps.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -21,6 +22,9 @@ public class FavoriteLocation {
 	 * an address string denoted as the id (primary key)
 	 */
 	@Id
+	@GeneratedValue
+	private int locationId;
+	
 	@Size(max = 85)
 	@JsonProperty
 	@Column(name = "ADDRESS")
