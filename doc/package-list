@@ -1,0 +1,9 @@
+com.revature.configuration
+com.revature.rideforce.maps
+com.revature.rideforce.maps.beans
+com.revature.rideforce.maps.configuration
+com.revature.rideforce.maps.controllers
+com.revature.rideforce.maps.repository
+com.revature.rideforce.maps.repotest
+com.revature.rideforce.maps.service
+com.revature.rideforce.maps.services
