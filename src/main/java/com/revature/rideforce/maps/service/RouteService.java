@@ -83,18 +83,15 @@ public class RouteService {
 			DirectionsRoute route = DirectionsApi.getDirections(geoApiContext, origin, destination)
 					.mode(TravelMode.DRIVING).await().routes[0];
 			String[] splitOrigin= origin.split(" ");
-			if(StringUtils.isNumeric(splitOrigin[0]) ) {
-				if(Integer.parseInt(splitOrigin[0])<0) {
-					log.warn(String.format("User attempted to input address with negative numbers; address: %s", origin));
-					return null;
-				}
+			if(StringUtils.isNumeric(splitOrigin[0]) && Integer.parseInt(splitOrigin[0])<0  ) {
+					String warning= String.format("User attempted to input address with negative numbers; address: %s", origin);
+					log.warn(warning);
+					return new Route();
 			}
 			String[] splitDestination=destination.split(" ");
-			if(StringUtils.isNumeric(splitDestination[0])) {
-				if(Integer.parseInt(splitDestination[0])<0) {
+			if(StringUtils.isNumeric(splitDestination[0]) && Integer.parseInt(splitDestination[0])<0) {
 					log.info("Can't input a negative origin");
-					return null;
-				}
+					return new Route();
 			}
 			long distance = 0;
 			long duration = 0;
@@ -103,12 +100,13 @@ public class RouteService {
 				distance += leg.distance.inMeters;
 				duration += leg.duration.inSeconds;
 			}
-			log.info(String.format("Route with the following information returned, distance: %d; duration: %d", distance,duration));
+			String info=String.format("Route with the following information returned, distance: %d; duration: %d", distance,duration);
+			log.info(info);
 			return new Route(distance, duration);
 		} catch (ApiException | InterruptedException | IOException e) {
 			log.error("Unexpected exception when fetching route.", e);
 			Thread.currentThread().interrupt();
-			return null;
+			return new Route();
 		}
 	}
 }

@@ -1,6 +1,5 @@
 package com.revature.rideforce.maps.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,14 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.FavoriteLocation;
 import com.revature.rideforce.maps.beans.ResponseError;
 import com.revature.rideforce.maps.service.FavoriteLocationService;
@@ -44,10 +42,6 @@ public class FavoriteLocationController {
 	@Autowired
 	private FavoriteLocationService fls;
 	
-	/**
-	 * list of favorite locations
-	 */
-	private List<FavoriteLocation> favoriteLocations = new ArrayList<>();
 	
 	
 
@@ -56,8 +50,8 @@ public class FavoriteLocationController {
 	 * @param userId
 	 * @return List<FavoriteLocation> (the list of favorite locations)
 	 */
-	@RequestMapping(value="/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getLocationsByUserId(@PathVariable("id") int userId){
+	@GetMapping("/users/{id}")
+	public ResponseEntity<?> getLocationsByUserId(@PathVariable("id") int userId){
         //get should only retreive information and the post request should save the actual information
 		log.info("finding locations by user");
     	List<FavoriteLocation> userLocationsList= fls.findFavoriteLocationByUserId(userId);
@@ -70,7 +64,8 @@ public class FavoriteLocationController {
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> saveNewFavoriteLocation(@RequestParam("address") String address,@RequestParam("name")  String name, @RequestParam("userId")  int userId){
 		 if(fls.findFavoriteLocationByUserId(userId).size() > 5) {
-	            log.warn("User with id: " + userId + "tried to favorite more than 5 locations");
+			 String warning= String.format("User with id: %d tried to save more than 5 locations", userId);
+	            log.warn(warning);
 	            return new ResponseError("Cannot save that many locations").toResponseEntity(HttpStatus.BAD_REQUEST);
 	        }
 		FavoriteLocation result =fls.saveFavoriteLocation(address, userId, name);
@@ -91,4 +86,5 @@ public class FavoriteLocationController {
 		return new ResponseEntity<>(favorite,HttpStatus.OK);
 		
     }
+	
 }
