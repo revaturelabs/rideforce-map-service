@@ -38,16 +38,15 @@ public class FavoriteLocationService {
 	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
 	 */
 	@Autowired
-	private GeoApiContext geoApiContext;
+	public GeoApiContext geoApiContext;
 
 	/**
 	 * Injecting the FavoriteLocationRepository
 	 */
 	@Autowired
-	private FavoriteLocationRepository favoriteLocationRepo;
+	public FavoriteLocationRepository favoriteLocationRepo;
 
-	@Autowired
-	private FavoriteLocationCRUDRepository favoriteLocationCRUDRepo;
+	
 	/**
 	 * get a favorite location
 	 * @param address
