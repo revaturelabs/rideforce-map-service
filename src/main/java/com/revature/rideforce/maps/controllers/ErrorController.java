@@ -1,5 +1,6 @@
 package com.revature.rideforce.maps.controllers;
 
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +67,8 @@ public class ErrorController extends AbstractErrorController {
 	}
 
 	/**
-	 * Handles the exception thrown when validation on an argument annotated with @Valid fails.
+	 * Handles the exception thrown when when invalid input is sent to a controller
+	 * (more specifically, when validation on an argument annotated with @Valid fails.)
 	 * @ExceptionHandler(MethodArgumentNotValidException.class)
 	 * @param e (the exception object)
 	 * @return ResponseEntity<ResponseError> (ResponseError with given message and the details to 
@@ -74,7 +76,7 @@ public class ErrorController extends AbstractErrorController {
 	 * method)
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException e) {
+	public static ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException e) {
 		BindingResult result = e.getBindingResult();
 		// A stream pipeline consists of a source (array)...
 		

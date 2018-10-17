@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.repository.LocationRepository;
+
 
 /**
  * The LocationService
@@ -44,11 +44,22 @@ public class LocationService {
 	@Autowired
 	private LocationRepository locationRepo;
 
+	public LocationService(GeoApiContext geoApiContext) {
+		super();
+		this.geoApiContext = geoApiContext;
+		log.info("RouteService instantiated");
+	}
+
+	public LocationService() {
+		super();
+	}
+
 	/**
 	 * get a location
 	 * @param address
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */
+	
 	public LatLng getOne(String address) {
 		CachedLocation location = locationRepo.findByAddress(address);
 		if (location == null) {
@@ -65,4 +76,9 @@ public class LocationService {
 		}
 		return location.getLocation();
 	}
+
+	public Object getGeoApiContext() {
+		return geoApiContext;
+	}
+	
 }
