@@ -21,7 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.revature.rideforce.maps.Application;
 import com.revature.rideforce.maps.beans.FavoriteLocation;
 import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
-import com.revature.rideforce.maps.repository.LocationRepository;
 
 /**
  * Class that tests the repository
@@ -54,12 +53,10 @@ public class FavoriteLocationRepositoryTest {
 	public void validate() {
 		assertNotNull(entityManager);
 		
-		List<FavoriteLocation> locs = favoriteLocationRepository.findAll();
-		
+		// List<FavoriteLocation> locs = favoriteLocationRepository.findAll();
 		// System.out.println("The list of locations now: " + locs);
 		
 		removeAllEntitiesFromDb();
-		
 		// System.out.println("The list of locations now: " + locs);
 		
 	}	
@@ -110,9 +107,6 @@ public class FavoriteLocationRepositoryTest {
 		entityManager.remove(favoriteLocationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170"));
 		
 		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
-//		System.out.println();
-//		System.out.println("The current location Repository:  " + locations.toString());
-//		System.out.println();
 		assertTrue(locations.size() == 0);
 	}
 	
@@ -132,7 +126,7 @@ public class FavoriteLocationRepositoryTest {
 
 	/**
 	 * This tests if the data that was fetched from db is equal to the expected result, which is
-	 * the cached location saved in db
+	 * the favorite location saved in db
 	 */
 	@Test
 	public void testSaveFavoriteLocation() {
@@ -167,15 +161,6 @@ public class FavoriteLocationRepositoryTest {
 		
 		assertThat(fetchFromDb).isNotEqualTo(savedInDb);
 	}
-	
-//	@Test
-//	public void canFindByThing2() {
-//		//List<FavoriteLocation> locations = locationRepository.findAll();
-//		//System.out.println("locations: " + locations);
-//        //Assertions.assertThat(locationRepository).isNotNull();
-//		FavoriteLocation cLoc = locationRepository.save(new FavoriteLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533 ));
-//		Assertions.assertThat(locationRepository.findAll()).isNotNull();
-//	}
 	
 	/**
 	 * Should return null when there is invalid id (address)
@@ -255,7 +240,7 @@ public class FavoriteLocationRepositoryTest {
 	}	
 	
 	/**
-	 * private helper method to get cached location
+	 * private helper method to get favorite location
 	 * @return the new FavoriteLocation object
 	 */
 	private FavoriteLocation getFavoriteLocation() {
@@ -263,11 +248,12 @@ public class FavoriteLocationRepositoryTest {
 		cLoc.setAddress("1070 Elden St, Herndon, VA 20170"); // Fresh World! :)
 		cLoc.setLatitude(38.9666958);
 		cLoc.setLongitude(-77.3975926);
+		cLoc.setUserId(1);
 		return cLoc;
 	}
 	
 	/**
-	 * private helper method to get cached location
+	 * private helper method to get favorite location
 	 * @return the new FavoriteLocation object
 	 */
 	private FavoriteLocation getFavoriteLocation2() {
@@ -275,6 +261,7 @@ public class FavoriteLocationRepositoryTest {
 		cLoc2.setAddress("1228 Elden St, Herndon, VA 20170"); // Giant! :)
 		cLoc2.setLatitude(38.9583948);
 		cLoc2.setLongitude(-77.3887017);
+		cLoc2.setUserId(1);
 		return cLoc2;
 	}
 	
