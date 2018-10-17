@@ -72,10 +72,12 @@ public class LocationServiceTest {
 	
 	@Test 
 	public void validParameterGetOne() {
-//		final String address = "2925 Rensselaer Ct. Vienna, VA 22181";
-//		LatLng location = new LatLng(14988, 1166);
-//		LatLng testLatLng= realLocationService2.getOne(address);
-//		assertEquals(location, testLatLng);
+		final String address = "2925 Rensselaer Ct. Vienna, VA 22181";
+		String location = "{distance:3520, duration:435}";
+		LatLng testLatLng= autoLocationService.getOne(address);
+		assertEquals(null, testLatLng);
 	}
+	
+	
 	
 }
