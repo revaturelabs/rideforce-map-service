@@ -20,18 +20,6 @@ import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
 import com.revature.rideforce.maps.service.FavoriteLocationService;
 
 
-//@RunWith(SpringRunner.class)
-//@WebMvcTest(FavoriteLocationController.class)
-//@ComponentScan(basePackages = {"com.revature.rideforce.maps.service"})
-
-//@SpringBootTest(classes = Application.class)
-//@RunWith(SpringRunner.class)
-//@DataJpaTest
-//@AutoConfigureTestDatabase(replace = Replace.NONE)
-//@Transactional
-
-	
-	
 
 //@SpringBootTest(classes = Application.class)
 @RunWith(SpringRunner.class)
@@ -39,7 +27,7 @@ public class FavoriteLocationServiceTest {
 
 
 	@TestConfiguration
-    static class EmployeeServiceImplTestContextConfiguration {
+    static class FavoriteLocationServiceImplTestContextConfiguration {
   
         @Bean
         public FavoriteLocationService favLocationService() {
@@ -118,6 +106,42 @@ public class FavoriteLocationServiceTest {
 		assertThat(locations.contains(locationAns)).isEqualTo(true);
 		System.out.println(locations);
 	}
+    
+    @Test
+	public void testDelete() throws Exception {
+		final String address = "11730 Plaza America Dr. Reston, VA";
+		final String name = "workplace";
+		final String locationJson = "{ lat: 38.95, lng: -77.35 }";
+		int userId = 2;
+		FavoriteLocation fnew = new FavoriteLocation();
+		fnew.setAddress(address);
+		fnew.setName(name);
+		fnew.setUserId(2);
+		fnew.setLatitude(38.9533932);
+		fnew.setLongitude(-77.35044780000001);
+		fnew.setLocationId(0);
+		favLocationService.geoApiContext= realGeo;
+		favLocationService.saveFavoriteLocation(address, userId, name);
+		List<FavoriteLocation> locations = new ArrayList<FavoriteLocation>();
+		locations.add(fnew);
+
+	    when(this.favLocationService.saveFavoriteLocation(address, userId, name)).thenReturn(fnew);
+
+		FavoriteLocation f = favLocationService.saveFavoriteLocation(address, userId, name);
+
+
+	    when(this.favLocationService.findFavoriteLocationByUserId(2)).thenReturn(locations);
+	    when(this.favLocationService.deleteFavoriteLocationByNameAndUserId(name, userId)).thenReturn(fnew);
+
+
+		FavoriteLocation locationAns = new FavoriteLocation(address, 38.9533932, -77.35044780000001, name, userId);
+		assertThat(locations.size()).isNotNull();
+		assertThat(locations.contains(locationAns)).isEqualTo(true);
+		FavoriteLocation f2 = favLocationService.deleteFavoriteLocationByNameAndUserId(name, userId);
+		assertThat(f2).isEqualTo(fnew);
+		System.out.println(locations);
+	}
+    
 
 
 }
