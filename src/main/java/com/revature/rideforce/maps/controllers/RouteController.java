@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,8 +38,7 @@ public class RouteController {
 	 * and HTTP status code, and no headers)
 	 * @throws Exception
 	 */
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	@GetMapping
+	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> get(@RequestParam String start, @RequestParam String end) {
 		if (start.isEmpty()) {
 			return new ResponseError("Must specify a start address.").toResponseEntity(HttpStatus.BAD_REQUEST);
