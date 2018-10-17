@@ -97,9 +97,7 @@ public class Route {
 		Route other = (Route) obj;
 		if (distance != other.distance)
 			return false;
-		if (duration != other.duration)
-			return false;
-		return true;
+		return duration == other.duration;
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package com.revature.rideforce.maps.service;
 import java.io.IOException;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.repository.LocationRepository;
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The LocationService
@@ -46,6 +44,16 @@ public class LocationService {
 	@Autowired
 	private LocationRepository locationRepo;
 
+	public LocationService(GeoApiContext geoApiContext) {
+		super();
+		this.geoApiContext = geoApiContext;
+		log.info("RouteService instantiated");
+	}
+
+	public LocationService() {
+		super();
+	}
+
 	/**
 	 * get a location
 	 * @param address
@@ -67,6 +75,10 @@ public class LocationService {
 			}
 		}
 		return location.getLocation();
+	}
+
+	public Object getGeoApiContext() {
+		return geoApiContext;
 	}
 	
 }
