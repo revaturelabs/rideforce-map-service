@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.transaction.Transactional;
-import javax.validation.constraints.Min;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
-import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.FavoriteLocation;
 import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
 
@@ -59,9 +57,11 @@ public class FavoriteLocationService {
 			//bean initialization
 			location = new FavoriteLocation(address, results[0].geometry.location.lat,results[0].geometry.location.lng,name, userId);
 			location2 = favoriteLocationRepo.findByLatitudeAndLongitudeAndUserId(location.getLatitude(), location.getLongitude(), userId);
-			log.info(String.format("Location with lat,long, and user: %s ", location2));		
+			String logInfo= String.format("Location with lat,long, and user: %s ", location2);
+			log.info(logInfo);		
 			FavoriteLocation locationByName= favoriteLocationRepo.findByNameAndUserId(name, userId);
-			log.info(String.format("Location with this name and user: %s", locationByName));
+			String logInfo2=String.format("Location with this name and user: %s", locationByName);
+			log.info(logInfo2);
 			if (location2 == null && locationByName==null) {
 				return favoriteLocationRepo.save(location);
 			}
@@ -76,7 +76,6 @@ public class FavoriteLocationService {
 }
 			
 	public FavoriteLocation deleteFavoriteLocationByNameAndUserId(String name, int userId) {
-		//favoriteLocationCRUDRepo
 		FavoriteLocation fav = favoriteLocationRepo.findByNameAndUserId(name, userId);
 		if(fav == null) {
 			fav = new FavoriteLocation();

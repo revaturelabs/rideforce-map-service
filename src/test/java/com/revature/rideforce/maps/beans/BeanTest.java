@@ -1,11 +1,11 @@
 package com.revature.rideforce.maps.beans;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -26,6 +26,7 @@ public class BeanTest{
 	private static ValidatorFactory validatorFactory;
     private static Validator validator;
     
+	
     @BeforeClass
     public static void createValidator() {
         validatorFactory = Validation.buildDefaultValidatorFactory();
@@ -53,7 +54,7 @@ public class BeanTest{
         Set<ConstraintViolation<Route>> violations
             = validator.validate(route);
      
-        assertEquals(violations.size(), 1);
+        assertEquals(1,violations.size());
      
         ConstraintViolation<Route> violation
             = violations.iterator().next();
@@ -111,9 +112,9 @@ public class BeanTest{
     	Route route = new Route(12714, 9600);
     	Route route1 = new Route(12714, 9600);
     	Route route2 = new Route(12714, 9600);
-        assertThat(route.equals(route1));
-        assertThat(route1.equals(route2));
-        assertThat(route.equals(route2));
+        assertTrue(route.equals(route1));
+        assertTrue(route1.equals(route2));
+        assertTrue(route.equals(route2));
     }
     
     @Test
@@ -145,8 +146,8 @@ public class BeanTest{
     public void cachedLocationEqualsSymmetric() {
     	CachedLocation location = new CachedLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35);
     	CachedLocation location1 = new CachedLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35);
-        assertThat(location.equals(location1));
-        assertThat(location1.equals(location));
+        assertTrue(location.equals(location1));
+        assertTrue(location1.equals(location));
     }
     
     @Test
@@ -154,9 +155,9 @@ public class BeanTest{
     	CachedLocation location = new CachedLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35);
     	CachedLocation location1 = new CachedLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35);
     	CachedLocation location2 = new CachedLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35);
-        assertThat(location.equals(location1));
-        assertThat(location1.equals(location2));
-        assertThat(location.equals(location2));
+        assertTrue(location.equals(location1));
+        assertTrue(location1.equals(location2));
+        assertTrue(location.equals(location2));
     }
     
     @Test
@@ -202,35 +203,35 @@ public class BeanTest{
     public void routeSetterAndGetterTest() {
         Route route = new Route();
         route.setDistance(12714);
-        assertEquals(route.getDistance(), 12714);
+        assertEquals(12714,route.getDistance());
     }
     
     @Test
     public void routeSetterAndGetterTest2() {
         Route route = new Route();
         route.setDuration(9600);
-        assertEquals(route.getDuration(), 9600);
+        assertEquals(9600,route.getDuration());
     }
     
     @Test
     public void locationSetterAndGetterTest() {
     	CachedLocation location = new CachedLocation();
         location.setAddress("2925 Rensselaer Ct. Vienna, VA 22181");
-        assertEquals(location.getAddress(), "2925 Rensselaer Ct. Vienna, VA 22181");
+        assertEquals("2925 Rensselaer Ct. Vienna, VA 22181",location.getAddress());
     }
     
     @Test
     public void locationSetterAndGetterTest2() {
     	CachedLocation location = new CachedLocation();
         location.setLatitude(38.95);
-        assertThat(location.getLatitude()==38.95);
+        assertTrue(location.getLatitude()==38.95);
     }
     
     @Test
     public void locationSetterAndGetterTest3() {
     	CachedLocation location = new CachedLocation();
         location.setLongitude(-77.35);
-        assertThat(location.getLongitude()==-77.35);
+        assertTrue(location.getLongitude()==-77.35);
     }
     
    //FavoriteLocation Bean Tests 
@@ -269,35 +270,35 @@ public class BeanTest{
     public void favoriteLocationSetterAndGetterTest() {
     	FavoriteLocation location = new FavoriteLocation();
         location.setAddress("2925 Rensselaer Ct. Vienna, VA 22181");
-        assertEquals(location.getAddress(), "2925 Rensselaer Ct. Vienna, VA 22181");
+        assertEquals("2925 Rensselaer Ct. Vienna, VA 22181",location.getAddress());
     }
     
     @Test
     public void favoriteLocationSetterAndGetterTest2() {
     	FavoriteLocation location = new FavoriteLocation();
         location.setLatitude(38.95);
-        assertThat(location.getLatitude()==38.95);
+        assertTrue(location.getLatitude()==38.95);
     }
     
     @Test
     public void favoriteLocationSetterAndGetterTest3() {
     	FavoriteLocation location = new FavoriteLocation();
         location.setLongitude(-77.35);
-        assertThat(location.getLongitude()==-77.35);
+        assertTrue(location.getLongitude()==-77.35);
     }
     
     @Test
     public void favoriteLocationSetterAndGetterTest4() {
         FavoriteLocation favoriteLocation = new FavoriteLocation();
         favoriteLocation.setName("home");
-        assertEquals(favoriteLocation.getName(), "home");
+        assertEquals("home",favoriteLocation.getName());
     }
     
     @Test
     public void favoriteLocationSetterAndGetterTest5() {
         FavoriteLocation favoriteLocation = new FavoriteLocation();
         favoriteLocation.setUserId(1);
-        assertEquals(favoriteLocation.getUserId(), 1);
+        assertEquals(1,favoriteLocation.getUserId());
     }
     
     @Test
@@ -326,8 +327,8 @@ public class BeanTest{
     public void favoriteLocationEqualsSymmetric() {
     	FavoriteLocation location = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35, "home", 1);
     	FavoriteLocation location1 = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35, "home", 1);
-        assertThat(location.equals(location1));
-        assertThat(location1.equals(location));
+        assertTrue(location.equals(location1));
+        assertTrue(location1.equals(location));
     }
     
     @Test
@@ -335,9 +336,9 @@ public class BeanTest{
     	FavoriteLocation location = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35, "home", 1);
     	FavoriteLocation location1 = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35, "home", 1);
     	FavoriteLocation location2 = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35, "home", 1);
-        assertThat(location.equals(location1));
-        assertThat(location1.equals(location2));
-        assertThat(location.equals(location2));
+        assertTrue(location.equals(location1));
+        assertTrue(location1.equals(location2));
+        assertTrue(location.equals(location2));
     }
     
     @Test
@@ -350,8 +351,8 @@ public class BeanTest{
     public void favoriteLocationEqualsSymmetric2() {
     	FavoriteLocation location = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", new LatLng(38.95, -77.35), 1);
     	FavoriteLocation location1 = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", new LatLng(38.95, -77.35), 1);
-        assertThat(location.equals(location1));
-        assertThat(location1.equals(location));
+        assertTrue(location.equals(location1));
+        assertTrue(location1.equals(location));
     }
     
     @Test
@@ -359,18 +360,16 @@ public class BeanTest{
     	FavoriteLocation location = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", new LatLng(38.95, -77.35), 1);
     	FavoriteLocation location1 = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", new LatLng(38.95, -77.35), 1);
     	FavoriteLocation location2 = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", new LatLng(38.95, -77.35), 1);
-        assertThat(location.equals(location1));
-        assertThat(location1.equals(location2));
-        assertThat(location.equals(location2));
+        assertTrue(location.equals(location1));
+        assertTrue(location1.equals(location2));
+        assertTrue(location.equals(location2));
     }
     
     @Test
     public void hashCodeFLConsistencyTest()
     {
     	FavoriteLocation location = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", new LatLng(38.95, -77.35), 1);
-       
         assertEquals(location.hashCode(), location.hashCode());
-        
     }
     
     @Test
@@ -380,9 +379,62 @@ public class BeanTest{
     	FavoriteLocation location = new FavoriteLocation(address, new LatLng(38.95, -77.35), 1);
     	FavoriteLocation location1 = new FavoriteLocation(address, new LatLng(38.95, -77.35), 1);
         assertEquals(location.hashCode(), location1.hashCode());
+    }
+    
+    //ResponseError
+    
+    @Test
+    public void responseEqualsReflexive(){
+    	ResponseError responseError = new ResponseError("message");
+        assertEquals(responseError, responseError);
+        assertFalse(responseError.equals(null));
         
     }
     
+    @Test
+    public void responseEqualsSymmetric(){
+    	ResponseError responseError = new ResponseError("message");
+    	ResponseError responseError1 = new ResponseError("message");
+        assertEquals(responseError, responseError1);
+        assertEquals(responseError, responseError1);
+        
+    }
+    
+    @Test
+    public void responseEqualsTransitive() {
+    	ResponseError responseError = new ResponseError("message");
+    	ResponseError responseError1 = new ResponseError("message");
+    	ResponseError responseError2 = new ResponseError("message");
+    	
+        assertTrue(responseError.equals(responseError1));
+        assertTrue(responseError1.equals(responseError2));
+        assertTrue(responseError.equals(responseError2));
+    }
+    
+    @Test
+    public void hashCodeResponseConsistencyTest()
+    {
+    	ResponseError responseError = new ResponseError("message");
+        assertEquals(responseError.hashCode(), responseError.hashCode());
+    }
+    
+    @Test
+    public void hashCodeResponseTest()
+    {
+    	ResponseError responseError = new ResponseError("message");
+    	ResponseError responseError1 = new ResponseError("message");
+        assertEquals(responseError.hashCode(), responseError1.hashCode());
+    }
+    
+    @Test
+    public void errorResponseToStringTest(){
+    		
+    	ResponseError responseError = new ResponseError("message");
+    	String[] details = {};
+        String expected = "ResponseError [message=" + "message" + ", details=" + Arrays.toString(details) + "]";
+        Assert.assertEquals(expected, responseError.toString());
+    }
+
     
     
 }
