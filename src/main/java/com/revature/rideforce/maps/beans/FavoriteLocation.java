@@ -43,7 +43,7 @@ public class FavoriteLocation {
 	private double longitude;
 	
 	/**
-	 * the type of favorite location (ie: home, work, etc)
+	 * the type of favorite location (e.g.: "Home", "Work", etc)
 	 */
 	@Column (name="FAVORITED_LOCATION_NAME")
 	private String name;
@@ -94,6 +94,22 @@ public class FavoriteLocation {
 		this.longitude = longitude;
 		this.name = name;
 		this.userId = userId;
+	}
+
+	/**
+	 * get location id
+	 * @return locationId
+	 */
+	public int getLocationId() {
+		return locationId;
+	}
+
+	/**
+	 * set this location id to 'locationId'
+	 * @param locationId
+	 */
+	public void setLocationId(int locationId) {
+		this.locationId = locationId;
 	}
 
 	/**
@@ -192,6 +208,7 @@ public class FavoriteLocation {
 		long temp;
 		temp = Double.doubleToLongBits(latitude);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + locationId;
 		temp = Double.doubleToLongBits(longitude);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -215,6 +232,8 @@ public class FavoriteLocation {
 			return false;
 		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
 			return false;
+		if (locationId != other.locationId)
+			return false;
 		if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
 			return false;
 		if (name == null) {
@@ -229,8 +248,8 @@ public class FavoriteLocation {
 
 	@Override
 	public String toString() {
-		return "FavoriteLocation [address=" + address + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", name=" + name + ", userId=" + userId + "]";
+		return "FavoriteLocation [locationId=" + locationId + ", address=" + address + ", latitude=" + latitude
+				+ ", longitude=" + longitude + ", name=" + name + ", userId=" + userId + "]";
 	}
 
 }
