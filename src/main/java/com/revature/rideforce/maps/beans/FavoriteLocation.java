@@ -211,19 +211,23 @@ public class FavoriteLocation {
 		if (address == null) {
 			if (other.address != null)
 				return false;
-		} else if (!address.equals(other.address))
+		} else if (!address.equals(other.address)) {
 			return false;
-		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+		}
+		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude)){
 			return false;
+		}
 		if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!name.equals(other.name)){
+				return false;
+			}
+		if (userId != other.userId){
 			return false;
-		if (userId != other.userId)
-			return false;
+		}
 		return true;
 	}
 

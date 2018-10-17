@@ -84,7 +84,7 @@ public class ResponseError {
 	 * @return the wrapped {@code ResponseError}
 	 */
 	public ResponseEntity<ResponseError> toResponseEntity(HttpStatus status) {
-		return new ResponseEntity<ResponseError>(this, status);
+		return new ResponseEntity<>(this, status);
 	}
 
 	/**
