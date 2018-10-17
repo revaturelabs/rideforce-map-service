@@ -30,7 +30,7 @@ public class Validate {
 			address = addresscheck;
 		
 		}while(check);
-		address.toLowerCase();
+		address = address.toLowerCase();
 		log.info("returning normalized address");
 		return address;
 		

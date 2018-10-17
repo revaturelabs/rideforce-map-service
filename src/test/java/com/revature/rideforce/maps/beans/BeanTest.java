@@ -62,7 +62,7 @@ public class BeanTest{
         Set<ConstraintViolation<Route>> violations
             = validator.validate(route);
      
-        assertEquals(violations.size(), 1);
+        assertEquals(1, violations.size());
      
         ConstraintViolation<Route> violation
             = violations.iterator().next();
@@ -211,21 +211,21 @@ public class BeanTest{
     public void routeSetterAndGetterTest() {
         Route route = new Route();
         route.setDistance(12714);
-        assertEquals(route.getDistance(), 12714);
+        assertEquals(12714, route.getDistance());
     }
     
     @Test
     public void routeSetterAndGetterTest2() {
         Route route = new Route();
         route.setDuration(9600);
-        assertEquals(route.getDuration(), 9600);
+        assertEquals(9600, route.getDuration());
     }
     
     @Test
     public void locationSetterAndGetterTest() {
     	CachedLocation location = new CachedLocation();
         location.setAddress("2925 Rensselaer Ct. Vienna, VA 22181");
-        assertEquals(location.getAddress(), "2925 Rensselaer Ct. Vienna, VA 22181");
+        assertEquals("2925 Rensselaer Ct. Vienna, VA 22181", location.getAddress());
     }
     
     @Test
@@ -278,7 +278,7 @@ public class BeanTest{
     public void favoriteLocationSetterAndGetterTest() {
     	FavoriteLocation location = new FavoriteLocation();
         location.setAddress("2925 Rensselaer Ct. Vienna, VA 22181");
-        assertEquals(location.getAddress(), "2925 Rensselaer Ct. Vienna, VA 22181");
+        assertEquals("2925 Rensselaer Ct. Vienna, VA 22181", location.getAddress());
     }
     
     @Test
@@ -299,14 +299,14 @@ public class BeanTest{
     public void favoriteLocationSetterAndGetterTest4() {
         FavoriteLocation favoriteLocation = new FavoriteLocation();
         favoriteLocation.setName("home");
-        assertEquals(favoriteLocation.getName(), "home");
+        assertEquals("home", favoriteLocation.getName());
     }
     
     @Test
     public void favoriteLocationSetterAndGetterTest5() {
         FavoriteLocation favoriteLocation = new FavoriteLocation();
         favoriteLocation.setUserId(1);
-        assertEquals(favoriteLocation.getUserId(), 1);
+        assertEquals(1, favoriteLocation.getUserId());
     }
     
     @Test
