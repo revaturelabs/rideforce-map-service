@@ -2,7 +2,6 @@ package com.revature.rideforce.maps;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * The starting point of spring application
