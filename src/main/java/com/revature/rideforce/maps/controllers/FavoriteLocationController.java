@@ -6,7 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,6 @@ import com.revature.rideforce.maps.service.FavoriteLocationService;
  */
 @RestController
 @RequestMapping(value = "/favoritelocations")
-@Lazy(true)
 public class FavoriteLocationController {
 	
 	/**
@@ -60,6 +58,7 @@ public class FavoriteLocationController {
 	 */
 	@RequestMapping(value="/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> getLocationsByUserId(@PathVariable("id") int userId){
+        //get should only retreive information and the post request should save the actual information
 		log.info("finding locations by user");
     	List<FavoriteLocation> userLocationsList= fls.findFavoriteLocationByUserId(userId);
         String getMessage= String.format("User retreived the following saved locations %s",userLocationsList);
@@ -71,13 +70,11 @@ public class FavoriteLocationController {
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> saveNewFavoriteLocation(@RequestParam("address") String address,@RequestParam("name")  String name, @RequestParam("userId")  int userId){
 		 if(fls.findFavoriteLocationByUserId(userId).size() > 5) {
-			 String warning= String.format("User with id: %d tried to favorite more than 5 locations", userId);
-	            log.warn(warning);
+	            log.warn("User with id: " + userId + "tried to favorite more than 5 locations");
 	            return new ResponseError("Cannot save that many locations").toResponseEntity(HttpStatus.BAD_REQUEST);
 	        }
 		FavoriteLocation result =fls.saveFavoriteLocation(address, userId, name);
 		if(result.equals(new FavoriteLocation())) {
-			log.warn("Unable to save new Favorite Location");
 			return new ResponseError("Unable to save location").toResponseEntity(HttpStatus.EXPECTATION_FAILED);
 		}
 		else {
@@ -89,11 +86,8 @@ public class FavoriteLocationController {
 		log.info("DELETING locations by user");
 		FavoriteLocation favorite = fls.deleteFavoriteLocationByNameAndUserId(name, userId);
 		if(favorite == new FavoriteLocation()) {
-			log.warn("unable to delete requested location");
 			return new ResponseEntity<>(favorite,HttpStatus.NO_CONTENT);
 		}
-		String message= String.format("Following favorite location was deleted: %s", favorite);
-		log.info(message);
 		return new ResponseEntity<>(favorite,HttpStatus.OK);
 		
     }

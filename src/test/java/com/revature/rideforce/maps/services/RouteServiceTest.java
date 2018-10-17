@@ -50,6 +50,12 @@ public class RouteServiceTest {
 	@MockBean
 	RouteService routeService;
 	
+	@Autowired
+	GeoApiContext autoGeoApiContext;
+	
+	@Autowired
+	RouteService autoRouteService;
+	
 //	declared values
 	//eclEmma coverage only appears after the instantiating the 
 	//service and then using those methods
@@ -68,11 +74,14 @@ public class RouteServiceTest {
 		//mock bean route service
 		assertNotNull(routeService);
 		Assert.assertThat(routeService, instanceOf(RouteService.class));
-
+		//autowired route service and GeoApiContext
+		assertNotNull(autoRouteService);
+		Assert.assertThat(autoRouteService, instanceOf(RouteService.class));
+		assertNotNull(autoGeoApiContext);
 	}
 	
 	//tests the initialized instances of the routeService and GeoContextApi
-	@Before
+	@Test
 	public void instanceValidate() {
 		assertNotNull(realRouteService1);
 		assertNotNull(realRouteService2);
@@ -85,6 +94,7 @@ public class RouteServiceTest {
 	public void getGeoApi() {
 		routeService.setGeoApiContext(geoApiContext);
 		given(routeService.getGeoApiContext()).willReturn(geoApiContext);
+		//use instantiated route service
 		GeoApiContext geo=routeService.getGeoApiContext();
 		Assert.assertThat(geo,instanceOf(GeoApiContext.class));
 }
@@ -94,46 +104,17 @@ public class RouteServiceTest {
 		GeoApiContext setter=realRouteService1.getGeoApiContext();
 		Assert.assertThat(setter,instanceOf(GeoApiContext.class));
 	}
-	/////////////////////////////////////
+	
 	@Test
-	public void testDuration() {
+	public void validParameterGetRoute() {
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA 20190";
-		final Route route = new Route(14988, 1166);
-		Route routeTest = realRouteService2.getRoute(start, end);
-		assertEquals(1166,routeTest.getDuration());
-	}
-	
-	@Test
-	public void testnegativeParameters() {
-		Route negRoute= realRouteService2.getRoute("-80302", "80302");
-		Route emptyRoute= new Route();
-		assertEquals(emptyRoute, negRoute);
-	}
-	
-	@Test
-	public void noEndParameters(){
-		Route badRoute = realRouteService2.getRoute("11730 Plaza America Dr. Reston, VA","");
-		Route emptyRoute= new Route();
-		assertEquals(emptyRoute, badRoute);
-	}
-	
-//	@Test
-//	public void incompleteStartParameter() {
-//		Route badRoute = realRouteService2.getRoute("11730 Plaza America Dr.","12160 Sunset Hills Rd, Reston, VA 20190");
-//		Route emptyRoute= new Route();
-//		assertEquals(emptyRoute, badRoute);
-//	}
-	
-	@Test 
-	public void incompleteEndParameter() {
-		Route badRoute = realRouteService2.getRoute("12160 Sunset Hills Rd, Reston, VA 20190","12160 Sunset Hills");
-		Route emptyRoute= new Route();
-		assertEquals(emptyRoute, badRoute);
+		Route route = new Route(14988, 1166);
+		Route testRoute= realRouteService2.getRoute(start, end);
+		assertEquals(route,testRoute);
 	}
 	
 	//doesn't show up under the ECLEmma coverage
-	
 	@Test
 	public void goodRouteMockBean(){
 		routeService.setGeoApiContext(geoApiContext);
@@ -172,8 +153,61 @@ public class RouteServiceTest {
 			given(routeService.getRoute(start, end)).willReturn(route);
 			assertEquals(routeService.getRoute(start, end), route);
 			Assert.assertEquals(routeService.getRoute(start, end), route);
-		}	
+		}
+	
+	@Test
+	public void testNegativeParams() {
+	given(routeService.getRoute("-80302", "80302")).willReturn(null);
+	Route negRoute= routeService.getRoute("-80302", "80302");
+	assertNull(negRoute);
+}
+	
+	@Test
+	public void testNegativeParams2() {
+		String origin = "-2925 Rensselaer Ct. Vienna, VA 22181";
+		String destination = "80302";
+		
+		DirectionsApi.getDirections(geoApiContext, origin, destination);
+	
+		Assert.assertEquals(routeService.getRoute("-2925 Rensselaer Ct. Vienna, VA 22181", "80302"), null);
+}
+	
+	@Test
+	public void testNegativeParams3() {
+		String origin = "-80302";
+		String destination = "80302";
+		
+		DirectionsApi.getDirections(geoApiContext, origin, destination);
+	
+		Assert.assertEquals(routeService.getRoute("-80302", "80302"), null);
+}
+	
+	@Test
+	public void noEndParameters(){
+		Route badRoute = routeService.getRoute("11730 Plaza America Dr. Reston, VA","");
+		assertNull(badRoute);
+	}
+	
+	@Test
+	public void incompleteStartParameter() {
+		Route badRoute = routeService.getRoute("11730 Plaza America Dr.","12160 Sunset Hills Rd, Reston, VA 20190");
+		assertNull(badRoute);
+	}
+	
+	@Test 
+	public void incompleteEndParameter() {
+		Route badRoute = routeService.getRoute("12160 Sunset Hills Rd, Reston, VA 20190","12160 Sunset Hills");
+		assertNull(badRoute);
+	}
+	
+	@Test
+	public void negativeStartAddressMockbean() throws Exception {
+		Route badRoute = routeService.getRoute("-12160 Sunset Hills Rd, Reston, VA 20190","12160 Sunset Hills Rd, Reston, VA 20190");
+		assertNull(badRoute);
+	}
+	
 
+	
 	@AfterClass
 	public static void resourceCloser() {
 		//shutdown the GeoApiContext

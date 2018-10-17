@@ -85,16 +85,15 @@ public class RouteService {
 			String[] splitOrigin= origin.split(" ");
 			if(StringUtils.isNumeric(splitOrigin[0]) ) {
 				if(Integer.parseInt(splitOrigin[0])<0) {
-					String warning = String.format("User attempted to input address with negative numbers; address: %s", origin);
-					log.warn(warning);
-					return new Route();
+					log.warn(String.format("User attempted to input address with negative numbers; address: %s", origin));
+					return null;
 				}
 			}
 			String[] splitDestination=destination.split(" ");
 			if(StringUtils.isNumeric(splitDestination[0])) {
 				if(Integer.parseInt(splitDestination[0])<0) {
 					log.info("Can't input a negative origin");
-					return new Route();
+					return null;
 				}
 			}
 			long distance = 0;
@@ -109,7 +108,7 @@ public class RouteService {
 		} catch (ApiException | InterruptedException | IOException e) {
 			log.error("Unexpected exception when fetching route.", e);
 			Thread.currentThread().interrupt();
-			return new Route();
+			return null;
 		}
 	}
 }

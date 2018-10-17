@@ -66,12 +66,9 @@ public class FavoriteLocationService {
 			FavoriteLocation locationByName= favoriteLocationRepo.findByNameAndUserId(name, userId);
 			log.info(String.format("Location with this name and user: %s", locationByName));
 			if (location2 == null && locationByName==null) {
-				String message = String.format("New Favorite location with the following information saved: %s", location);
-				log.info(message);
 				return favoriteLocationRepo.save(location);
 			}
 			else {
-				log.info("Favorite location could not be saved");
 				return new FavoriteLocation();
 			}
 		} catch (ApiException | InterruptedException | IOException e) {
@@ -88,8 +85,6 @@ public class FavoriteLocationService {
 			fav = new FavoriteLocation();
 			return fav;
 		}
-		String message= String.format("Saved Favorite Location with the following information %s", fav);
-		log.info(message);
 		favoriteLocationRepo.delete(fav);
 		return fav;
 		//returns the location if successful, empty location if not presents
@@ -101,7 +96,6 @@ public class FavoriteLocationService {
 	 * @return List<FavoriteLocation>
 	 */
 	public List<FavoriteLocation> findFavoriteLocationByUserId(int userId) {
-		log.info("findFavoriteLocationByUserId() called");
 		return favoriteLocationRepo.findByUserId(userId);
 	}
 	

@@ -31,7 +31,6 @@ public class Validate {
 		
 		}while(check);
 		address.toLowerCase();
-		//return address should be assigned to something
 		log.info("returning normalized address");
 		return address;
 		
