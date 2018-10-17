@@ -43,7 +43,7 @@ public class FavoriteLocation {
 	private double longitude;
 	
 	/**
-	 * the type of favorite location (ie: home, work, etc)
+	 * the type of favorite location (e.g.: "Home", "Work", etc)
 	 */
 	@Column (name="FAVORITED_LOCATION_NAME")
 	private String name;
@@ -94,6 +94,43 @@ public class FavoriteLocation {
 		this.longitude = longitude;
 		this.name = name;
 		this.userId = userId;
+	}
+	
+	
+	/**
+	 * class constructor
+	 * @param locationId
+	 * @param address
+	 * @param latitude
+	 * @param longitude
+	 * @param name
+	 * @param userId
+	 */
+	public FavoriteLocation(int locationId, @Size(max = 85) String address, double latitude, double longitude,
+			String name, @Min(1) int userId) {
+		super();
+		this.locationId = locationId;
+		this.address = address;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.name = name;
+		this.userId = userId;
+	}
+
+	/**
+	 * get location id
+	 * @return locationId
+	 */
+	public int getLocationId() {
+		return locationId;
+	}
+
+	/**
+	 * set this location id to 'locationId'
+	 * @param locationId
+	 */
+	public void setLocationId(int locationId) {
+		this.locationId = locationId;
 	}
 
 	/**
@@ -192,6 +229,7 @@ public class FavoriteLocation {
 		long temp;
 		temp = Double.doubleToLongBits(latitude);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + locationId;
 		temp = Double.doubleToLongBits(longitude);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -211,27 +249,28 @@ public class FavoriteLocation {
 		if (address == null) {
 			if (other.address != null)
 				return false;
-		} else if (!address.equals(other.address)) {
+		} else if (!address.equals(other.address))
 			return false;
-		}
-		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude)){
+		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
 			return false;
-		}
+		if (locationId != other.locationId)
+			return false;
 		if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name)){
-				return false;
-			}
-		return userId == other.userId;
+		} else if (!name.equals(other.name))
+			return false;
+		if (userId != other.userId)
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "FavoriteLocation [address=" + address + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", name=" + name + ", userId=" + userId + "]";
+		return "FavoriteLocation [locationId=" + locationId + ", address=" + address + ", latitude=" + latitude
+				+ ", longitude=" + longitude + ", name=" + name + ", userId=" + userId + "]";
 	}
 
 }

@@ -88,4 +88,5 @@ public class FavoriteLocationController {
 		return new ResponseEntity<>(favorite,HttpStatus.OK);
 		
     }
+	
 }
