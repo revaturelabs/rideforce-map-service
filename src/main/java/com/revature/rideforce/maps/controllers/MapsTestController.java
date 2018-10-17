@@ -1,7 +1,6 @@
 package com.revature.rideforce.maps.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,7 +16,7 @@ public class MapsTestController {
 	 * @return String indicating that controller test works
 	 * @RequestMapping(value="/test", method=RequestMethod.GET)
 	 */
-	@RequestMapping(value="/test", method=RequestMethod.GET)
+	@GetMapping("/test")
 	public String test() {
 		return "maps controller works!";
 	}

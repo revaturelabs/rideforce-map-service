@@ -42,14 +42,18 @@ public class FavoriteLocationController {
 	 */
 	@Autowired
 	private FavoriteLocationService fls;
+	
+	
+	
 
 	/** 
 	 * This method finds favorite locations by user id then limits that list to 5 locations
 	 * @param userId
 	 * @return List<FavoriteLocation> (the list of favorite locations)
 	 */
-	@GetMapping(value="/users/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getLocationsByUserId(@PathVariable("id") int userId){
+//	@GetMapping("/users/{id}")
+	@RequestMapping(value="/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<?> getLocationsByUserId(@PathVariable("id") int userId){
         //get should only retreive information and the post request should save the actual information
 		log.info("finding locations by user");
     	List<FavoriteLocation> userLocationsList= fls.findFavoriteLocationByUserId(userId);
@@ -62,7 +66,8 @@ public class FavoriteLocationController {
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> saveNewFavoriteLocation(@RequestParam("address") String address,@RequestParam("name")  String name, @RequestParam("userId")  int userId){
 		 if(fls.findFavoriteLocationByUserId(userId).size() > 5) {
-	            log.warn("User tried to favorite more than 5 locations");
+			 String warning= String.format("User with id: %d tried to save more than 5 locations", userId);
+	            log.warn(warning);
 	            return new ResponseError("Cannot save that many locations").toResponseEntity(HttpStatus.BAD_REQUEST);
 	        }
 		FavoriteLocation result =fls.saveFavoriteLocation(address, userId, name);
@@ -83,4 +88,5 @@ public class FavoriteLocationController {
 		return new ResponseEntity<>(favorite,HttpStatus.OK);
 		
     }
+	
 }
