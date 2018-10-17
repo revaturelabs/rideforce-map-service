@@ -310,8 +310,8 @@ public class BeanTest{
     public void favoriteLocationToStringTest()
     {
     		
-    	FavoriteLocation location = new FavoriteLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35, "home", 1);
-        String expected = "FavoriteLocation [address=" + "2925 Rensselaer Ct. Vienna, VA 22181" + ", latitude=" + 38.95 + ", longitude=" + -77.35
+    	FavoriteLocation location = new FavoriteLocation(1, "2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35, "home", 1);
+        String expected = "FavoriteLocation [locationId=" + 1 + ", address=" + "2925 Rensselaer Ct. Vienna, VA 22181" + ", latitude=" + 38.95 + ", longitude=" + -77.35
 				+ ", name=" + "home" + ", userId=" + 1 + "]";
         Assert.assertEquals(expected, location.toString());
     }

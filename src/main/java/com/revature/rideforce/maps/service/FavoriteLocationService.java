@@ -17,7 +17,6 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.FavoriteLocation;
-import com.revature.rideforce.maps.repository.FavoriteLocationCRUDRepository;
 import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
 
 /**
@@ -46,8 +45,6 @@ public class FavoriteLocationService {
 	@Autowired
 	private FavoriteLocationRepository favoriteLocationRepo;
 
-	@Autowired
-	private FavoriteLocationCRUDRepository favoriteLocationCRUDRepo;
 	/**
 	 * get a favorite location
 	 * @param address

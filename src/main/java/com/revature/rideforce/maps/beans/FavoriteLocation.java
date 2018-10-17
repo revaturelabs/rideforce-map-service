@@ -95,6 +95,27 @@ public class FavoriteLocation {
 		this.name = name;
 		this.userId = userId;
 	}
+	
+	
+	/**
+	 * class constructor
+	 * @param locationId
+	 * @param address
+	 * @param latitude
+	 * @param longitude
+	 * @param name
+	 * @param userId
+	 */
+	public FavoriteLocation(int locationId, @Size(max = 85) String address, double latitude, double longitude,
+			String name, @Min(1) int userId) {
+		super();
+		this.locationId = locationId;
+		this.address = address;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.name = name;
+		this.userId = userId;
+	}
 
 	/**
 	 * get location id

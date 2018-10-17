@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,12 +54,7 @@ public class FavoriteLocationRepositoryTest {
 	public void validate() {
 		assertNotNull(entityManager);
 		
-		// List<FavoriteLocation> locs = favoriteLocationRepository.findAll();
-		// System.out.println("The list of locations now: " + locs);
-		
-		removeAllEntitiesFromDb();
-		// System.out.println("The list of locations now: " + locs);
-		
+		removeAllEntitiesFromDb();		
 	}	
 	
 	/**
@@ -69,7 +65,77 @@ public class FavoriteLocationRepositoryTest {
 		persistFavoriteLocations();
 		
 		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
-		assertFalse(locations.size() == 0);
+		Assertions.assertThat(locations).isNotEmpty();
+	}
+	
+	/**
+	 * I should be able to find the the proper list size of favorited locations by userId
+	 */
+	@Test
+	public void findByUserId_TestHasTwo() {
+		persistFavoriteLocations2();
+		
+		List<FavoriteLocation> locationsByUserId = favoriteLocationRepository.findByUserId(2);
+		Assertions.assertThat(locationsByUserId).hasSize(2);
+	}
+	
+	/**
+	 * I should be able to find the the favorited locations by userId
+	 */
+	@Test
+	public void findByUserId_OnlyListWithParticularId() {
+		FavoriteLocation cloc1 = new FavoriteLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533, "Home", 2);
+		FavoriteLocation cloc2 = new FavoriteLocation("2100 Astoria Cir, Herndon, VA 20170",38.96787,-77.414742, "Work", 2);
+		FavoriteLocation cloc3 = new FavoriteLocation("503 Pride Ave, Herndon, VA 20170",38.966271,-77.388985, "Special", 3);
+		
+		entityManager.persist(cloc1);
+		entityManager.persist(cloc2);
+		entityManager.persist(cloc3);
+		
+		List<FavoriteLocation> locationsByUserId = favoriteLocationRepository.findByUserId(2);
+		Assertions.assertThat(locationsByUserId).contains(cloc1);
+		Assertions.assertThat(locationsByUserId).contains(cloc2);
+	}
+	
+	/**
+	 * I should only be able to find the the favorited locations by userId and not other ids
+	 */
+	@Test
+	public void findByUserId_LocationByOtherIdNotIncluded() {
+		FavoriteLocation cloc1 = new FavoriteLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533, "Home", 2);
+		FavoriteLocation cloc2 = new FavoriteLocation("2100 Astoria Cir, Herndon, VA 20170",38.96787,-77.414742, "Work", 2);
+		FavoriteLocation cloc3 = new FavoriteLocation("503 Pride Ave, Herndon, VA 20170",38.966271,-77.388985, "Special", 3);
+		
+		entityManager.persist(cloc1);
+		entityManager.persist(cloc2);
+		entityManager.persist(cloc3);
+		
+		List<FavoriteLocation> locationsByUserId = favoriteLocationRepository.findByUserId(2);
+		Assertions.assertThat(locationsByUserId).doesNotContain(cloc3);
+	}
+	
+	/**
+	 * I should be able to find a favorited location by location name and user id
+	 */
+	@Test
+	public void findByNameAndUserId_Test() {
+		FavoriteLocation cloc1 = new FavoriteLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533, "Home", 2);
+		entityManager.persist(cloc1);
+		
+		FavoriteLocation locationByName= favoriteLocationRepository.findByNameAndUserId("Home", 2);
+		Assertions.assertThat(locationByName).isEqualTo(cloc1);
+	}
+	
+	/**
+	 * I should be able to find a favorited location by lat/lng pair and userId
+	 */
+	@Test
+	public void findByLatitudeAndLongitudeAndUserId_Test() {
+		FavoriteLocation cloc3 = new FavoriteLocation("503 Pride Ave, Herndon, VA 20170",38.966271,-77.388985, "MyLoc", 3);
+		entityManager.persist(cloc3);
+		
+		FavoriteLocation locationByLatLng= favoriteLocationRepository.findByLatitudeAndLongitudeAndUserId(38.966271,-77.388985, 3);
+		Assertions.assertThat(locationByLatLng).isEqualTo(cloc3);
 	}
 	
 	/**
@@ -80,7 +146,7 @@ public class FavoriteLocationRepositoryTest {
 		persistFavoriteLocations();
 		
 		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
-		assertTrue(locations.size() == 3);
+		Assertions.assertThat(locations).hasSize(3);
 	}
 	
 	/**
@@ -107,7 +173,7 @@ public class FavoriteLocationRepositoryTest {
 		entityManager.remove(favoriteLocationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170"));
 		
 		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
-		assertTrue(locations.size() == 0);
+		Assertions.assertThat(locations).hasSize(0);
 	}
 	
 	/**
@@ -121,7 +187,7 @@ public class FavoriteLocationRepositoryTest {
 		entityManager.remove(favoriteLocationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170"));
 		
 		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
-		assertTrue(locations.size() == 1);
+		Assertions.assertThat(locations).hasSize(1);
 	}
 
 	/**
@@ -146,7 +212,7 @@ public class FavoriteLocationRepositoryTest {
 		persistFavoriteLocations();
 		List<FavoriteLocation> locations = favoriteLocationRepository.findAll();
 
-		assertTrue(locations.size() == 3);
+		Assertions.assertThat(locations).hasSize(3);
 	}
 	
 	/**
@@ -272,6 +338,22 @@ public class FavoriteLocationRepositoryTest {
 		FavoriteLocation cloc1 = new FavoriteLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533, null, 1);
 		FavoriteLocation cloc2 = new FavoriteLocation("2100 Astoria Cir, Herndon, VA 20170",38.96787,-77.414742, null, 1);
 		FavoriteLocation cloc3 = new FavoriteLocation("503 Pride Ave, Herndon, VA 20170",38.966271,-77.388985, null, 1);
+		
+		// Keep in mind: the call of save on a detached instance creates a new persistent instance and assigns it a new identifier, 
+		// which results in a duplicate record in a database upon committing or flushing.
+		// Whereas, a second call to session.persist() would cause an exception
+		entityManager.persist(cloc1);
+		entityManager.persist(cloc2);
+		entityManager.persist(cloc3);
+	}
+	
+	/**
+	 * private helper method to add entries to db to avoid repeating code
+	 */
+	private void persistFavoriteLocations2() {
+		FavoriteLocation cloc1 = new FavoriteLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533, "Home", 2);
+		FavoriteLocation cloc2 = new FavoriteLocation("2100 Astoria Cir, Herndon, VA 20170",38.96787,-77.414742, "Work", 2);
+		FavoriteLocation cloc3 = new FavoriteLocation("503 Pride Ave, Herndon, VA 20170",38.966271,-77.388985, "Special", 3);
 		
 		// Keep in mind: the call of save on a detached instance creates a new persistent instance and assigns it a new identifier, 
 		// which results in a duplicate record in a database upon committing or flushing.
