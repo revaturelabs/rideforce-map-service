@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.ResponseError;
 import com.revature.rideforce.maps.service.LocationService;
 import com.revature.rideforce.maps.validate.Validate;
@@ -70,7 +69,7 @@ public class LocationController {
 				return new ResponseError("Address cannot be a number that is not a Zip code.").toResponseEntity(HttpStatus.BAD_REQUEST);
 			}	
 		}
-		return new ResponseEntity<LatLng>(ls.getOne(address), HttpStatus.OK);
+		return new ResponseEntity<>(ls.getOne(address), HttpStatus.OK);
 	}
 	
 }
