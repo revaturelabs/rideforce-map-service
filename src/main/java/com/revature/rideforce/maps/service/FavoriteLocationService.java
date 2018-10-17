@@ -62,7 +62,9 @@ public class FavoriteLocationService {
 			//bean initialization
 			location = new FavoriteLocation(address, results[0].geometry.location.lat,results[0].geometry.location.lng,name, userId);
 			location2 = favoriteLocationRepo.findByLatitudeAndLongitudeAndUserId(location.getLatitude(), location.getLongitude(), userId);
+			log.info(String.format("Location with lat,long, and user: %s ", location2));		
 			FavoriteLocation locationByName= favoriteLocationRepo.findByNameAndUserId(name, userId);
+			log.info(String.format("Location with this name and user: %s", locationByName));
 			if (location2 == null && locationByName==null) {
 				return favoriteLocationRepo.save(location);
 			}
