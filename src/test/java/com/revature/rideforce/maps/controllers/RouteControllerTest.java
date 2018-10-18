@@ -18,6 +18,11 @@ import com.revature.rideforce.maps.controllers.RouteController;
 import com.revature.rideforce.maps.beans.Route;
 import com.revature.rideforce.maps.service.RouteService;
 
+/**
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.controllers.RouteController RouteController} 
+ * @author Revature Java batch
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(RouteController.class)
 public class RouteControllerTest {

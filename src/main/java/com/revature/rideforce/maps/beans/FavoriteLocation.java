@@ -13,18 +13,25 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.maps.model.LatLng;
 
+/**
+ * A bean that describes a user's favorited location 
+ * @author Revature Java batch
+ */
 @Component
 @Entity
 @Table(name = "FAVORITE_ADDRESSES")
 public class FavoriteLocation {
 	
 	/**
-	 * an address string denoted as the id (primary key)
+	 * a generated location id (primary key)
 	 */
 	@Id
 	@GeneratedValue
 	private int locationId;
 	
+	/**
+	 * an address string
+	 */
 	@Size(max = 85)
 	@JsonProperty
 	@Column(name = "ADDRESS")
@@ -71,7 +78,7 @@ public class FavoriteLocation {
 	 * @param latlng
 	 * @param userId
 	 */
-	public FavoriteLocation (@Size(max = 85) String address, LatLng latlng, @Min(1) int userId) {
+	public FavoriteLocation(@Size(max = 85) String address, LatLng latlng, @Min(1) int userId) {
 		this.address = address;
 		this.latitude = latlng.lat;
 		this.longitude = latlng.lng;

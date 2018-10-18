@@ -10,15 +10,13 @@ import com.revature.rideforce.maps.beans.FavoriteLocation;
 /**
  * Interface providing CRUD functionality for FavoriteLocation
  * @author Revature Java batch
- * @Repository
  */
 @Repository
 public interface FavoriteLocationRepository extends JpaRepository<FavoriteLocation, Integer> {
 	
 	public List<FavoriteLocation> findByUserId(int userId);
-	public FavoriteLocation findByAddress(String address); // ?
+	public FavoriteLocation findByAddress(String address);
 	public FavoriteLocation findByLatitudeAndLongitudeAndUserId(double lat, double lng, int userId);
-//	public FavoriteLocation findByName(String name);
 	public FavoriteLocation findByNameAndUserId(String name, int userId);
 //	public FavoriteLocation findFavoriteLocationByLatitudeAndLongitude(double)
 	
