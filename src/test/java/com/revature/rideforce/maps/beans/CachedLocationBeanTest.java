@@ -1,8 +1,6 @@
 package com.revature.rideforce.maps.beans;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
 
 import org.junit.Test;
 
