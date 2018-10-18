@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.maps.GeoApiContext;
-import com.google.maps.errors.ApiException;
 import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.Application;
 import com.revature.rideforce.maps.beans.CachedLocation;
@@ -26,8 +25,6 @@ import com.revature.rideforce.maps.service.LocationService;
  * @author Java batch
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
-@Transactional
 public class LocationServiceTest {
 	
 	/**
