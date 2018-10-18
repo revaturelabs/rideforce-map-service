@@ -25,8 +25,6 @@ import com.revature.rideforce.maps.service.LocationService;
  * @author Java batch
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
-@Transactional
 public class LocationServiceTest {
 	
 	/**
