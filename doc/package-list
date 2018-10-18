@@ -7,3 +7,4 @@ com.revature.rideforce.maps.repository
 com.revature.rideforce.maps.repotest
 com.revature.rideforce.maps.service
 com.revature.rideforce.maps.services
+com.revature.rideforce.maps.validate
