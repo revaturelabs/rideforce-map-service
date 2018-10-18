@@ -36,7 +36,7 @@ public class LocationService {
 	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
 	 */
 	@Autowired
-	private GeoApiContext geoApiContext;
+	public GeoApiContext geoApiContext;
 
 	/**
 	 * Injecting the LocationRepository

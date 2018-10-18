@@ -41,7 +41,7 @@ public class FavoriteLocationService {
 	 * Injecting the FavoriteLocationRepository
 	 */
 	@Autowired
-	private FavoriteLocationRepository favoriteLocationRepo;
+	public FavoriteLocationRepository favoriteLocationRepo;
 
 	/**
 	 * get a favorite location
@@ -93,6 +93,13 @@ public class FavoriteLocationService {
 	 */
 	public List<FavoriteLocation> findFavoriteLocationByUserId(int userId) {
 		return favoriteLocationRepo.findByUserId(userId);
+	}
+	
+	/**
+	 * set the geo api context
+	 */
+	public void setGeoApiContext(GeoApiContext geoApiContext) {
+		this.geoApiContext = geoApiContext;
 	}
 	
 }
