@@ -1,6 +1,5 @@
 package com.revature.rideforce.maps.beans;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +13,7 @@ import com.google.maps.model.LatLng;
 /**
  * A cached lookup for geocoding information, associating an address string with
  * geographic coordinates.
+ * @author Revature Java batch
  */
 @Component
 @Entity
@@ -102,7 +102,7 @@ public class CachedLocation {
 	 * @param address
 	 * @param latlng
 	 */
-	public CachedLocation (String address, LatLng latlng) {
+	public CachedLocation(String address, LatLng latlng) {
 		this.address = address;
 		this.latitude = latlng.lat;
 		this.longitude = latlng.lng;

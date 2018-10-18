@@ -19,9 +19,9 @@ import com.revature.rideforce.maps.beans.Route;
 /**
  * The route service
  * @author Revature Java batch
- * @Service
  */
-@Service // changed from @Component
+
+@Service
 public class RouteService {
 	
 	/**

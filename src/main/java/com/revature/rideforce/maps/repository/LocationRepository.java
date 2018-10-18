@@ -8,7 +8,6 @@ import com.revature.rideforce.maps.beans.CachedLocation;
 /**
  * Interface providing CRUD functionality for CachedLocation
  * @author Revature Java batch
- * @Repository
  */
 @Repository
 public interface LocationRepository extends JpaRepository<CachedLocation, Integer> {
