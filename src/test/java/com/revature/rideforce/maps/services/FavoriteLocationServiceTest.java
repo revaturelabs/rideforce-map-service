@@ -65,7 +65,7 @@ public class FavoriteLocationServiceTest {
 		fnew.setLatitude(38.9533932);
 		fnew.setLongitude(-77.35044780000001);
 		fnew.setLocationId(0);
-		favLocationService.geoApiContext= realGeo;
+		favLocationService.setGeoApiContext(realGeo);
 	    when(this.favLocationService.saveFavoriteLocation(address, userId, name)).thenReturn(fnew);
 
 		FavoriteLocation f = favLocationService.saveFavoriteLocation(address, userId, name);
@@ -89,7 +89,7 @@ public class FavoriteLocationServiceTest {
 		fnew.setLatitude(38.9533932);
 		fnew.setLongitude(-77.35044780000001);
 		fnew.setLocationId(0);
-		favLocationService.geoApiContext= realGeo;
+		favLocationService.setGeoApiContext(realGeo);
 		favLocationService.saveFavoriteLocation(address, userId, name);
 		List<FavoriteLocation> locations = new ArrayList<FavoriteLocation>();
 		locations.add(fnew);
@@ -120,7 +120,7 @@ public class FavoriteLocationServiceTest {
 		fnew.setLatitude(38.9533932);
 		fnew.setLongitude(-77.35044780000001);
 		fnew.setLocationId(0);
-		favLocationService.geoApiContext= realGeo;
+		favLocationService.setGeoApiContext(realGeo);
 		favLocationService.saveFavoriteLocation(address, userId, name);
 		List<FavoriteLocation> locations = new ArrayList<FavoriteLocation>();
 		locations.add(fnew);
