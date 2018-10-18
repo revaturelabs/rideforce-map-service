@@ -41,7 +41,7 @@ public class FavoriteLocationService {
 	 * Injecting the FavoriteLocationRepository
 	 */
 	@Autowired
-	public FavoriteLocationRepository favoriteLocationRepo;
+	private FavoriteLocationRepository favoriteLocationRepo;
 
 	/**
 	 * get a favorite location
@@ -87,7 +87,7 @@ public class FavoriteLocationService {
 	}
 
 	/**
-	 * fetching the favorite locations by the user's id
+	 * fetching the favorite locations by the user id
 	 * @param userId
 	 * @return List<FavoriteLocation>
 	 */

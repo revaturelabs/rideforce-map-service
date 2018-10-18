@@ -17,7 +17,6 @@ import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.repository.LocationRepository;
 
-
 /**
  * The LocationService
  * @author Revature Java batch
@@ -36,7 +35,7 @@ public class LocationService {
 	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
 	 */
 	@Autowired
-	public GeoApiContext geoApiContext;
+	private GeoApiContext geoApiContext;
 
 	/**
 	 * Injecting the LocationRepository
