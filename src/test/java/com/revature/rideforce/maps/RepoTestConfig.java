@@ -1,7 +1,5 @@
 package com.revature.rideforce.maps;
 
-import static org.mockito.Mockito.mock;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;

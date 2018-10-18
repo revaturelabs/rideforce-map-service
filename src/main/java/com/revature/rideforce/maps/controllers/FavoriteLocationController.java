@@ -54,7 +54,7 @@ public class FavoriteLocationController {
 	 */
 	@GetMapping(value= "/users/{id}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> getLocationsByUserId(@PathVariable("id") int userId){
-        //get should only retreive information and the post request should save the actual information
+        //get should only retrieve information and the post request should save the actual information
 		log.info("finding locations by user");
     	List<FavoriteLocation> userLocationsList= fls.findFavoriteLocationByUserId(userId);
         String getMessage= String.format("User retreived the following saved locations %s",userLocationsList);

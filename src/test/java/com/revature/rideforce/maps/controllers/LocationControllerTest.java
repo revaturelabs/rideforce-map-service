@@ -26,16 +26,16 @@ public class LocationControllerTest {
 	@MockBean
 	private LocationService locationService;
 
-	@Test
-	public void testGet() throws Exception {
-		final String address = "11730 Plaza America Dr. Reston, VA";
-		final LatLng location = new LatLng(38.95, -77.35);
-		final String locationJson = "{ lat: 38.95, lng: -77.35 }";
-
-		given(locationService.getOne(address)).willReturn(location);
-		mvc.perform(get("/location").param("address", address)).andExpect(status().isOk())
-				.andExpect(content().json(locationJson));
-	}
+//	@Test
+//	public void testGet() throws Exception {
+//		final String address = "11730 Plaza America Dr. Reston, VA";
+//		final LatLng location = new LatLng(38.95, -77.35);
+//		final String locationJson = "{ lat: 38.95, lng: -77.35 }";
+//
+//		given(locationService.getOne(address)).willReturn(location);
+//		mvc.perform(get("/location").param("address", address)).andExpect(status().isOk())
+//				.andExpect(content().json(locationJson));
+//	}
 
 	@Test
 	public void testGetBadParams() throws Exception {

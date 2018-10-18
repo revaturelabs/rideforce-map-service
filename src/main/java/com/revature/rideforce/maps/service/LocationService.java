@@ -17,7 +17,6 @@ import com.google.maps.model.LatLng;
 import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.repository.LocationRepository;
 
-
 /**
  * The LocationService
  * @author Revature Java batch
@@ -44,22 +43,21 @@ public class LocationService {
 	@Autowired
 	private LocationRepository locationRepo;
 
+	public LocationService() {
+		super();
+	}
+	
 	public LocationService(GeoApiContext geoApiContext) {
 		super();
 		this.geoApiContext = geoApiContext;
-		log.info("RouteService instantiated");
-	}
-
-	public LocationService() {
-		super();
+		log.info("LocationService instantiated");
 	}
 
 	/**
 	 * get a location
 	 * @param address
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
-	 */
-	
+	 */	
 	public LatLng getOne(String address) {
 		CachedLocation location = locationRepo.findByAddress(address);
 		if (location == null) {
@@ -77,8 +75,19 @@ public class LocationService {
 		return location.getLocation();
 	}
 
+	/**
+	 * get the geo api context
+	 * @return geoApiContext
+	 */
 	public Object getGeoApiContext() {
 		return geoApiContext;
+	}
+	
+	/**
+	 * set this geo api context to 'geoApiContext'
+	 */
+	public void setGeoApiContext(GeoApiContext geoApiContext) {
+		this.geoApiContext = geoApiContext;
 	}
 	
 }
