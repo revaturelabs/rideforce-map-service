@@ -161,6 +161,35 @@ public class FavoriteLocationRepositoryTest {
 	}
 	
 	/**
+	 * User should not have more than 6 entries should in db
+	 */
+	@Test
+	public void databaseShouldNotHaveMoreThanSixAddressesPerUserId() {
+		removeAllEntitiesFromDb();
+		
+		FavoriteLocation cloc1 = new FavoriteLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533, "Home", 4);
+		FavoriteLocation cloc2 = new FavoriteLocation("2100 Astoria Cir, Herndon, VA 20170",38.96787,-77.414742, "Work", 4);
+		FavoriteLocation cloc3 = new FavoriteLocation("11639 Stoneview Square, Reston, VA 20191",38.9304704,-77.3443872, "Special", 4);
+		FavoriteLocation cloc4 = new FavoriteLocation("2303-C, Soapstone Dr, Reston, VA 20191",38.9304073,-77.3459604, "Hotspot", 4);
+		FavoriteLocation cloc5 = new FavoriteLocation("2303 Soapstone Dr Ste A, Reston, VA 20191",38.9307905,-77.3460255, "Pizza", 4);
+		FavoriteLocation cloc6 = new FavoriteLocation("11550 Glade Dr, Reston, VA 20191",38.9263595,-77.3477479, "Lovely", 4);
+		FavoriteLocation cloc7 = new FavoriteLocation("2365 Old Trail Dr, Reston, VA 20191",38.9272016,-77.3457787, "Hateit", 4);
+		
+		entityManager.persist(cloc1);
+		entityManager.persist(cloc2);
+		entityManager.persist(cloc3);
+		entityManager.persist(cloc4);
+		entityManager.persist(cloc5);
+		entityManager.persist(cloc6);
+		
+		
+		
+		List<FavoriteLocation> locations = favoriteLocationRepository.findByUserId(4);
+		Assertions.assertThat(locations).hasSize(6);
+		
+	}
+	
+	/**
 	 * After removing all entries, database should be empty
 	 */
 	@Test

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +55,7 @@ public class LocationRepositoryTest {
 	public void validate() {
 		assertNotNull(entityManager);
 		
-		List<CachedLocation> locs = locationRepository.findAll();
+		// List<CachedLocation> locs = locationRepository.findAll();
 		
 		// System.out.println("The list of locations now: " + locs);
 		
@@ -83,7 +84,7 @@ public class LocationRepositoryTest {
 		persistCachedLocations();
 		
 		List<CachedLocation> locations = locationRepository.findAll();
-		assertTrue(locations.size() == 3);
+		Assertions.assertThat(locations).hasSize(3);
 	}
 	
 	/**
@@ -110,10 +111,8 @@ public class LocationRepositoryTest {
 		entityManager.remove(locationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170"));
 		
 		List<CachedLocation> locations = locationRepository.findAll();
-//		System.out.println();
-//		System.out.println("The current location Repository:  " + locations.toString());
-//		System.out.println();
-		assertTrue(locations.size() == 0);
+
+		Assertions.assertThat(locations).hasSize(0);
 	}
 	
 	/**
@@ -127,7 +126,7 @@ public class LocationRepositoryTest {
 		entityManager.remove(locationRepository.findByAddress("503 Pride Ave, Herndon, VA 20170"));
 		
 		List<CachedLocation> locations = locationRepository.findAll();
-		assertTrue(locations.size() == 1);
+		Assertions.assertThat(locations).hasSize(1);
 	}
 
 	/**
@@ -152,7 +151,7 @@ public class LocationRepositoryTest {
 		persistCachedLocations();
 		List<CachedLocation> locations = locationRepository.findAll();
 
-		assertTrue(locations.size() == 3);
+		Assertions.assertThat(locations).hasSize(3);
 	}
 	
 	/**
@@ -167,15 +166,6 @@ public class LocationRepositoryTest {
 		
 		assertThat(fetchFromDb).isNotEqualTo(savedInDb);
 	}
-	
-//	@Test
-//	public void canFindByThing2() {
-//		//List<CachedLocation> locations = locationRepository.findAll();
-//		//System.out.println("locations: " + locations);
-//        //Assertions.assertThat(locationRepository).isNotNull();
-//		CachedLocation cLoc = locationRepository.save(new CachedLocation("11730 Plaza America Dr #205, Reston, VA 20190",38.953414,-77.350533 ));
-//		Assertions.assertThat(locationRepository.findAll()).isNotNull();
-//	}
 	
 	/**
 	 * Should return null when there is invalid id (address)
