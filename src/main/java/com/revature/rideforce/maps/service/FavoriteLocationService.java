@@ -35,7 +35,7 @@ public class FavoriteLocationService {
 	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
 	 */
 	@Autowired
-	public GeoApiContext geoApiContext;
+	private GeoApiContext geoApiContext;
 
 	/**
 	 * Injecting the FavoriteLocationRepository
@@ -93,6 +93,13 @@ public class FavoriteLocationService {
 	 */
 	public List<FavoriteLocation> findFavoriteLocationByUserId(int userId) {
 		return favoriteLocationRepo.findByUserId(userId);
+	}
+	
+	/**
+	 * set the geo api context
+	 */
+	public void setGeoApiContext(GeoApiContext geoApiContext) {
+		this.geoApiContext = geoApiContext;
 	}
 	
 }
