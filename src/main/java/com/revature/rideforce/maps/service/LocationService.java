@@ -114,12 +114,26 @@ public class LocationService {
 					{
 						location.setCity(splitLocation[1]);
 						location.setStateCode(splitLocation[2]);
-						location.setZip(splitLocation[3]);
+						if(splitLocation[3].length() == 5)
+						{
+							location.setZip(splitLocation[3]);
+						}
+						else
+						{
+							log.error("Failed to update1");
+						}
 					}
 					else
 					{
 						location.setCity(splitLocation[1]);	
-						location.setZip(splitLocation[3]);
+						if(splitLocation[3].length() == 5)
+						{
+							location.setZip(splitLocation[3]);
+						}
+						else
+						{
+							log.error("Failed to update2");
+						}
 					}
 				}
 				else
@@ -161,12 +175,26 @@ public class LocationService {
 				{
 					location.setCity(splitLocation[1]);
 					location.setStateCode(splitLocation[2]);
-					location.setZip(splitLocation[3]);
+					if(splitLocation[3].length() == 5)
+					{
+						location.setZip(splitLocation[3]);
+					}
+					else
+					{
+						log.error("Failed to update3");
+					}
 				}
 				else
 				{
 					location.setCity(splitLocation[1]);	
-					location.setZip(splitLocation[3]);
+					if(splitLocation[3].length() == 5)
+					{
+						location.setZip(splitLocation[3]);
+					}
+					else
+					{
+						log.error("Failed to update4");
+					}
 				}
 			}
 			else
