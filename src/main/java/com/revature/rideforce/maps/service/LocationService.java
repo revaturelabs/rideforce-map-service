@@ -23,8 +23,6 @@ import com.revature.rideforce.maps.repository.LocationRepository;
 /**
  * The LocationService
  * @author Revature Java batch
- * @Service
- * @Transactional
  */
 @Service
 @Transactional
@@ -46,10 +44,18 @@ public class LocationService {
 	@Autowired
 	private LocationRepository locationRepo;
 
+	/**
+	 * class constructor (no args)
+	 */
 	public LocationService() {
 		super();
 	}
 	
+ 	/**
+ 	 * class constructor
+ 	 * set this geoApiContext to 'geoApiContext'
+ 	 * @param geoApiContext
+ 	 */
 	public LocationService(GeoApiContext geoApiContext) {
 		super();
 		this.geoApiContext = geoApiContext;

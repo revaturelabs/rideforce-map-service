@@ -12,6 +12,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
+/**
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.controllers.ErrorController ErrorController} 
+ * @author Revature Java batch
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(ErrorController.class)
 public class ErrorControllerTest {

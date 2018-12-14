@@ -27,8 +27,6 @@ import com.revature.rideforce.maps.validate.Validate;
 /**
  * The controller for obtaining the location
  * @author Revature Java batch
- * @RestController
- * @RequestMapping(value = "/location")
  */
 @RestController
 @CrossOrigin
@@ -48,18 +46,16 @@ public class LocationController {
 	
 	/**
 	 * Injecting the LocationService spring bean
-	 * @Autowired
 	 */
 	@Autowired
 	private LocationService ls;
 
 	/**
 	 * GET request method
-	 * @param address
-	 * @return ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
-	 * to allow it to be returned from a controller method or a ResponseEntity<LatLng> with given address 
-	 * and HTTP status code, and no headers)
-	 * @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	 * @param	address
+	 * @return	ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
+	 * 			to allow it to be returned from a controller method or a ResponseEntity<> with 
+	 * 			a location and HTTP status code, and no headers)
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> get(@RequestParam String address) {

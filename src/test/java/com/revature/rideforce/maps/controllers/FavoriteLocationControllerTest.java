@@ -3,7 +3,6 @@ package com.revature.rideforce.maps.controllers;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -18,9 +17,9 @@ import com.revature.rideforce.maps.beans.FavoriteLocation;
 import com.revature.rideforce.maps.service.FavoriteLocationService;
 
 /**
- * 
- * @author Jorge
- *
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.controllers.FavoriteLocationController FavoriteLocationController} 
+ * @author Revature Java batch
  */
 @RunWith(SpringRunner.class)
 @WebMvcTest(FavoriteLocationController.class)

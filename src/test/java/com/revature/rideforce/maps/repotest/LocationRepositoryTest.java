@@ -24,8 +24,8 @@ import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.repository.LocationRepository;
 
 /**
- * Class that tests the repository
- * These tests were created with the intention of being able to be run independently
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.repository.LocationRepository LocationRepository} 
  * @author Revature Java batch
  */
 @SpringBootTest(classes = Application.class)
@@ -55,13 +55,7 @@ public class LocationRepositoryTest {
 	public void validate() {
 		assertNotNull(entityManager);
 		
-		// List<CachedLocation> locs = locationRepository.findAll();
-		
-		// System.out.println("The list of locations now: " + locs);
-		
 		removeAllEntitiesFromDb();
-		
-		// System.out.println("The list of locations now: " + locs);
 		
 	}	
 	

@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 /**
  * The distance and duration of the route
  * @author Revature Java batch
- * @Component
  */
 @Component
 public class Route {
-	@Max(15000)
   
 	/**
 	 * the distance between starting address and ending address
 	 * according to {@code RouteService} in meters
 	 */
+	@Max(15000)
 	@Positive
 	long distance;
+	
 	/**
 	 * the duration of the drive between starting address and ending address
 	 * according to {@code RouteService} in seconds

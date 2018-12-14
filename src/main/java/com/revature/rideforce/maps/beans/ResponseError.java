@@ -28,14 +28,12 @@ public class ResponseError {
 	
 	/**
 	 * The primary message describing the error.
-	 * @NotEmpty
 	 */
 	@NotEmpty
 	private String message;
 	
 	/**
 	 * Any additional details that may be relevant to the error (can be empty).
-	 * @NotNull
 	 */
 	@NotNull
 	private String[] details = {};
