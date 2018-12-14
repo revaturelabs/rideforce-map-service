@@ -18,8 +18,9 @@ import com.revature.rideforce.maps.repository.LocationRepository;
 import com.revature.rideforce.maps.service.LocationService;
 
 /**
- * Unit tests for LocationService
- * @author Java batch
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.service.LocationService LocationService} 
+ * @author Revature Java batch
  */
 @RunWith(SpringRunner.class)
 public class LocationServiceTest {

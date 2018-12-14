@@ -20,8 +20,6 @@ import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
 /**
  * The FavoriteLocationService
  * @author Revature Java batch
- * @Service
- * @Transactional
  */
 @Service
 @Transactional
@@ -47,6 +45,7 @@ public class FavoriteLocationService {
 	 * get a favorite location
 	 * @param address
 	 * @param userId
+	 * @param name the location name (eg: "Home", "Work", etc)
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */
 	public FavoriteLocation saveFavoriteLocation(String address, int userId, String name) {
@@ -73,8 +72,14 @@ public class FavoriteLocationService {
 			Thread.currentThread().interrupt();
 			return new FavoriteLocation();
 		}
-}
-			
+	}
+
+	/**
+	 * delete a favorited location under both a certain userId and certain location name
+	 * @param name the location name (eg: "Home", "Work", etc)
+	 * @param userId
+	 * @return fav the favorite location to delete
+	 */
 	public FavoriteLocation deleteFavoriteLocationByNameAndUserId(String name, int userId) {
 		FavoriteLocation fav = favoriteLocationRepo.findByNameAndUserId(name, userId);
 		if(fav == null) {
@@ -83,23 +88,31 @@ public class FavoriteLocationService {
 		}
 		favoriteLocationRepo.delete(fav);
 		return fav;
-		//returns the location if successful, empty location if not presents
+		//returns the location if successful, empty location if not present
 	}
 
 	/**
 	 * fetching the favorite locations by the user id
 	 * @param userId
-	 * @return List<FavoriteLocation>
+	 * @return List<FavoriteLocation> a list of favorited locations under a certain userId
 	 */
 	public List<FavoriteLocation> findFavoriteLocationByUserId(int userId) {
 		return favoriteLocationRepo.findByUserId(userId);
 	}
 	
 	/**
+	 * get the geo api context
+	 * @return geoApiContext
+	 */
+	public Object getGeoApiContext() {
+		return geoApiContext;
+	}
+
+	/**
 	 * set the geo api context
 	 */
 	public void setGeoApiContext(GeoApiContext geoApiContext) {
 		this.geoApiContext = geoApiContext;
 	}
-	
+
 }

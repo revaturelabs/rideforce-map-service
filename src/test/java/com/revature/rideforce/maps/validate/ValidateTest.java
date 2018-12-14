@@ -8,7 +8,16 @@ import org.slf4j.LoggerFactory;
 
 import com.revature.rideforce.maps.controllers.LocationController;
 
+/**
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.validate.Validate Validate} 
+ * @author Revature Java batch
+ */
 public class ValidateTest {
+	
+	/**
+	 * logger
+	 */
 	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
 
 	@Test
