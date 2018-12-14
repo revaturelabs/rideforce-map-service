@@ -1,6 +1,7 @@
 DROP TABLE ADDRESS;
 
 CREATE TABLE address (
+
     address     VARCHAR2(100) NOT NULL,
     latitude    NUMBER(12,8),
     longitude   NUMBER(12,8)

@@ -81,9 +81,9 @@ public class LocationServiceTest {
 		cloc.setLatitude(38.9533932);
 		cloc.setLongitude(-77.35044780000001);
 		locationService.setGeoApiContext(realGeo);
-	    Mockito.when(this.locationService.getOne(address)).thenReturn(clocLatLng);
+	    Mockito.when(this.locationService.getOne(address, cloc.getLocation()));
 
-		LatLng l = locationService.getOne(address);
+		CachedLocation l = locationService.getOne(address, cloc.getLocation());
 		
 		CachedLocation location = new CachedLocation(address, 38.9533932, -77.35044780000001);
 		Assertions.assertThat(l).isEqualTo(location.getLocation());
