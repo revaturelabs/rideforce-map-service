@@ -21,6 +21,15 @@ import com.google.maps.model.LatLng;
 
 import org.junit.Assert;
 
+/**
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.beans beans}:
+ * {@link com.revature.rideforce.maps.beans.CachedLocation CachedLocation}, 
+ * {@link com.revature.rideforce.maps.beans.FavoriteLocation FavoriteLocation},
+ * {@link com.revature.rideforce.maps.beans.ResponseError ResponseError}, 
+ * {@link com.revature.rideforce.maps.beans.Route Route}
+ * @author Revature Java batch
+ */
 public class BeanTest{
 	
 	private static ValidatorFactory validatorFactory;
@@ -217,8 +226,6 @@ public class BeanTest{
         location.setLongitude(-77.35);
         assertTrue(location.getLongitude()==-77.35);
     }
-    
-
     
     //ResponseError
     

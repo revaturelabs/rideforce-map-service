@@ -6,6 +6,12 @@ import org.junit.Test;
 
 import com.google.maps.model.LatLng;
 
+/**
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.beans.CachedLocation CachedLocation}
+ * @see {@link com.revature.rideforce.maps.beans.BeanTest BeanTest} for more tests
+ * @author Revature Java batch
+ */
 public class CachedLocationBeanTest {
 	@Test
 	public void newLocation() {
