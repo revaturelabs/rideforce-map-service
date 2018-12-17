@@ -124,10 +124,6 @@ public class LocationService {
 						{
 							location.setZip(splitLocation[3]);
 						}
-						else
-						{
-							log.error("Failed to update1");
-						}
 					}
 					else
 					{
@@ -135,10 +131,6 @@ public class LocationService {
 						if(splitLocation[3].length() == 5)
 						{
 							location.setZip(splitLocation[3]);
-						}
-						else
-						{
-							log.error("Failed to update2");
 						}
 					}
 				}
@@ -159,7 +151,11 @@ public class LocationService {
 		}
 		else
 		{
-			if(splitLocation.length == 2)
+			if(splitLocation.length == 1)
+			{
+				location.setAddress(splitLocation[0]);
+			}
+			else if(splitLocation.length == 2)
 			{
 				location.setCity(splitLocation[1]);
 			}
@@ -185,10 +181,6 @@ public class LocationService {
 					{
 						location.setZip(splitLocation[3]);
 					}
-					else
-					{
-						log.error("Failed to update3");
-					}
 				}
 				else
 				{
@@ -196,10 +188,6 @@ public class LocationService {
 					if(splitLocation[3].length() == 5)
 					{
 						location.setZip(splitLocation[3]);
-					}
-					else
-					{
-						log.error("Failed to update4");
 					}
 				}
 			}
