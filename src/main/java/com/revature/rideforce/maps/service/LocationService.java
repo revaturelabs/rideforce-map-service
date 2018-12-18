@@ -120,7 +120,7 @@ public class LocationService {
 					{
 						location.setCity(splitLocation[1]);
 						location.setStateCode(splitLocation[2]);
-						if(splitLocation[3].length() == 5)
+						if(splitLocation[3].length() == 5 && splitLocation[3].matches("[0-9]+"))
 						{
 							location.setZip(splitLocation[3]);
 						}
@@ -128,7 +128,7 @@ public class LocationService {
 					else
 					{
 						location.setCity(splitLocation[1]);	
-						if(splitLocation[3].length() == 5)
+						if(splitLocation[3].length() == 5 && splitLocation[3].matches("[0-9]+"))
 						{
 							location.setZip(splitLocation[3]);
 						}
@@ -177,7 +177,7 @@ public class LocationService {
 				{
 					location.setCity(splitLocation[1]);
 					location.setStateCode(splitLocation[2]);
-					if(splitLocation[3].length() == 5)
+					if(splitLocation[3].length() == 5&& splitLocation[3].matches("[0-9]+"))
 					{
 						location.setZip(splitLocation[3]);
 					}
@@ -185,7 +185,7 @@ public class LocationService {
 				else
 				{
 					location.setCity(splitLocation[1]);	
-					if(splitLocation[3].length() == 5)
+					if(splitLocation[3].length() == 5&& splitLocation[3].matches("[0-9]+"))
 					{
 						location.setZip(splitLocation[3]);
 					}

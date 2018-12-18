@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Revature Java batch
  */
 @RestController
-@CrossOrigin
 public class MapsTestController {
 
 	/**
