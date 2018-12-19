@@ -19,12 +19,13 @@ import com.revature.rideforce.maps.beans.FavoriteLocation;
 import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
 import com.revature.rideforce.maps.service.FavoriteLocationService;
 
-
-
-//@SpringBootTest(classes = Application.class)
+/**
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.service.FavoriteLocationService FavoriteLocationService} 
+ * @author Revature Java batch
+ */
 @RunWith(SpringRunner.class)
 public class FavoriteLocationServiceTest {
-
 
 	@TestConfiguration
     static class FavoriteLocationServiceImplTestContextConfiguration {
@@ -34,8 +35,6 @@ public class FavoriteLocationServiceTest {
             return new FavoriteLocationService();
         }
     }
-	
-	
 	
 	@Autowired
     private FavoriteLocationService favLocationService;

@@ -24,11 +24,8 @@ import com.revature.rideforce.maps.service.FavoriteLocationService;
 /**
  * The controller for obtaining the favorited locations
  * @author Revature Java batch
- * @RestController
- * @RequestMapping(value = "/favoritelocations")
  */
 @RestController
-@CrossOrigin
 @RequestMapping(value = "/favoritelocations")
 public class FavoriteLocationController {
 	
@@ -39,18 +36,16 @@ public class FavoriteLocationController {
 	
 	/**
 	 * Injecting the FavoriteLocationService spring bean
-	 * @Autowired
 	 */
 	@Autowired
 	private FavoriteLocationService fls;
 	
-	
-	
-
 	/** 
+	 * Http GET request
 	 * This method finds favorite locations by user id then limits that list to 5 locations
-	 * @param userId
-	 * @return List<FavoriteLocation> (the list of favorite locations)
+	 * @param	userId
+	 * @return	ResponseEntity<> with List<FavoriteLocation> (the list of favorite locations) and 
+	 * 			Http status code
 	 */
 	@GetMapping(value= "/users/{id}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> getLocationsByUserId(@PathVariable("id") int userId){
@@ -63,6 +58,15 @@ public class FavoriteLocationController {
         
     }
 	 
+	/**
+	 * Http POST request
+	 * @param	address
+	 * @param	name
+	 * @param 	userId
+	 * @return	ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
+	 * 			to allow it to be returned from a controller method or a ResponseEntity<> with the favorite
+	 * 			location and HTTP status code, and no headers)
+	 */
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> saveNewFavoriteLocation(@RequestParam("address") String address,@RequestParam("name")  String name, @RequestParam("userId")  int userId){
 		 if(fls.findFavoriteLocationByUserId(userId).size() > 5) {
@@ -78,6 +82,15 @@ public class FavoriteLocationController {
 			return new ResponseEntity<>(result,HttpStatus.OK);
 		}
 	}
+	
+	/**
+	 * Http DELETE request
+	 * @param	name
+	 * @param	userId
+	 * @return	ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
+	 * 			to allow it to be returned from a controller method or a ResponseEntity<> with the favorite
+	 * 			location and HTTP status code, and no headers)
+	 */
 	@DeleteMapping(produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteLocationByUserId(@RequestParam String name, @RequestParam int userId){
 		log.info("DELETING locations by user");

@@ -13,9 +13,6 @@ import com.google.maps.GeoApiContext;
  * annotations should be put on this class to avoid causing problems with unit
  * tests (which load the main SpringBootApplication but not Configuration
  * classes).
- * @Configuration
- * @EnableDiscoveryClient
- * @EnableJpaRepositories
  */
 @Configuration
 @EnableDiscoveryClient
@@ -24,14 +21,12 @@ public class ApplicationConfig {
 	
 	/**
 	 * the api key
-	 * @Value
 	 */
 	@Value("${MAPS_API_KEY}")
 	private String apiKey;
 	
 	/**
 	 * Generates the API Key
-	 * @Bean
 	 */
 	@Bean
 	public GeoApiContext geoApiContext() {

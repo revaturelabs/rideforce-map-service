@@ -1,6 +1,5 @@
 package com.revature.rideforce.maps.controllers;
 
-
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +24,9 @@ import com.revature.rideforce.maps.beans.ResponseError;
 /**
  * The controller to handle errors/exceptions
  * @author Revature Java batch
- * @RestController
- * @RestControllerAdvice
  */
 @RestController
 @RestControllerAdvice
-@CrossOrigin
 public class ErrorController extends AbstractErrorController {
 	
 	/**
@@ -51,7 +47,6 @@ public class ErrorController extends AbstractErrorController {
 	 * @param request (an HttpServletRequest object)
 	 * @return ResponseEntity<ResponseError> (ResponseError with given message wrapped in ResponseEntity 
 	 * to allow it to be returned from a controller method)
-	 * @RequestMapping(path = "/error", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	 */
 	@RequestMapping(path = "/error", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<ResponseError> handleError(HttpServletRequest request) {
@@ -71,7 +66,6 @@ public class ErrorController extends AbstractErrorController {
 	/**
 	 * Handles the exception thrown when when invalid input is sent to a controller
 	 * (more specifically, when validation on an argument annotated with @Valid fails.)
-	 * @ExceptionHandler(MethodArgumentNotValidException.class)
 	 * @param e (the exception object)
 	 * @return ResponseEntity<ResponseError> (ResponseError with given message and the details to 
 	 * associate with this error wrapped in ResponseEntity to allow it to be returned from a controller 
@@ -80,7 +74,6 @@ public class ErrorController extends AbstractErrorController {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public static ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException e) {
 		BindingResult result = e.getBindingResult();
-		// A stream pipeline consists of a source (array)...
 		
 		// Get a human-readable list of validation failure strings.
 		String[] details = result.getFieldErrors().stream()

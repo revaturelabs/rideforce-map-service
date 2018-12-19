@@ -5,18 +5,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * controller for testing
+ * controller for testing (carry-over from 1st iteration)
  * @author Revature Java batch
- * @RestController
  */
 @RestController
-@CrossOrigin
 public class MapsTestController {
 
 	/**
 	 * GET method test
 	 * @return String indicating that controller test works
-	 * @RequestMapping(value="/test", method=RequestMethod.GET)
 	 */
 	@GetMapping("/test")
 	public String test() {

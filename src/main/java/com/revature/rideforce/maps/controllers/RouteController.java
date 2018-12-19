@@ -16,29 +16,24 @@ import com.revature.rideforce.maps.service.RouteService;
 /**
  * The controller to handle the routes
  * @author Revature Java batch
- * @RestController
- * @RequestMapping(value = "/route")
  */
 @RestController
-@CrossOrigin
 @RequestMapping(value = "/route")
 public class RouteController {
-	
+
 	/**
 	 * Injecting the RouteService spring bean
-	 * @Autowired
 	 */
 	@Autowired
 	private RouteService routeService;
 
 	/**
-	 * GET request method for the route
-	 * @param start
-	 * @param end
-	 * @return ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
-	 * to allow it to be returned from a controller method or a ResponseEntity<Route> with given route 
-	 * and HTTP status code, and no headers)
-	 * @throws Exception
+	 * Http GET request method for the route
+	 * @param	start a starting address
+	 * @param	end	an ending address
+	 * @return 	ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
+	 * 			to allow it to be returned from a controller method or a ResponseEntity<Route> with given route 
+	 * 			and HTTP status code, and no headers)
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> get(@RequestParam String start, @RequestParam String end) {
@@ -48,18 +43,18 @@ public class RouteController {
 		if (end.isEmpty()) {
 			return new ResponseError("Must specify a end address.").toResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		
-		
-		 if(start.matches("-?\\d+(\\.\\d+)?")){
-			 return new ResponseError("Can't input negative numbers.").toResponseEntity(HttpStatus.BAD_REQUEST);
 
-		 }
 
-		 if(end.matches("-?\\d+(\\.\\d+)?")){
-			 return new ResponseError("Can't input negative numbers.").toResponseEntity(HttpStatus.BAD_REQUEST);
+		if(start.matches("-?\\d+(\\.\\d+)?")){
+			return new ResponseError("Can't input negative numbers.").toResponseEntity(HttpStatus.BAD_REQUEST);
 
-		 }
-		
+		}
+
+		if(end.matches("-?\\d+(\\.\\d+)?")){
+			return new ResponseError("Can't input negative numbers.").toResponseEntity(HttpStatus.BAD_REQUEST);
+
+		}
+
 		start = start.trim();
 		if(start.matches("^[^\\w].*")) {
 			start = start.substring(1, (start.length()));
@@ -67,8 +62,8 @@ public class RouteController {
 		int last = start.length() - 1;
 		if(start.matches("^.*[^\\w]$")) {
 			start = start.substring(0, last);
-			}
-		
+		}
+
 		end = end.trim();
 		if(end.matches("^[^\\w].*")) {
 			end = end.substring(1, (end.length()));
@@ -76,9 +71,9 @@ public class RouteController {
 		int last1 = end.length() - 1;
 		if(end.matches("^.*[^\\w]$")) {
 			end = end.substring(0, last1);
-			}
-		
+		}
+
 		return new ResponseEntity<>(routeService.getRoute(start, end), HttpStatus.OK);
 	}
-	
+
 }

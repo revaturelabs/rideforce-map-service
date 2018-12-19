@@ -24,8 +24,8 @@ import com.revature.rideforce.maps.beans.FavoriteLocation;
 import com.revature.rideforce.maps.repository.FavoriteLocationRepository;
 
 /**
- * Class that tests the repository
- * These tests were created with the intention of being able to be run independently
+ * This class holds the unit tests for our 
+ * {@link com.revature.rideforce.maps.repository.FavoriteLocationRepository FavoriteLocationRepository} 
  * @author Revature Java batch
  */
 @SpringBootTest(classes = Application.class)
