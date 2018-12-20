@@ -124,10 +124,6 @@ public class LocationService {
 						{
 							location.setZip(splitLocation[3]);
 						}
-						else
-						{
-							log.error("Failed to update1");
-						}
 					}
 					else
 					{
@@ -135,10 +131,6 @@ public class LocationService {
 						if(splitLocation[3].length() == 5)
 						{
 							location.setZip(splitLocation[3]);
-						}
-						else
-						{
-							log.error("Failed to update2");
 						}
 					}
 				}
@@ -159,7 +151,11 @@ public class LocationService {
 		}
 		else
 		{
-			if(splitLocation.length == 2)
+			if(splitLocation.length == 1)
+			{
+				location.setAddress(splitLocation[0]);
+			}
+			else if(splitLocation.length == 2)
 			{
 				location.setCity(splitLocation[1]);
 			}
@@ -185,10 +181,6 @@ public class LocationService {
 					{
 						location.setZip(splitLocation[3]);
 					}
-					else
-					{
-						log.error("Failed to update3");
-					}
 				}
 				else
 				{
@@ -196,10 +188,6 @@ public class LocationService {
 					if(splitLocation[3].length() == 5)
 					{
 						location.setZip(splitLocation[3]);
-					}
-					else
-					{
-						log.error("Failed to update4");
 					}
 				}
 			}
@@ -218,7 +206,7 @@ public class LocationService {
 	 * @param address
 	 * @return LatLng (geographical location represented by latitude/longitude pair)
 	 */	
-	public LatLng getOneZip(String address, LatLng coords) {
+	public CachedLocation getOneZip(String address, LatLng coords) {
 		CachedLocation location = locationRepo.findByAddress(address);
 		CachedLocation loclat = locationRepo.findByLatitude(coords.lat);
 		CachedLocation loclon = locationRepo.findByLongitude(coords.lng);
@@ -236,12 +224,9 @@ public class LocationService {
 			try {
 				GeocodingResult[] results = GeocodingApi.geocode(geoApiContext, address).await();
 				LatLng coord = results[0].geometry.location;
-				DecimalFormat df = new DecimalFormat("#.##");
-				coord.lat = Double.parseDouble(df.format(coord.lat));
-				coord.lng = Double.parseDouble(df.format(coord.lng));
 				location = new CachedLocation(results[0].geometry.location, address);
 				locationRepo.save(location);
-				return results[0].geometry.location;
+				return location;
 			} 
 //			catch(SQLIntegrityConstraintViolationException e)
 //			{
@@ -257,7 +242,7 @@ public class LocationService {
 		{
 			location.setZip(address);
 		}
-		return location.getLocation();
+		return location;
 	}
 
 	/**
