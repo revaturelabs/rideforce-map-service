@@ -18,4 +18,7 @@ create table favorite_addresses (
 	user_id number(10)
 );
 
+drop sequence hibernate_sequence;
+create sequence hibernate_sequence;
+
 commit;
