@@ -26,113 +26,60 @@ import com.revature.rideforce.maps.validate.Validate;
 
 /**
  * The controller for obtaining the location
+ * 
  * @author Revature Java batch
  */
 @RestController
 @RequestMapping(value = "/location")
 public class LocationController {
-	
-	/**
-	 * logger
-	 */
 	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
-	
-	/**
-	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
-	 */
-	@Autowired
-	private GeoApiContext geoApiContext;
-	
-	/**
-	 * Injecting the LocationService spring bean
-	 */
+
 	@Autowired
 	private LocationService ls; 
 
 	/**
-	 * GET request method
-	 * @param	address
-	 * @return	ResponseEntity<?> (either ResponseError with given message wrapped in a ResponseEntity 
-	 * 			to allow it to be returned from a controller method or a ResponseEntity<> with 
-	 * 			a location and HTTP status code, and no headers)
+	 * GET request method. Receive an address, processes it and return a location with
+	 * coordinates.
+	 * 
+	 * @param address a string representing an address, either as a zip code, or a 
+	 * street address (assumes: Street, City, State, Zip; comma delimited, in that order).
+	 * @return ResponseEntity<?> either ResponseError with given message wrapped in
+	 *         a ResponseEntity to allow it to be returned from a controller method
+	 *         or a ResponseEntity<> with a location and HTTP status code, and no headers.
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> get(@RequestParam String address) {
 		Validate normalize = new Validate();
-		if (address.isEmpty()) {
-			return new ResponseError("Must specify an address.").toResponseEntity(HttpStatus.BAD_REQUEST);
+		
+		// don't accept an empty address parameter
+		if(address.isEmpty()) {
+			return new ResponseError("Must specify an address.")
+					.toResponseEntity(HttpStatus.BAD_REQUEST);
 		}
+		
+		// normalize the address input
 		address = normalize.validateAddress(address);
 		if(address.matches("^[^\\w].*")) {
-			address = address.substring(1, (address.length()));
+			address = address.substring(1, address.length());
 		}
-		int last = address.length() - 1;
 		if(address.matches("^.*[^\\w]$")) {
-			address = address.substring(0, last);
-			}
+			address = address.substring(0, address.length() - 1);
+		}
+		
+		// if the address is solely a zip code
 		if(StringUtils.isNumeric(address)) {
-			int numCheck = address.length();
 			log.info(address);
-			if(numCheck != 5) {
-				String message= String.format("numcheck = %d", numCheck);
-				log.info(message);
-				return new ResponseError("Address cannot be a number that is not a Zip code.").toResponseEntity(HttpStatus.BAD_REQUEST);
-			}
-			else
-			{
-				GeocodingResult[] results;
-				try {
-					results = GeocodingApi.geocode(geoApiContext, address).await();
-					return new ResponseEntity<>(ls.getOneZip(address, results[0].geometry.location), HttpStatus.OK);
-				} catch (ApiException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				return null;
+			if(address.length() != 5) {
+				// number is the wrong length to be a zip code, so return bad request
+				log.info(String.format("numcheck = %d", address.length()));
+				return new ResponseError("Address cannot be a number that is not a Zip code.")
+						.toResponseEntity(HttpStatus.BAD_REQUEST);
+			} else {
+				return new ResponseEntity<>(ls.getLocationByZipCode(address), HttpStatus.OK);
 			}
 		}
 		
-		GeocodingResult[] results;
-		try {
-			results = GeocodingApi.geocode(geoApiContext, address).await();
-			return new ResponseEntity<>(ls.getOne(address, results[0].geometry.location), HttpStatus.OK);
-		} catch (ApiException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	/**
-	 * get the geo api context
-	 * @return geoApiContext
-	 */
-	public Object getGeoApiContext() {
-		return geoApiContext;
-	}
-	
-	private void ValidateNewAddress(CachedLocation newLocation)
-	{
-		
-	}
-	
-	/**
-	 * set this geo api context to 'geoApiContext'
-	 */
-	public void setGeoApiContext(GeoApiContext geoApiContext) {
-		this.geoApiContext = geoApiContext;
+		// address was not a zip code, so get location by address
+		return new ResponseEntity<>(ls.getLocationByAddress(address), HttpStatus.OK);
 	}
 }
