@@ -79,7 +79,9 @@ public class RouteService {
 	 * @return Route (in meters and seconds)
 	 */
 	public Route getRoute(String origin, String destination)  {
+		log.trace("in getRoute begin");
 		try {
+			log.trace("in getRoute"); 
 			DirectionsRoute route = DirectionsApi.getDirections(geoApiContext, origin, destination)
 					.mode(TravelMode.DRIVING).await().routes[0];
 			String[] splitOrigin= origin.split(" ");
@@ -97,13 +99,17 @@ public class RouteService {
 			long duration = 0;
 
 			for (DirectionsLeg leg : route.legs) {
+				log.trace("in getRoute for loop to get distance and duration"); 
 				distance += leg.distance.inMeters;
 				duration += leg.duration.inSeconds;
+				
+				log.trace("got it: \nDistance: " + distance + "\nDuration: " + duration);
 			}
 			String info=String.format("Route with the following information returned, distance: %d; duration: %d", distance,duration);
 			log.info(info);
 			return new Route(distance, duration);
 		} catch (ApiException | InterruptedException | IOException e) {
+			log.trace("CAUGHT THE EXCEPTION!!!!!!!!!!");
 			log.error("Unexpected exception when fetching route.", e);
 			Thread.currentThread().interrupt();
 			return new Route();

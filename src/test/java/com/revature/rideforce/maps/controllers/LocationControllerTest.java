@@ -4,14 +4,25 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.maps.GeoApiContext;
 import com.revature.rideforce.maps.controllers.LocationController;
 import com.revature.rideforce.maps.service.LocationService;
 
@@ -23,12 +34,27 @@ import com.revature.rideforce.maps.service.LocationService;
 @RunWith(SpringRunner.class)
 @WebMvcTest(LocationController.class)
 public class LocationControllerTest {
+
 	@Autowired
 	private MockMvc mvc;
 
 	@MockBean
 	private LocationService locationService;
 
+	@MockBean
+	private GeoApiContext geoApiContext; 
+
+	private Logger log = LoggerFactory.getLogger(LocationControllerTest.class);
+	
+//	@InjectMocks
+//	private LocationController locationController;
+	
+//	@Before
+//	public void setup() {
+//		MockitoAnnotations.initMocks(this);
+//		this.mvc = MockMvcBuilders.standaloneSetup(locationController).build();
+//	}
+ 
 	@Test
 	public void testGetBadParams() throws Exception {
 		mvc.perform(get("/location")).andExpect(status().isBadRequest());

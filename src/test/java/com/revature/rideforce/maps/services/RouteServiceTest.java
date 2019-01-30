@@ -101,7 +101,7 @@ public class RouteServiceTest {
 	public void validParameterGetRoute() {
 		final String start = "2925 Rensselaer Ct. Vienna, VA 22181";
 		final String end = "11730 Plaza America Dr. Reston, VA 20190";
-		Route route = new Route(14988, 1166);
+		Route route = new Route(14983, 1170);
 		Route testRoute= realRouteService2.getRoute(start, end);
 		assertEquals(route,testRoute);
 	}

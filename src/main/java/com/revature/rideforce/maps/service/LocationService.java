@@ -84,8 +84,8 @@ public class LocationService {
 			if(loclat.equals(loclon))
 			{
 				log.info("There is a valid coordinate here");
-				location = loclat;
-			}
+				location = loclat; 
+			} 
 		}
 
 		//CachedLocation locationByLat, locationByLon;

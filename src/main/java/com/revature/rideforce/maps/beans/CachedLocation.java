@@ -313,7 +313,7 @@ public class CachedLocation {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((stateCode == null) ? 0 : stateCode.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
-		return result;
+		return result; 
 	}
 
 	@Override

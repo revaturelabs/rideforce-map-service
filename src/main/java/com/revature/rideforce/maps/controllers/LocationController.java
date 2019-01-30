@@ -47,7 +47,7 @@ public class LocationController {
 	 * Injecting the LocationService spring bean
 	 */
 	@Autowired
-	private LocationService ls;
+	private LocationService ls; 
 
 	/**
 	 * GET request method
