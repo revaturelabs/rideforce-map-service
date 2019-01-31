@@ -1,5 +1,3 @@
 FROM openjdk:8-jdk-alpine
-COPY target/rideforce-maps-service.jar /opt/lib/
-ENTRYPOINT ["/usr/bin/java"]
-CMD ["-jar", "/opt/lib/rideforce-maps-service.jar"]
-#EXPOSE 9090 #this isn't used yet
+COPY target/rideforce-maps-service-0.0.1-SNAPSHOT.jar /tmp/rideforce-maps-service-0.0.1-SNAPSHOT.jar
+CMD ["java", "-jar", "/tmp/rideforce-maps-service-0.0.1-SNAPSHOT.jar","--server.servlet.context-path=/maps","&"]
