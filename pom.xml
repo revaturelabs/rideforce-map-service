@@ -26,7 +26,7 @@
 		
 	</dependencyManagement>
 
-	<repositories>
+<!-- 	<repositories>
 		<repository>
 			<id>my-nexus</id>
 			<name>Nexus</name>
@@ -51,7 +51,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-	</pluginRepositories>  
+	</pluginRepositories>   -->
 	
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.google.maps/google-maps-services -->
@@ -152,11 +152,11 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
