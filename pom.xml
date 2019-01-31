@@ -255,7 +255,7 @@
         to be able to perform a Maven release, not recommended for production.
         Reference: http://maven.apache.org/pom.html#Distribution_Management
     -->
-    <distributionManagement>
+<!--     <distributionManagement>
         <repository>
             <uniqueVersion>false</uniqueVersion>
             <id>home1</id>
@@ -263,7 +263,7 @@
             <url>file://C:/MyProjectDeployDirectory/</url>
             <layout>default</layout>
         </repository>
-    </distributionManagement>
+    </distributionManagement> -->
 
     <!--
         SCM configuration is necessary in order to enable Maven to manage
@@ -274,11 +274,11 @@
         In this example, Git is used.
         Reference: http://maven.apache.org/pom.html#SCM
     -->
-    <scm>
+<!--     <scm>
        <connection>scm:git:file://localhost/C:/Users/nozuk/Documents/Project-3-Rideforce/P3-Map-Service/rideshare-map-service</connection>
        <developerConnection>scm:git:file://localhost/C:/Users/nozuk/Documents/Project-3-Rideforce/P3-Map-Service/rideshare-map-service</developerConnection>
        <tag>HEAD</tag>
-    </scm>
+    </scm> -->
 
     <properties>
         <!--
