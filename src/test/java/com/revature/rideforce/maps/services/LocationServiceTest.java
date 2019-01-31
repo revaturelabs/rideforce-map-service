@@ -1,18 +1,15 @@
 package com.revature.rideforce.maps.services;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
-import org.mockito.ArgumentMatchers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.google.maps.GeoApiContext;
@@ -66,7 +63,7 @@ public class LocationServiceTest {
 	@MockBean private LocationRepository locationRepository;
 	
 	/**
-	 * Setup that happens before the tests run, to declare objects
+	 * Setup before tests to declare objects, establish some mocking,
 	 * and stub certain methods for testing.
 	 */
 	@Before

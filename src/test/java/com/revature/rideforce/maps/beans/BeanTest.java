@@ -170,14 +170,6 @@ public class BeanTest{
     }
     
     @Test
-    public void locationToStringTest()
-    {
-    	CachedLocation location = new CachedLocation("2925 Rensselaer Ct. Vienna, VA 22181", 38.95, -77.35);
-        String expected = "Location [address=" + "2925 Rensselaer Ct. Vienna, VA 22181" + ", latitude=" + 38.95 + ", longitude=" + -77.35 + "]";
-        Assert.assertEquals(expected, location.toString());
-    }
-    
-    @Test
     public void routeConstructorTest() {
     	new Route();
     }

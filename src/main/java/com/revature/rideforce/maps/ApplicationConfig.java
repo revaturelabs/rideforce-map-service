@@ -30,6 +30,7 @@ public class ApplicationConfig {
 	 */
 	@Bean
 	public GeoApiContext geoApiContext() {
+		System.out.println("HERE");
 		return new GeoApiContext.Builder().apiKey(apiKey).build();
 	}
 }

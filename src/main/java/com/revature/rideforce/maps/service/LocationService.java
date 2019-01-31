@@ -207,15 +207,15 @@ public class LocationService {
 		}
 		
 		// create location objects, based on geocoding results, to look for in the database
-		CachedLocation lat = locationRepo.findByLatitude(gr[0].geometry.location.lat);
-		CachedLocation lng = locationRepo.findByLongitude(gr[0].geometry.location.lng);
+		// existing code checked for two objects, instead of searching by lat & lng together
+		CachedLocation findByLat = locationRepo.findByLatitude(gr[0].geometry.location.lat);
+		CachedLocation findByLng = locationRepo.findByLongitude(gr[0].geometry.location.lng);
 
-		// seems to check for an address in the database, 
-		// assuming that no two addresses will share the same latitude or longitude
-		if(lat != null && lng != null) {
-			if(lat.equals(lng)) {
+		// checks to see if the two addresses from the database match
+		if(findByLat != null && findByLng != null) {
+			if(findByLat.equals(findByLng)) {
 				log.info("There is a valid coordinate here");
-				return lat;
+				return findByLat;
 			}
 		}
 		
