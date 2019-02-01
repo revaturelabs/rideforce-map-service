@@ -59,29 +59,6 @@ public class LocationServiceTest {
 	    Mockito.when(locationRepository.findByAddress(cl.getAddress())).thenReturn(cl);
 	}
 	
-    @Test
-<<<<<<< HEAD
-	public void getOne_Test() throws Exception {
-		final String address = "11730 Plaza America Dr. Reston";
-		final String state = "VA"; 
-		CachedLocation cloc = new CachedLocation();
-		LatLng clocLatLng = new LatLng(38.9533932, -77.35044780000001);
-		cloc.setAddress(address);
-		cloc.setStateCode(state);
-		cloc.setLatitude(38.9533386);
-		cloc.setLongitude(-77.35047829999999);
-		locationService.setGeoApiContext(realGeo);
-	    Mockito.when(this.locationService.getOne(address, cloc.getLocation())).thenReturn(cloc);
-
-		CachedLocation l = locationService.getOne(address, cloc.getLocation());
-	
-		System.out.println(l.toString());
-		
-		CachedLocation location = new CachedLocation(cloc.getAddress(), cloc.getLatitude(), cloc.getLongitude());
-		
-		System.out.println(location.toString());
-		Assertions.assertThat(l).isEqualTo(location);
-=======
 	public void getLocationByAddress() throws Exception {
 		// initialize results object, testing object
 		CachedLocation rs = new CachedLocation();	// results object
@@ -122,7 +99,6 @@ public class LocationServiceTest {
 		cl.setStateCode(null);
 		Mockito.doReturn(geocodingResults).when(Mockito.spy(LocationService.class)).geocodeRequest(STREET + "," + CITY + ",Virginia");
 		Assert.assertEquals(cl, locationService.getLocationByAddress(STREET + "," + CITY + ",Virginia"));
-		
 		cl.setZip(ZIP);
 		Mockito.doReturn(geocodingResults).when(Mockito.spy(LocationService.class)).geocodeRequest(STREET + "," + CITY + ",Virginia," + ZIP);
 		Assert.assertEquals(cl, locationService.getLocationByAddress(STREET + "," + CITY + ",Virginia," + ZIP));
@@ -135,7 +111,6 @@ public class LocationServiceTest {
 //		rs = locationService.getLocationByAddress(ADDRESS);
 //		Assert.assertEquals(clSCS, rs);
 		//Assertions.assertThat(rs).isEqualTo(cl.getLocation());
->>>>>>> 89355595012ba9d8d32d8b343b5e23081538feff
 	}
 
 	//LatLng latLng = new LatLng(35.39649720,-118.98197310);	// 93305 zip code (with extra 0 on lat and lng)

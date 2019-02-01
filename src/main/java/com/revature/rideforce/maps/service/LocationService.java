@@ -73,24 +73,7 @@ public class LocationService {
 		for (int i = 0; i < splitLocation.length; i++) {
 			splitLocation[i] = splitLocation[i].trim();
 		}
-<<<<<<< HEAD
 		
-		CachedLocation location = null;
-		
-		CachedLocation loclat = locationRepo.findByLatitude(coords.lat);
-		CachedLocation loclon = locationRepo.findByLongitude(coords.lng);
-		
-		if(loclat != null && loclon != null)
-		{
-			if(loclat.equals(loclon))
-			{
-				log.info("There is a valid coordinate here");
-				location = loclat; 
-			} 
-		}
-=======
->>>>>>> 89355595012ba9d8d32d8b343b5e23081538feff
-
 		// otherwise, use GeocodingApi to look up the passed address
 		if (location == null) {
 			// this is the same call as earlier, but for some reason the existing code makes it again	
