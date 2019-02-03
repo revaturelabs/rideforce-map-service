@@ -1,0 +1,887 @@
+{
+	"info": {
+		"_postman_id": "a1990b13-4297-49cb-b011-b3df5df95cab",
+		"name": "rideforce-map-service tests",
+		"description": "Tests for the rideforce-maps service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LocationController",
+			"item": [
+				{
+					"name": "Expect 200s",
+					"item": [
+						{
+							"name": "Normalize Address with Text",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "804a7282-77b5-42e2-9a7c-bd8f41551ced",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location?address=93305withsometext",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									],
+									"query": [
+										{
+											"key": "address",
+											"value": "93305withsometext"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Normalize Address with Single Quotes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "804a7282-77b5-42e2-9a7c-bd8f41551ced",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location?address='93305'",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									],
+									"query": [
+										{
+											"key": "address",
+											"value": "'93305'"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Normalize Address with Double Quotes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "804a7282-77b5-42e2-9a7c-bd8f41551ced",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location?address=  93305 ",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									],
+									"query": [
+										{
+											"key": "address",
+											"value": "  93305 "
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Normalize Address with Whitespace",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "804a7282-77b5-42e2-9a7c-bd8f41551ced",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location?address=  93305 ",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									],
+									"query": [
+										{
+											"key": "address",
+											"value": "  93305 "
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Normalize Address with Symbols",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "804a7282-77b5-42e2-9a7c-bd8f41551ced",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location?address=@93305!",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									],
+									"query": [
+										{
+											"key": "address",
+											"value": "@93305!"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Expect 400s",
+					"item": [
+						{
+							"name": "Wrong Mapping",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4a4da175-74b9-46e8-8050-0a77c030ab10",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () { pm.response.to.have.status(404); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/loc?address=11730",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"loc"
+									],
+									"query": [
+										{
+											"key": "address",
+											"value": "11730"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "No Parameters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "318dbe3f-e553-4d2d-8462-cf9aef60f6ce",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Empty Parameters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f8b335da-9796-4acd-8d40-abb88d6a3da2",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location?adress=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									],
+									"query": [
+										{
+											"key": "adress",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Wrong Parameter Name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "56812e38-377c-4734-9c3a-ceb566183980",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location?random=93305",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									],
+									"query": [
+										{
+											"key": "random",
+											"value": "93305"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Zip Code Too Short",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "56812e38-377c-4734-9c3a-ceb566183980",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location?address=933",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									],
+									"query": [
+										{
+											"key": "address",
+											"value": "933"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Zip Code Too Long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "56812e38-377c-4734-9c3a-ceb566183980",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/location?address=933056",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"location"
+									],
+									"query": [
+										{
+											"key": "address",
+											"value": "933056"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "RouteController",
+			"item": [
+				{
+					"name": "Expect 400s",
+					"item": [
+						{
+							"name": "Negative Starting Point",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6d3b1f0-d9ca-426e-84dd-c9f222da2d5e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/route?start=-2925 Rensselaer Ct. Vienna, VA 22181&end=11730 Plaza America Dr. Reston, VA 20190",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"route"
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "-2925 Rensselaer Ct. Vienna, VA 22181"
+										},
+										{
+											"key": "end",
+											"value": "11730 Plaza America Dr. Reston, VA 20190"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Negative Ending Point",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6d3b1f0-d9ca-426e-84dd-c9f222da2d5e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/route?start=2925 Rensselaer Ct. Vienna, VA 22181&end=-11730 Plaza America Dr. Reston, VA 20190",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"route"
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "2925 Rensselaer Ct. Vienna, VA 22181"
+										},
+										{
+											"key": "end",
+											"value": "-11730 Plaza America Dr. Reston, VA 20190"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Empty Ending Point",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6d3b1f0-d9ca-426e-84dd-c9f222da2d5e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/route?start=2925 Rensselaer Ct. Vienna, VA 22181&end=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"route"
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "2925 Rensselaer Ct. Vienna, VA 22181"
+										},
+										{
+											"key": "end",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Empty Starting Point",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6d3b1f0-d9ca-426e-84dd-c9f222da2d5e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/route?start=&end=11730 Plaza America Dr. Reston, VA 20190",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"route"
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": ""
+										},
+										{
+											"key": "end",
+											"value": "11730 Plaza America Dr. Reston, VA 20190"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Missing Start Parameter",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6d3b1f0-d9ca-426e-84dd-c9f222da2d5e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/route?end=2925 Rensselaer Ct. Vienna, VA 22181",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"route"
+									],
+									"query": [
+										{
+											"key": "end",
+											"value": "2925 Rensselaer Ct. Vienna, VA 22181"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Missing End Parameter",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6d3b1f0-d9ca-426e-84dd-c9f222da2d5e",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/route?start=2925 Rensselaer Ct. Vienna, VA 22181",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"route"
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "2925 Rensselaer Ct. Vienna, VA 22181"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Expect 200s",
+					"item": [
+						{
+							"name": "Get Valid Route",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6d3b1f0-d9ca-426e-84dd-c9f222da2d5e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/route?start=2925 Rensselaer Ct. Vienna, VA 22181&end=11730 Plaza America Dr. Reston, VA 20190",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"route"
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "2925 Rensselaer Ct. Vienna, VA 22181"
+										},
+										{
+											"key": "end",
+											"value": "11730 Plaza America Dr. Reston, VA 20190"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Valid Route With Whitespace",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6d3b1f0-d9ca-426e-84dd-c9f222da2d5e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/route?start=   2925   Rensselaer  Ct. Vienna, VA 22181  &end=  11730 Plaza America Dr. Reston, VA 20190 ",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"route"
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "   2925   Rensselaer  Ct. Vienna, VA 22181  "
+										},
+										{
+											"key": "end",
+											"value": "  11730 Plaza America Dr. Reston, VA 20190 "
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Valid Route With Special Characters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6d3b1f0-d9ca-426e-84dd-c9f222da2d5e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3333/route?start=^^93305!&end=?22181&",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"route"
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "^^93305!"
+										},
+										{
+											"key": "end",
+											"value": "?22181&"
+										}
+									]
+								},
+								"description": "Some special characters don't work. Brackets seem to cause bad requests, and placing a # or & at the beginning of a parameter confuses the controller, and causes it to reply with a 400"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
