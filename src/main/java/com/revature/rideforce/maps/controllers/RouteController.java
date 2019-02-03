@@ -18,6 +18,7 @@ import com.revature.rideforce.maps.service.RouteService;
  * @author Revature Java batch
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/route")
 public class RouteController {
 
