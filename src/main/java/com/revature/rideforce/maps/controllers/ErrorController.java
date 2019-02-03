@@ -26,7 +26,7 @@ import com.revature.rideforce.maps.beans.ResponseError;
  * @author Revature Java batch
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestControllerAdvice
 public class ErrorController extends AbstractErrorController {
 	
