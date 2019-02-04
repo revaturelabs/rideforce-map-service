@@ -25,6 +25,7 @@ import com.revature.rideforce.maps.beans.ResponseError;
  * The controller to handle errors/exceptions
  * @author Revature Java batch
  */
+@CrossOrigin(origins="*")
 @RestController
 @RestControllerAdvice
 public class ErrorController extends AbstractErrorController {
