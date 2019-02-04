@@ -2,7 +2,6 @@ package com.revature.rideforce.maps.service;
 
 import java.io.IOException;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,61 +22,61 @@ import com.revature.rideforce.maps.beans.Route;
 
 @Service
 public class RouteService {
-	
-	/**
-	 * logger
-	 */
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
 	
-  	/**
-  	 * Injecting the GeoApiContext, the entry point for making requests against the Google Geo APIs. 
-  	 */
 	@Autowired
 	private GeoApiContext geoApiContext;
-	
-	/**
-	 * get geoApiContext
-	 * @return geoApiContext
-	 */
-	public GeoApiContext getGeoApiContext() {
-		
-		return geoApiContext;
-	}
-	
-	/**
-	 * set this geoApiContext to 'geoApiContext'
-	 * @param geoApiContext
-	 */
-
- 	public void setGeoApiContext(GeoApiContext geoApiContext) {
-		this.geoApiContext = geoApiContext; 
-		log.info("GeoApiContext set");
-	}
  	
- 	/**
- 	 * class constructor
- 	 * set this geoApiContext to 'geoApiContext'
- 	 * @param geoApiContext
- 	 */
- 	public RouteService(GeoApiContext geoApiContext) {
-		super();
-		this.geoApiContext = geoApiContext;
-		log.info("RouteService instantiated");
-	}
- 	
-	/**
-	 * class constructor (no args)
-	 */
  	public RouteService() {
 		super();
 	}
+ 	
+ 	public RouteService(GeoApiContext geoApiContext) {
+		super();
+		this.geoApiContext = geoApiContext;
+		log.info("LocationService instantiated");
+	}
 
 	/**
-	 * get the route using Driving travel mode
-	 * @param origin (a starting address)
-	 * @param destination (an ending address)
-	 * @return Route (in meters and seconds)
+	 * Gets the route using Driving travel mode
+	 * @param start String representing a starting location
+	 * @param end String representing an ending location
+	 * @return Route a route in meters and seconds, or a new empty object
+	 * on failure
 	 */
+	public Route getRoute(String start, String end)  {
+		// call a method to make a request to the DirectionsApi
+		DirectionsRoute route = directionsRequest(start, end);
+		
+		// if the request threw an error, route will be null
+		if(route == null) {
+			// the original code returned an empty route on exceptions
+			return new Route();
+		}
+
+		// calculate the distance and duration of the route
+		long distance = 0;
+		long duration = 0;
+		
+		// for each leg in the route, calculate total distance/duration
+		for (DirectionsLeg leg : route.legs) {
+			distance += leg.distance.inMeters;
+			duration += leg.duration.inSeconds;
+		}
+
+		// return the constructed route object
+		log.info(String.format("Route with the following information returned, distance: %d; duration: %d", distance, duration));
+		return new Route(distance, duration);
+	}
+	
+	/**
+	 * Makes a call to the DirectionsApi to get directions for
+	 * a starting and ending point
+	 * @param start starting location
+	 * @param end ending location
+	 * @return a DirectionsRoute, or null if there was a problem
+	 */
+<<<<<<< HEAD
 	public Route getRoute(String origin, String destination)  {
 		log.trace("in getRoute begin");
 		try {
@@ -110,9 +109,23 @@ public class RouteService {
 			return new Route(distance, duration);
 		} catch (ApiException | InterruptedException | IOException e) {
 			log.trace("CAUGHT THE EXCEPTION!!!!!!!!!!");
+=======
+	public DirectionsRoute directionsRequest(String start, String end) {
+		try {
+			return DirectionsApi.getDirections(geoApiContext, start, end)
+					.mode(TravelMode.DRIVING).await().routes[0];
+		} catch (ApiException e) {
+>>>>>>> e63660622945a10e99300bb52a17b19a47350d2b
 			log.error("Unexpected exception when fetching route.", e);
-			Thread.currentThread().interrupt();
-			return new Route();
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			log.error("Unexpected exception when fetching route.", e);
+			e.printStackTrace();
+		} catch (IOException e) {
+			log.error("Unexpected exception when fetching route.", e);
+			e.printStackTrace();
 		}
+		Thread.currentThread().interrupt();
+		return null;
 	}
 }

@@ -26,7 +26,6 @@ import com.revature.rideforce.maps.service.LocationService;
  * @author Revature Java batch
  */
 @RunWith(SpringRunner.class)
-//@ContextConfiguration(classes = { GeoApiContext.class })
 public class LocationServiceTest {
 	/**
 	 * Set up configuration for location service, so that it can be autowired for testing.
@@ -43,10 +42,14 @@ public class LocationServiceTest {
 		@Bean
         public GeoApiContext geoApiContext() {
 			final String apiKey = System.getenv("MAPS_API_KEY");
-			GeoApiContext realGeo = new GeoApiContext.Builder().apiKey(apiKey).build();
-    		return realGeo;
+			return new GeoApiContext.Builder().apiKey(apiKey).build();
         }
     }
+	
+	@InjectMocks
+	@Autowired private LocationService locationService;
+	
+	@MockBean private LocationRepository locationRepository;
 
 	// set up some constants for testing
 	// lat and lng pulled from google request for this particular street address
@@ -57,17 +60,12 @@ public class LocationServiceTest {
 	private static final String STATE = "VA";
 	private static final String ZIP = "20190";
 	
-	@InjectMocks
-	@Autowired private LocationService locationService;
-	
-	@MockBean private LocationRepository locationRepository;
-	
 	/**
 	 * Setup before tests to declare objects, establish some mocking,
 	 * and stub certain methods for testing.
 	 */
 	@Before
-	public void init() {				  
+	public void setup() {				  
 		// build result object expected by location service, so that it can be mocked
 		GeocodingResult geocodingResult = new GeocodingResult();
 		geocodingResult.geometry = new Geometry();
