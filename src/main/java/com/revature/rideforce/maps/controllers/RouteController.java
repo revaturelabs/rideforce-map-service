@@ -21,10 +21,6 @@ import com.revature.rideforce.maps.service.RouteService;
 @RestController
 @RequestMapping(value = "/route")
 public class RouteController {
-
-	/**
-	 * Injecting the RouteService spring bean
-	 */
 	@Autowired
 	private RouteService routeService;
 
@@ -38,40 +34,43 @@ public class RouteController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> get(@RequestParam String start, @RequestParam String end) {
-		if (start.isEmpty()) {
-			return new ResponseError("Must specify a start address.").toResponseEntity(HttpStatus.BAD_REQUEST);
+		// neither parameter can be empty
+		if(start.isEmpty()) {
+			return new ResponseError("Must specify a starting address.")
+					.toResponseEntity(HttpStatus.BAD_REQUEST);
 		}
-		if (end.isEmpty()) {
-			return new ResponseError("Must specify a end address.").toResponseEntity(HttpStatus.BAD_REQUEST);
-		}
-
-
-		if(start.matches("-?\\d+(\\.\\d+)?")){
-			return new ResponseError("Can't input negative numbers.").toResponseEntity(HttpStatus.BAD_REQUEST);
-
+		if(end.isEmpty()) {
+			return new ResponseError("Must specify an ending address.")
+					.toResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 
-		if(end.matches("-?\\d+(\\.\\d+)?")){
-			return new ResponseError("Can't input negative numbers.").toResponseEntity(HttpStatus.BAD_REQUEST);
-
+		// need to check whether the first part of the address is a negative number
+		String[] s = start.split(" ");
+		String[] e = end.split(" ");
+		// matches negative integer and floating point numbers
+		if(s[0].matches("-\\d+(\\.\\d+)?") || e[0].matches("-\\d+(\\.\\d+)?")){
+			return new ResponseError("Can't input negative numbers.")
+					.toResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 
+		// trim whitespace from the strings
 		start = start.trim();
+		end = end.trim();
+		
+		// for both, remove special characters from the front of string
 		if(start.matches("^[^\\w].*")) {
 			start = start.substring(1, (start.length()));
 		}
-		int last = start.length() - 1;
-		if(start.matches("^.*[^\\w]$")) {
-			start = start.substring(0, last);
-		}
-
-		end = end.trim();
 		if(end.matches("^[^\\w].*")) {
 			end = end.substring(1, (end.length()));
 		}
-		int last1 = end.length() - 1;
+		
+		// for both, remove special characters from the back of string
+		if(start.matches("^.*[^\\w]$")) {
+			start = start.substring(0, start.length() - 1);
+		}
 		if(end.matches("^.*[^\\w]$")) {
-			end = end.substring(0, last1);
+			end = end.substring(0, end.length() - 1);
 		}
 
 		return new ResponseEntity<>(routeService.getRoute(start, end), HttpStatus.OK);
