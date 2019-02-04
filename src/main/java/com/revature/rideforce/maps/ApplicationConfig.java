@@ -20,13 +20,13 @@ import com.google.maps.GeoApiContext;
 public class ApplicationConfig {
 	
 	/**
-	 * the api key
+	 * The API key, taken from environmental variables
 	 */
 	@Value("${MAPS_API_KEY}")
 	private String apiKey;
 	
 	/**
-	 * Generates the API Key
+	 * Creates the GeoApiContext, necessary for using Google Maps libraries 
 	 */
 	@Bean
 	public GeoApiContext geoApiContext() {
