@@ -44,7 +44,8 @@ public class LocationService {
 	}
 
 	/**
-	 * class constructor set this geoApiContext to 'geoApiContext'
+	 * Class constructor that sets the GeoApiContext, 
+	 * seems to at least be used during unit testing of the service
 	 * 
 	 * @param geoApiContext
 	 */
@@ -57,6 +58,7 @@ public class LocationService {
 	/**
 	 * Get a location based on a full address string, either from an existing cached location
 	 * in the database, or else by goecode search
+	 * 
 	 * @param address the address string, some or all of street, city, state, zip
 	 * @param coords latitude and longitude 
 	 * @return a CachedLocation object matching the given address
@@ -68,114 +70,98 @@ public class LocationService {
 		// check the db to see if the address is there.
 		CachedLocation location = lookUpAddress(address, gr);
 
-		// process the address string into street, city, state, zip
-		String[] splitLocation = address.split(",");
-		for (int i = 0; i < splitLocation.length; i++) {
-			splitLocation[i] = splitLocation[i].trim();
+		// process the passed address string into street, city, state, zip
+		String[] s = address.split(",");
+		for (int i = 0; i < s.length; i++) {
+			s[i] = s[i].trim();
 		}
 		
 		// otherwise, use GeocodingApi to look up the passed address
-		if (location == null) {
-			// this is the same call as earlier, but for some reason the existing code makes it again	
-			gr = geocodeRequest(address);	
 
-			switch(splitLocation.length) {
-				case 1:
-					location = new CachedLocation(
-							address, 
-							gr[0].geometry.location);
-					break;
-				case 2:
-					// assumes street, city
-					location = new CachedLocation(
-							splitLocation[0], 
-							splitLocation[1], 
-							gr[0].geometry.location);
-					break;
-				case 3:
-					// check if third value is a state code
-					if (splitLocation[2].length() == 2 && splitLocation[2].matches("[a-zA-Z]+")) {
-						// assumes street, city, state
-						location = new CachedLocation(
-								splitLocation[0], 
-								splitLocation[1], 
-								splitLocation[2],
-								gr[0].geometry.location);
-					} else {
-						// assumes street, city, ignores third field 
-						location = new CachedLocation(
-								splitLocation[0], 
-								splitLocation[1], 
-								gr[0].geometry.location);
-					}
-					break;
-				case 4:
-					// check if third value is a state code
-					if (splitLocation[2].length() == 2 && splitLocation[2].matches("[a-zA-Z]+")) {
-						// create the location object
-						location = new CachedLocation();
-						location.setAddress(splitLocation[0]);
-						location.setCity(splitLocation[1]);
-						location.setStateCode(splitLocation[2]);
-						if (splitLocation[3].length() == 5) {
-							location.setZip(splitLocation[3]);
-						}
-					} else {
-						location = new CachedLocation();
-						location.setAddress(splitLocation[0]);
-						location.setCity(splitLocation[1]);
-						if (splitLocation[3].length() == 5) {
-							location.setZip(splitLocation[3]);
-						}
-					}
-					// set coordinates
-					location.setLatitude(gr[0].geometry.location.lat);
-					location.setLongitude(gr[0].geometry.location.lng);
-					break;
-				default:
-					log.error("Not a valid address");
-					Thread.currentThread().interrupt();
-					return null;
+		// check whether the address was in the database already
+		if (location == null) {
+			/* the address wasn't in the database, so this section builds a 
+			 * location object based on the passed address, and the Geo API 
+			 * coordinates, and then adds that object to the database. 
+			 * For future dev: an alternative might be to construct the 
+			 * the object based entirely on the Geo API results.
+			 */
+			
+			// if the passed address has too many fields, turn it away
+			if(s.length > 4) {
+				// 
+				log.error("Not a valid address");
+				Thread.currentThread().interrupt();
+				return null;
+			}
+			
+			// begin building the location object.
+			// s[1] (guaranteed to exist) assumed to be street address
+			location = new CachedLocation();
+			location.setAddress(s[0]);
+			location.setLatitude(gr[0].geometry.location.lat);
+			location.setLongitude(gr[0].geometry.location.lng);
+
+			// assumed to be city
+			if(s.length >= 2) {
+				location.setCity(s[1]);
 			}
 
+			// assumed to be state
+			if(s.length >= 3) {
+				// check if third value is a state code--left null otherwise
+				if (s[2].length() == 2 && s[2].matches("[a-zA-Z]+")) {
+					location.setStateCode(s[2]);
+				}
+			}
+			
+			// assumed to be zip code
+			if(s.length == 4 && s[3].length() == 5) {
+				// only sets the zip code if the string is 5 digits long
+				location.setZip(s[3]);
+			}
+
+			// save the object, return it
 			locationRepo.save(location);
 			return location;
 		} else {
-			switch(splitLocation.length) {
-				case 1:
-					location.setAddress(splitLocation[0]);
-					break;
-				case 2:
-					location.setCity(splitLocation[1]);
-					break;
-				case 3:
-					// check if third value is a state code
-					if (splitLocation[2].length() == 2 && splitLocation[2].matches("[a-z]+")) {
-						location.setCity(splitLocation[1]);
-						location.setStateCode(splitLocation[2]);
-					} else {
-						location.setCity(splitLocation[1]);
-					}
-					break;
-				case 4:
-					// check if third value is a state code
-					if (splitLocation[2].length() == 2 && splitLocation[2].matches("[a-z]+")) {
-						location.setCity(splitLocation[1]);
-						location.setStateCode(splitLocation[2]);
-						if (splitLocation[3].length() == 5) {
-							location.setZip(splitLocation[3]);
-						}
-					} else {
-						location.setCity(splitLocation[1]);
-						if (splitLocation[3].length() == 5) {
-							location.setZip(splitLocation[3]);
-						}
-					}
-					break;
-				default:
-					log.error("Not a valid address");
-					Thread.currentThread().interrupt();
-					return null;
+			/* the address was in the database. this section builds 
+			 * a location object based on the passed address, 
+			 * and the Geo API coordinates, and overwrites some fields
+			 * from the database object with those from the passed address.
+			 * For future dev: an alternative might be to only use the passed 
+			 * address to fill in gaps the database object might have.
+			 */
+			
+			// if the passed address has too many fields, turn it away
+			if(s.length > 4) {
+				// 
+				log.error("Not a valid address");
+				Thread.currentThread().interrupt();
+				return null;
+			}
+			
+			// begin building the location object.
+			// s[1] (guaranteed to exist) assumed to be street address
+			location.setAddress(s[0]);
+			
+			// assumed to be city
+			if(s.length >= 2) {
+				location.setCity(s[1]);
+			}
+
+			// assumed to be state
+			if(s.length >= 3) {
+				// check if third value is a state code--left null otherwise
+				if (s[2].length() == 2 && s[2].matches("[a-zA-Z]+")) {
+					location.setStateCode(s[2]);
+				}
+			}
+			
+			// assumed to be zip code
+			if(s.length == 4 && s[3].length() == 5) {
+				// only sets the zip code if the string is 5 digits long
+				location.setZip(s[3]);
 			}
 		}
 		return location;
@@ -184,6 +170,7 @@ public class LocationService {
 	/**
 	 * Get a location based on a zip code, either from an existing cached location
 	 * in the database, or else by goecode search.
+	 * 
 	 * @param address the zip code, as a string
 	 * @param coords latitude and longitude 
 	 * @return a CachedLocation object matching the given address
@@ -196,11 +183,11 @@ public class LocationService {
 		CachedLocation location = lookUpAddress(address, gr);
 
 		// if the location was not in the database
-		if (location == null) {
+		if(location == null) {
 			// create the location from the geocoding results, passed zip code
 			location = new CachedLocation();
 			location.setLatitude(gr[0].geometry.location.lat);
-			location.setLatitude(gr[0].geometry.location.lng);
+			location.setLongitude(gr[0].geometry.location.lng);
 			location.setZip(address);
 			
 			// save location to database, return it
@@ -222,15 +209,15 @@ public class LocationService {
 		}
 		
 		// create location objects, based on geocoding results, to look for in the database
-		CachedLocation lat = locationRepo.findByLatitude(gr[0].geometry.location.lat);
-		CachedLocation lng = locationRepo.findByLongitude(gr[0].geometry.location.lng);
+		// existing code checked for two objects, instead of searching by lat & lng together
+		CachedLocation findByLat = locationRepo.findByLatitude(gr[0].geometry.location.lat);
+		CachedLocation findByLng = locationRepo.findByLongitude(gr[0].geometry.location.lng);
 
-		// seems to check for an address in the database, 
-		// assuming that no two addresses will share the same latitude or longitude
-		if (lat != null && lng != null) {
-			if (lat.equals(lng)) {
+		// checks to see if the two addresses from the database match
+		if(findByLat != null && findByLng != null) {
+			if(findByLat.equals(findByLng)) {
 				log.info("There is a valid coordinate here");
-				return lat;
+				return findByLat;
 			}
 		}
 		
@@ -239,7 +226,10 @@ public class LocationService {
 	}
 	
 	/**
-	 * Makes a call to google maps api to look up an address.
+	 * Makes a call to google maps Geo API to look up an address. 
+	 * In a separate method for modularity, and so that unit testing 
+	 * can stub the method (otherwise the service isn't testable)
+	 * 
 	 * @param address the string to search for
 	 * @return the GeocodingResult[] or null, if there was a problem
 	 */
@@ -254,13 +244,5 @@ public class LocationService {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	public Object getGeoApiContext() {
-		return geoApiContext;
-	}
-
-	public void setGeoApiContext(GeoApiContext geoApiContext) {
-		this.geoApiContext = geoApiContext;
 	}
 }

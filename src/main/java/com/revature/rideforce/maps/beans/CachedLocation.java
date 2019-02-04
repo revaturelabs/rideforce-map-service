@@ -116,61 +116,9 @@ public class CachedLocation {
 		this.longitude = latlng.lng;
 	}
 	
-	public CachedLocation(String address, String city, LatLng latlng) {
-		this.address = address;
-		this.city = city;
-		this.latitude = latlng.lat;
-		this.longitude = latlng.lng;
-	}
-	
-	public CachedLocation(String address, LatLng latlng, String state) {
-		this.address = address;
-		this.stateCode = state;
-		this.latitude = latlng.lat;
-		this.longitude = latlng.lng;
-	}
-	
-	public CachedLocation(String address, String city, String stateAbv, LatLng latlng) {
-		this.address = address;
-		this.city = city;
-		this.stateCode = stateAbv;
-		this.latitude = latlng.lat;
-		this.longitude = latlng.lng;
-	}
-
-	public CachedLocation(String address, String city, String stateAbv, double latitude, double longitude) {
-		super();
-		this.address = address;
-		this.city = city;
-		this.stateCode = stateAbv;
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-
-	public CachedLocation(String address, String city, double latitude, double longitude) {
-		super();
-		this.address = address;
-		this.city = city;
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-
 	public CachedLocation(String address, double latitude, double longitude) {
 		super();
 		this.address = address;
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-
-	public CachedLocation(LatLng latlng, String zip) {
-		this.zip = zip;
-		this.latitude = latlng.lat;
-		this.longitude = latlng.lng;
-	}
-
-	public CachedLocation(double latitude, double longitude, String zip) {
-		super();
-		this.zip = zip;
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}

@@ -1,7 +1,5 @@
 package com.revature.rideforce.maps.controllers;
 
-import java.io.IOException;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,23 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.errors.ApiException;
-import com.google.maps.model.GeocodingResult;
-import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.beans.ResponseError;
 import com.revature.rideforce.maps.service.LocationService;
 import com.revature.rideforce.maps.validate.Validate;
 
 /**
- * The controller for obtaining the location
+ * The controller for obtaining a location.
  * 
  * @author Revature Java batch
  */
@@ -38,8 +30,8 @@ public class LocationController {
 	private LocationService ls; 
 
 	/**
-	 * GET request method. Receive an address, processes it and return a location with
-	 * coordinates.
+	 * GET request method. Receives an address, processes it and returns a location with
+	 * coordinates in latitude and longitude.
 	 * 
 	 * @param address a string representing an address, either as a zip code, or a 
 	 * street address (assumes: Street, City, State, Zip; comma delimited, in that order).
