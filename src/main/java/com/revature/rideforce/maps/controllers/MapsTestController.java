@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
  * controller for testing (carry-over from 1st iteration)
  * @author Revature Java batch
  */
+@CrossOrigin(origins="*")
 @RestController
 public class MapsTestController {
 

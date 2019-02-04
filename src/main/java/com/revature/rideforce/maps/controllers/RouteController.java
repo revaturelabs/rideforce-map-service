@@ -17,6 +17,7 @@ import com.revature.rideforce.maps.service.RouteService;
  * The controller to handle the routes
  * @author Revature Java batch
  */
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping(value = "/route")
 public class RouteController {

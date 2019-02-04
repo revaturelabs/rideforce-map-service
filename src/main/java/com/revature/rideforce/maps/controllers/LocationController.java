@@ -28,6 +28,7 @@ import com.revature.rideforce.maps.validate.Validate;
  * The controller for obtaining the location
  * @author Revature Java batch
  */
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping(value = "/location")
 public class LocationController {
