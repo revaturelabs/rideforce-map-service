@@ -13,11 +13,11 @@
 
 
 #Eclipse
-**/.factorypath
 **/.metadata
 **/.project
 **/.settings/
 **/.classpath
+**/.factorypath
 **/.recommenders/**
 **/Servers
 **/.springBeans
