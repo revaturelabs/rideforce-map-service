@@ -103,7 +103,7 @@ public class LocationService {
 			location = new CachedLocation();
 			location.setLatitude(gr[0].geometry.location.lat);
 			location.setLongitude(gr[0].geometry.location.lng);
-			location.setAddress(address);
+			location.setAddress(locDetails[0]);
 			if(locDetails.length == 5) {
 				location.setZip(locDetails[3].replace(" ", ""));
 				location.setStateCode(locDetails[2].replace(" ", ""));
