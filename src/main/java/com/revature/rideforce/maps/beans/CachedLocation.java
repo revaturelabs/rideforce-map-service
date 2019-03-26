@@ -18,7 +18,7 @@ import com.google.maps.model.LatLng;
  */
 @Component
 @Entity
-@Table(name = "ADDRESS")
+@Table(name = "ADDRESS_TEST")
 public class CachedLocation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
