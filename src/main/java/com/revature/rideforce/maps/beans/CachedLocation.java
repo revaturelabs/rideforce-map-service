@@ -127,9 +127,9 @@ public class CachedLocation {
 	 * Get coordinates for a cached location
 	 * @return the latitude and longitude fields as a LatLng object
 	 */
-	public LatLng getLocation() {
-		return new LatLng(latitude, longitude);
-	}
+//	public LatLng getsLocation() {
+//		return new LatLng(latitude, longitude);
+//	}
 
 	@Override
 	public int hashCode() {

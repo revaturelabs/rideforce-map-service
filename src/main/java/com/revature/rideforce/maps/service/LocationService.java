@@ -70,14 +70,14 @@ public class LocationService {
 		List<CachedLocation> ls = new ArrayList<CachedLocation>();
 
 		ls = locationRepo.findAll();
-		
+
 		List<CachedLocation> lip = new ArrayList<CachedLocation>();
-		
+
 		for (int i = 0; i < ls.size(); i++) {
-			
+
 			double loc = this.getUsersByDistance(location.getLatitude(), location.getLongitude(),
 					ls.get(i).getLatitude(), ls.get(i).getLongitude());
-			
+
 			if (loc <= 50) {
 				lip.add(ls.get(i));
 			}
@@ -87,33 +87,42 @@ public class LocationService {
 
 	}
 
-	
+	public CachedLocation getLocationByZipCode(CachedLocation loc) {
+		String address = loc.getAddress();
+		String[] locDetails = address.split(",");
 
-			public CachedLocation getLocationByZipCode(String address) {
-			        // look up the address
-			        GeocodingResult[] gr = geocodeRequest(address);    
-			        
-			        // check the db to see if the address is there.
-			        CachedLocation location = lookUpAddress(address, gr);
+		// look up the address
+		GeocodingResult[] gr = geocodeRequest(address);
 
-			        // if the location was not in the database
-			        if(location == null) {
-			            // create the location from the geocoding results, passed zip code
-			            location = new CachedLocation();
-			            location.setLatitude(gr[0].geometry.location.lat);
-			            location.setLongitude(gr[0].geometry.location.lng);
-			            location.setZip(address);
-			            
-			            // save location to database, return it
-			            locationRepo.save(location);
-			            return location;
-			        } else {
-			            location.setZip(address);
-			            return location;
-			        }
-			    }
+		// check the db to see if the address is there.
+		CachedLocation location = lookUpAddress(address, gr);
+
+		// if the location was not in the database
+		if (location == null) {
+			// create the location from the geocoding results, passed zip code
+			location = new CachedLocation();
+			location.setLatitude(gr[0].geometry.location.lat);
+			location.setLongitude(gr[0].geometry.location.lng);
+			location.setAddress(address);
+			if(locDetails.length == 5) {
+				location.setZip(locDetails[3].replace(" ", ""));
+				location.setStateCode(locDetails[2].replace(" ", ""));
+			} else {
+				location.setZip(locDetails[2].split(" ")[2].replace(" ", ""));
+				location.setStateCode(locDetails[2].split(" ")[1].replace(" ", ""));
+			}
 			
-			
+			location.setCity(locDetails[1]);
+
+			// save location to database, return it
+			locationRepo.save(location);
+			return location;
+		} else {
+			loc = location;
+			return loc;
+		}
+	}
+
 	private CachedLocation lookUpAddress(String address, GeocodingResult[] gr) {
 		// if the address is a zip code, check the database
 		if (StringUtils.isNumeric(address)) {

@@ -33,7 +33,7 @@ public class AddressController {
 		String address = location.getAddress();
 		
 		
-		return new ResponseEntity<CachedLocation>(ls.getLocationByZipCode(address), HttpStatus.OK);
+		return new ResponseEntity<CachedLocation>(ls.getLocationByZipCode(location), HttpStatus.OK);
 		
 }
 
