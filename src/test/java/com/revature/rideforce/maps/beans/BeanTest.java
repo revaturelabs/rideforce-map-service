@@ -14,12 +14,11 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.maps.model.LatLng;
-
-import org.junit.Assert;
 
 /**
  * This class holds the unit tests for our 
