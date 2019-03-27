@@ -20,7 +20,7 @@ import com.google.maps.model.LatLng;
 @Entity
 @Table(name = "ADDRESS")
 public class CachedLocation {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "CACHED_ID")
@@ -196,5 +196,5 @@ public class CachedLocation {
 		return "CachedLocation [id=" + id + ", address=" + address + ", city=" + city + ", stateCode=" + stateCode
 				+ ", zip=" + zip + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
-	
+
 }
