@@ -123,6 +123,17 @@ public class CachedLocation {
 		this.longitude = longitude;
 	}
 
+	public CachedLocation(@Size(max = 85) String address, @Size(max = 85) String city, @Size(max = 2) String stateCode,
+			String zip, double latitude, double longitude) {
+		super();
+		this.address = address;
+		this.city = city;
+		this.stateCode = stateCode;
+		this.zip = zip;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
 	/**
 	 * Get coordinates for a cached location
 	 * @return the latitude and longitude fields as a LatLng object

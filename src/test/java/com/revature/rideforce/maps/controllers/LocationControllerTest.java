@@ -59,7 +59,7 @@ public class LocationControllerTest {
 	    
 	    // mock the location service, stub the getLocation methods to return an object when called.
 	    Mockito.mock(LocationService.class);
-	    Mockito.when(locationService.getLocationByAddress(Mockito.anyString())).thenReturn(cl);
+//	    Mockito.when(locationService.getLocationByAddress(Mockito.anyString())).thenReturn(cl);
 	    Mockito.when(locationService.getLocationByZipCode(Mockito.anyString())).thenReturn(cl);
 	}
 	
