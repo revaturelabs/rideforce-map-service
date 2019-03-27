@@ -20,6 +20,7 @@ import com.google.maps.model.LatLng;
 @Entity
 @Table(name = "ADDRESS")
 public class CachedLocation {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "CACHED_ID")
@@ -115,7 +116,7 @@ public class CachedLocation {
 		this.latitude = latlng.lat;
 		this.longitude = latlng.lng;
 	}
-	
+
 	public CachedLocation(String address, double latitude, double longitude) {
 		super();
 		this.address = address;
@@ -136,6 +137,7 @@ public class CachedLocation {
 
 	/**
 	 * Get coordinates for a cached location
+	 * 
 	 * @return the latitude and longitude fields as a LatLng object
 	 */
 	public LatLng getLocation() {
@@ -205,4 +207,5 @@ public class CachedLocation {
 		return "CachedLocation [id=" + id + ", address=" + address + ", city=" + city + ", stateCode=" + stateCode
 				+ ", zip=" + zip + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
+
 }
