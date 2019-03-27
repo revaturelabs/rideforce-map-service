@@ -10,14 +10,16 @@ import com.revature.rideforce.maps.beans.CachedLocation;
 
 /**
  * Interface providing CRUD functionality for CachedLocation
+ * 
  * @author Revature Java batch
  */
 @Repository
 public interface LocationRepository extends JpaRepository<CachedLocation, Integer> {
-	
+
 	public CachedLocation findByAddress(String address);
-	
+
 	public CachedLocation findByLatitude(double latitude);
-	
+
 	public CachedLocation findByLongitude(double longitude);
+	
 }

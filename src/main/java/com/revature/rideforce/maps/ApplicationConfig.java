@@ -18,15 +18,15 @@ import com.google.maps.GeoApiContext;
 @EnableDiscoveryClient
 @EnableJpaRepositories
 public class ApplicationConfig {
-	
+
 	/**
 	 * The API key, taken from environmental variables
 	 */
 	@Value("${MAPS_API_KEY}")
 	private String apiKey;
-	
+
 	/**
-	 * Creates the GeoApiContext, necessary for using Google Maps libraries 
+	 * Creates the GeoApiContext, necessary for using Google Maps libraries
 	 */
 	@Bean
 	public GeoApiContext geoApiContext() {
