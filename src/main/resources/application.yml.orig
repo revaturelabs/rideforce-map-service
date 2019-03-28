@@ -1,0 +1,33 @@
+server:
+  port: 3333
+  
+spring:
+  profiles:
+    active: development
+  datasource:
+    url: ${JDBC_URL}
+    username: ${JDBC_USERNAME}
+    password: ${JDBC_PASSWORD}
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+  application:
+    name: maps-service
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+info:
+  app:
+    name: Rideforce Map Service
+    description: This is the map service for the Rideforce Map.
+
+eureka:
+  client:
+<<<<<<< HEAD
+    fetch-registry: true
+    register-with-eureka: true
+=======
+    service-url:
+      default-zone: http://localhost:8761/eureka
+      fetch-registry: true
+      register-with-eureka: true
+>>>>>>> Sanford_Zheng
