@@ -90,8 +90,15 @@ public class LocationService {
 			// s[1] (guaranteed to exist) assumed to be street address
 			location = new CachedLocation();
 			location.setAddress(s[0]);
-			location.setLatitude(gr[0].geometry.location.lat);
-			location.setLongitude(gr[0].geometry.location.lng);
+			if (gr != null && gr[0] != null && gr[0].geometry != null)
+			{
+				location.setLatitude(gr[0].geometry.location.lat);
+				location.setLongitude(gr[0].geometry.location.lng);
+			}
+			else
+			{
+				
+			}
 
 			// assumed to be city
 			if(s.length >= 2) {
@@ -201,8 +208,15 @@ public class LocationService {
 		
 		// create location objects, based on geocoding results, to look for in the database
 		// existing code checked for two objects, instead of searching by lat & lng together
-		CachedLocation findByLat = locationRepo.findByLatitude(gr[0].geometry.location.lat);
-		CachedLocation findByLng = locationRepo.findByLongitude(gr[0].geometry.location.lng);
+		CachedLocation findByLat = null;
+		CachedLocation findByLng = null;
+		log.info("Get Geolocation");
+		if (gr != null && gr[0] != null && gr[0].geometry != null)
+		{
+			findByLat = locationRepo.findByLatitude(gr[0].geometry.location.lat);
+			findByLng = locationRepo.findByLongitude(gr[0].geometry.location.lng);
+		}
+
 
 		// checks to see if the two addresses from the database match
 		if(findByLat != null && findByLng != null) {
