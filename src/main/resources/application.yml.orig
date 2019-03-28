@@ -23,11 +23,11 @@ info:
 eureka:
   client:
 <<<<<<< HEAD
-    fetch-registry: true
-    register-with-eureka: true
-=======
     service-url:
       default-zone: http://localhost:8761/eureka
       fetch-registry: true
       register-with-eureka: true
->>>>>>> Sanford_Zheng
+=======
+    fetch-registry: true
+    register-with-eureka: true
+>>>>>>> 0aad8cb0b30e915cb65d77fdd5ccc93d197eaed3
