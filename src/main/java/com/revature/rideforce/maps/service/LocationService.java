@@ -160,102 +160,102 @@ public class LocationService {
 //		}
 //		return location;
 //	}
-	
-	public CachedLocation getLocationByAddress(String address) {
-		// look up the address
-		GeocodingResult[] gr = geocodeRequest(address);
-
-		// check the db to see if the address is there.
-		CachedLocation location = lookUpAddress(address, gr);
-	
-		// check whether the address was in the database already
-		if (location == null) {
-			/*
-			 * the address wasn't in the database, so this section builds a location object
-			 * based on the passed address, and the Geo API coordinates, and then adds that
-			 * object to the database. For future dev: an alternative might be to construct
-			 * the the object based entirely on the Geo API results.
-			 */
-
-			// if the passed address has too many fields, turn it away
-			if (s.length > 4) {
-				//
-				log.error("Not a valid address");
-				Thread.currentThread().interrupt();
-				return null;
-			}
-
-			// begin building the location object.
-			// s[1] (guaranteed to exist) assumed to be street address
-			location = new CachedLocation();
-			location.setAddress(s[0]);
-			location.setLatitude(gr[0].geometry.location.lat);
-			location.setLongitude(gr[0].geometry.location.lng);
-
-			// assumed to be city
-			if (s.length >= 2) {
-				location.setCity(s[1]);
-			}
-
-			// assumed to be state
-			if (s.length >= 3) {
-				// check if third value is a state code--left null otherwise
-				if (s[2].length() == 2 && s[2].matches("[a-zA-Z]+")) {
-					location.setStateCode(s[2]);
-				}
-			}
-
-			// assumed to be zip code
-			if (s.length == 4 && s[3].length() == 5) {
-				// only sets the zip code if the string is 5 digits long
-				location.setZip(s[3]);
-			}
-
-			// save the object, return it
-			locationRepo.save(location);
-			return location;
-		} else {
-			/*
-			 * the address was in the database. this section builds a location object based
-			 * on the passed address, and the Geo API coordinates, and overwrites some
-			 * fields from the database object with those from the passed address. For
-			 * future dev: an alternative might be to only use the passed address to fill in
-			 * gaps the database object might have.
-			 */
-
-			// if the passed address has too many fields, turn it away
-			if (s.length > 4) {
-				//
-				log.error("Not a valid address");
-				Thread.currentThread().interrupt();
-				return null;
-			}
-
-			// begin building the location object.
-			// s[1] (guaranteed to exist) assumed to be street address
-			location.setAddress(s[0]);
-
-			// assumed to be city
-			if (s.length >= 2) {
-				location.setCity(s[1]);
-			}
-
-			// assumed to be state
-			if (s.length >= 3) {
-				// check if third value is a state code--left null otherwise
-				if (s[2].length() == 2 && s[2].matches("[a-zA-Z]+")) {
-					location.setStateCode(s[2]);
-				}
-			}
-
-			// assumed to be zip code
-			if (s.length == 4 && s[3].length() == 5) {
-				// only sets the zip code if the string is 5 digits long
-				location.setZip(s[3]);
-			}
-		}
-		return location;
-	}
+//	
+//	public CachedLocation getLocationByAddress(String address) {
+//		// look up the address
+//		GeocodingResult[] gr = geocodeRequest(address);
+//
+//		// check the db to see if the address is there.
+//		CachedLocation location = lookUpAddress(address, gr);
+//	
+//		// check whether the address was in the database already
+//		if (location == null) {
+//			/*
+//			 * the address wasn't in the database, so this section builds a location object
+//			 * based on the passed address, and the Geo API coordinates, and then adds that
+//			 * object to the database. For future dev: an alternative might be to construct
+//			 * the the object based entirely on the Geo API results.
+//			 */
+//
+//			// if the passed address has too many fields, turn it away
+//			if (s.length > 4) {
+//				//
+//				log.error("Not a valid address");
+//				Thread.currentThread().interrupt();
+//				return null;
+//			}
+//
+//			// begin building the location object.
+//			// s[1] (guaranteed to exist) assumed to be street address
+//			location = new CachedLocation();
+//			location.setAddress(s[0]);
+//			location.setLatitude(gr[0].geometry.location.lat);
+//			location.setLongitude(gr[0].geometry.location.lng);
+//
+//			// assumed to be city
+//			if (s.length >= 2) {
+//				location.setCity(s[1]);
+//			}
+//
+//			// assumed to be state
+//			if (s.length >= 3) {
+//				// check if third value is a state code--left null otherwise
+//				if (s[2].length() == 2 && s[2].matches("[a-zA-Z]+")) {
+//					location.setStateCode(s[2]);
+//				}
+//			}
+//
+//			// assumed to be zip code
+//			if (s.length == 4 && s[3].length() == 5) {
+//				// only sets the zip code if the string is 5 digits long
+//				location.setZip(s[3]);
+//			}
+//
+//			// save the object, return it
+//			locationRepo.save(location);
+//			return location;
+//		} else {
+//			/*
+//			 * the address was in the database. this section builds a location object based
+//			 * on the passed address, and the Geo API coordinates, and overwrites some
+//			 * fields from the database object with those from the passed address. For
+//			 * future dev: an alternative might be to only use the passed address to fill in
+//			 * gaps the database object might have.
+//			 */
+//
+//			// if the passed address has too many fields, turn it away
+//			if (s.length > 4) {
+//				//
+//				log.error("Not a valid address");
+//				Thread.currentThread().interrupt();
+//				return null;
+//			}
+//
+//			// begin building the location object.
+//			// s[1] (guaranteed to exist) assumed to be street address
+//			location.setAddress(s[0]);
+//
+//			// assumed to be city
+//			if (s.length >= 2) {
+//				location.setCity(s[1]);
+//			}
+//
+//			// assumed to be state
+//			if (s.length >= 3) {
+//				// check if third value is a state code--left null otherwise
+//				if (s[2].length() == 2 && s[2].matches("[a-zA-Z]+")) {
+//					location.setStateCode(s[2]);
+//				}
+//			}
+//
+//			// assumed to be zip code
+//			if (s.length == 4 && s[3].length() == 5) {
+//				// only sets the zip code if the string is 5 digits long
+//				location.setZip(s[3]);
+//			}
+//		}
+//		return location;
+//	}
 
 	public List<CachedLocation> getLocationByAddress(CachedLocation location) {
         List<CachedLocation> ls = new ArrayList<CachedLocation>();
