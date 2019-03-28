@@ -87,7 +87,7 @@ public class LocationService {
 
 	}
 
-	public CachedLocation getLocationByZipCode(CachedLocation loc) {
+	public CachedLocation getLocation(CachedLocation loc) {
 		String address = loc.getAddress();
 		String[] locDetails = address.split(",");
 

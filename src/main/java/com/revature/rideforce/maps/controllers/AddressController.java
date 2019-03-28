@@ -30,10 +30,8 @@ public class AddressController {
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CachedLocation> hitLocationApi(@RequestBody CachedLocation location) {
 		
-		String address = location.getAddress();
 		
-		
-		return new ResponseEntity<CachedLocation>(ls.getLocationByZipCode(location), HttpStatus.OK);
+		return new ResponseEntity<CachedLocation>(ls.getLocation(location), HttpStatus.OK);
 		
 }
 
