@@ -17,21 +17,22 @@ import com.revature.rideforce.maps.beans.Route;
 
 /**
  * The route service
+ * 
  * @author Revature Java batch
  */
 
 @Service
 public class RouteService {
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
-	
+
 	@Autowired
 	private GeoApiContext geoApiContext;
- 	
- 	public RouteService() {
+
+	public RouteService() {
 		super();
 	}
- 	
- 	public RouteService(GeoApiContext geoApiContext) {
+
+	public RouteService(GeoApiContext geoApiContext) {
 		super();
 		this.geoApiContext = geoApiContext;
 		log.info("LocationService instantiated");
@@ -39,17 +40,17 @@ public class RouteService {
 
 	/**
 	 * Gets the route using Driving travel mode
+	 * 
 	 * @param start String representing a starting location
-	 * @param end String representing an ending location
-	 * @return Route a route in meters and seconds, or a new empty object
-	 * on failure
+	 * @param end   String representing an ending location
+	 * @return Route a route in meters and seconds, or a new empty object on failure
 	 */
-	public Route getRoute(String start, String end)  {
+	public Route getRoute(String start, String end) {
 		// call a method to make a request to the DirectionsApi
 		DirectionsRoute route = directionsRequest(start, end);
-		
+
 		// if the request threw an error, route will be null
-		if(route == null) {
+		if (route == null) {
 			// the original code returned an empty route on exceptions
 			return new Route();
 		}
@@ -57,7 +58,7 @@ public class RouteService {
 		// calculate the distance and duration of the route
 		long distance = 0;
 		long duration = 0;
-		
+
 		// for each leg in the route, calculate total distance/duration
 		for (DirectionsLeg leg : route.legs) {
 			distance += leg.distance.inMeters;
@@ -65,21 +66,22 @@ public class RouteService {
 		}
 
 		// return the constructed route object
-		log.info(String.format("Route with the following information returned, distance: %d; duration: %d", distance, duration));
+		log.info(String.format("Route with the following information returned, distance: %d; duration: %d", distance,
+				duration));
 		return new Route(distance, duration);
 	}
-	
+
 	/**
-	 * Makes a call to the DirectionsApi to get directions for
-	 * a starting and ending point
+	 * Makes a call to the DirectionsApi to get directions for a starting and ending
+	 * point
+	 * 
 	 * @param start starting location
-	 * @param end ending location
+	 * @param end   ending location
 	 * @return a DirectionsRoute, or null if there was a problem
 	 */
 	public DirectionsRoute directionsRequest(String start, String end) {
 		try {
-			return DirectionsApi.getDirections(geoApiContext, start, end)
-					.mode(TravelMode.DRIVING).await().routes[0];
+			return DirectionsApi.getDirections(geoApiContext, start, end).mode(TravelMode.DRIVING).await().routes[0];
 		} catch (ApiException e) {
 			log.error("Unexpected exception when fetching route.", e);
 			e.printStackTrace();
@@ -93,4 +95,5 @@ public class RouteService {
 		Thread.currentThread().interrupt();
 		return null;
 	}
+
 }

@@ -7,19 +7,20 @@ import org.springframework.stereotype.Component;
 
 /**
  * The distance and duration of the route
+ * 
  * @author Revature Java batch
  */
 @Component
 public class Route {
-  
+
 	/**
-	 * the distance between starting address and ending address
-	 * according to {@code RouteService} in meters
+	 * the distance between starting address and ending address according to
+	 * {@code RouteService} in meters
 	 */
 	@Max(15000)
 	@Positive
 	long distance;
-	
+
 	/**
 	 * the duration of the drive between starting address and ending address
 	 * according to {@code RouteService} in seconds
@@ -34,9 +35,9 @@ public class Route {
 	}
 
 	/**
-	 * class constructor
-	 * sets this distance to 'distance'
-	 * sets this duration to 'duration'
+	 * class constructor sets this distance to 'distance' sets this duration to
+	 * 'duration'
+	 * 
 	 * @param distance
 	 * @param duration
 	 */
@@ -47,6 +48,7 @@ public class Route {
 
 	/**
 	 * get distance
+	 * 
 	 * @return distance
 	 */
 	public long getDistance() {
@@ -55,14 +57,16 @@ public class Route {
 
 	/**
 	 * set distance to 'distance'
+	 * 
 	 * @param distance
 	 */
 	public void setDistance(long distance) {
 		this.distance = distance;
 	}
-	
+
 	/**
 	 * get duration
+	 * 
 	 * @return duration
 	 */
 	public long getDuration() {
@@ -71,6 +75,7 @@ public class Route {
 
 	/**
 	 * set this duration to 'duration'
+	 * 
 	 * @param duration
 	 */
 	public void setDuration(long duration) {

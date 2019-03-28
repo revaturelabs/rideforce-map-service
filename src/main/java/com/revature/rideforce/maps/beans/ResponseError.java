@@ -25,13 +25,13 @@ import org.springframework.http.ResponseEntity;
  * </pre>
  */
 public class ResponseError {
-	
+
 	/**
 	 * The primary message describing the error.
 	 */
 	@NotEmpty
 	private String message;
-	
+
 	/**
 	 * Any additional details that may be relevant to the error (can be empty).
 	 */
@@ -87,6 +87,7 @@ public class ResponseError {
 
 	/**
 	 * get message
+	 * 
 	 * @return message
 	 */
 	public String getMessage() {
@@ -95,6 +96,7 @@ public class ResponseError {
 
 	/**
 	 * set this message to 'message'
+	 * 
 	 * @param message
 	 */
 	public void setMessage(String message) {
@@ -103,6 +105,7 @@ public class ResponseError {
 
 	/**
 	 * get details
+	 * 
 	 * @return details
 	 */
 	public String[] getDetails() {
@@ -111,6 +114,7 @@ public class ResponseError {
 
 	/**
 	 * set this details to 'details'
+	 * 
 	 * @param details
 	 */
 	public void setDetails(String[] details) {
@@ -143,7 +147,7 @@ public class ResponseError {
 		} else if (!message.equals(other.message)) {
 			return false;
 		}
-			
+
 		return true;
 	}
 
