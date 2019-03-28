@@ -2,8 +2,6 @@ server:
   port: 3333
   
 spring:
-  profiles:
-    active: development
   datasource:
     url: ${JDBC_URL}
     username: ${JDBC_USERNAME}
@@ -22,12 +20,10 @@ info:
 
 eureka:
   client:
-<<<<<<< HEAD
     service-url:
       default-zone: http://localhost:8761/eureka
-      fetch-registry: true
-      register-with-eureka: true
+<<<<<<< HEAD
 =======
-    fetch-registry: true
-    register-with-eureka: true
->>>>>>> 0aad8cb0b30e915cb65d77fdd5ccc93d197eaed3
+      fetch-registry: false
+      register-with-eureka: false
+>>>>>>> 087a0886e17d1b85a8650a8b9f6fbcb8c1447a1c
