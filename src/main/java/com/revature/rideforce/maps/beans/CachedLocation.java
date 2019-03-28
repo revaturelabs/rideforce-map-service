@@ -18,7 +18,7 @@ import com.google.maps.model.LatLng;
  */
 @Component
 @Entity
-@Table(name = "ADDRESS")
+@Table(name = "ADDRESS_TEST")
 public class CachedLocation {
 
 	@Id
@@ -140,9 +140,9 @@ public class CachedLocation {
 	 * 
 	 * @return the latitude and longitude fields as a LatLng object
 	 */
-	public LatLng getLocation() {
-		return new LatLng(latitude, longitude);
-	}
+//	public LatLng getsLocation() {
+//		return new LatLng(latitude, longitude);
+//	}
 
 	@Override
 	public int hashCode() {

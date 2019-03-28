@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.rideforce.maps.beans.CachedLocation;
 import com.revature.rideforce.maps.beans.ResponseError;
 import com.revature.rideforce.maps.service.LocationService;
 import com.revature.rideforce.maps.validate.Validate;
@@ -79,4 +80,14 @@ public class LocationController {
 		// address was not a zip code, so get location by address
 		return new ResponseEntity<>(ls.getLocationByAddress(address), HttpStatus.OK);
 	}
+	
+	/*
+	 * @RequestMapping(method = RequestMethod.GET, produces = MediaType.Application_JSON_VALUE)
+	 * public ResponseEntity<List<CachedLocation>>getCachedLocation(@RequestParam CachedLocation location){
+	 * return new ResponseEntity<List<CachedLocation>>(ls.getLocationByAddress(location), HttpStatus.OK);
+	 * }
+	 */
 }
+
+
+

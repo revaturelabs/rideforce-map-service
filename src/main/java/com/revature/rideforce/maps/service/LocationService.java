@@ -40,8 +40,8 @@ public class LocationService {
 	}
 
 	/**
-	 * Class constructor that sets the GeoApiContext, 
-	 * seems to at least be used during unit testing of the service
+	 * Class constructor that sets the GeoApiContext, seems to at least be used
+	 * during unit testing of the service
 	 * 
 	 * @param geoApiContext
 	 */
@@ -52,12 +52,18 @@ public class LocationService {
 	}
 
 	/**
-	 * Get a location based on a full address string, either from an existing cached location
-	 * in the database, or else by goecode search
+	 * Get a location based on a full address string, either from an existing cached
+	 * location in the database, or else by goecode search
 	 * 
 	 * @param address the address string, some or all of street, city, state, zip
-	 * @param coords latitude and longitude 
+	 * @param coords  latitude and longitude
 	 * @return a CachedLocation object matching the given address
+	 */
+	/*
+	 * okay this method will get all users from DB and get the lng and lats from
+	 * each we need to get all the users in a 50 mile radius of the main user
+	 * address/location
+	 * 
 	 */
 	public CachedLocation getLocationByAddress(String address) {
 		// look up the address
@@ -167,15 +173,7 @@ public class LocationService {
 		}
 		return location;
 	}
-
-	/**
-	 * Get a location based on a zip code, either from an existing cached location
-	 * in the database, or else by goecode search.
-	 * 
-	 * @param address the zip code, as a string
-	 * @param coords latitude and longitude 
-	 * @return a CachedLocation object matching the given address
-	 */
+	
 	public CachedLocation getLocationByZipCode(String address) {
 		// look up the address
 		GeocodingResult[] gr = geocodeRequest(address);	
@@ -199,12 +197,48 @@ public class LocationService {
 			return location;
 		}
 	}
-	
+
+	public CachedLocation getLocation(CachedLocation loc) {
+		String address = loc.getAddress();
+		String[] locDetails = address.split(",");
+
+		// look up the address
+		GeocodingResult[] gr = geocodeRequest(address);
+
+		// check the db to see if the address is there.
+		CachedLocation location = lookUpAddress(address, gr);
+
+		// if the location was not in the database
+		if (location == null) {
+			// create the location from the geocoding results, passed zip code
+			location = new CachedLocation();
+			location.setLatitude(gr[0].geometry.location.lat);
+			location.setLongitude(gr[0].geometry.location.lng);
+			location.setAddress(locDetails[0]);
+			if(locDetails.length == 5) {
+				location.setZip(locDetails[3].replace(" ", ""));
+				location.setStateCode(locDetails[2].replace(" ", ""));
+			} else {
+				location.setZip(locDetails[2].split(" ")[2].replace(" ", ""));
+				location.setStateCode(locDetails[2].split(" ")[1].replace(" ", ""));
+			}
+			
+			location.setCity(locDetails[1]);
+
+			// save location to database, return it
+			locationRepo.save(location);
+			return location;
+		} else {
+			loc = location;
+			return loc;
+		}
+	}
+
 	private CachedLocation lookUpAddress(String address, GeocodingResult[] gr) {
 		// if the address is a zip code, check the database
-		if(StringUtils.isNumeric(address)) {
+		if (StringUtils.isNumeric(address)) {
 			CachedLocation location = locationRepo.findByAddress(address);
-			if(location != null) {
+			if (location != null) {
 				return location;
 			}
 		}
@@ -217,21 +251,21 @@ public class LocationService {
 		CachedLocation findByLng = locationRepo.findByLongitude(gr[0].geometry.location.lng);
 
 		// checks to see if the two addresses from the database match
-		if(findByLat != null && findByLng != null) {
-			if(findByLat.equals(findByLng)) {
+		if (findByLat != null && findByLng != null) {
+			if (findByLat.equals(findByLng)) {
 				log.info("There is a valid coordinate here");
 				return findByLat;
 			}
 		}
-		
+
 		// if the location wasn't in the database already, return null
 		return null;
 	}
-	
+
 	/**
-	 * Makes a call to google maps Geo API to look up an address. 
-	 * In a separate method for modularity, and so that unit testing 
-	 * can stub the method (otherwise the service isn't testable)
+	 * Makes a call to google maps Geo API to look up an address. In a separate
+	 * method for modularity, and so that unit testing can stub the method
+	 * (otherwise the service isn't testable)
 	 * 
 	 * @param address the string to search for
 	 * @return the GeocodingResult[] or null, if there was a problem
@@ -247,5 +281,25 @@ public class LocationService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	// this is a helper method to calc distance for each user in DB
+	public double getUsersByDistance(double lat, double lng, double lat2, double lng2) {
+		double rad = 6371.0;
+		double dlat = deg2Rad(lat2 - lat);
+		double dlng = deg2Rad(lng2 - lng);
+
+		double cha = Math.sin(dlat / 2) * Math.sin(dlat / 2)
+				+ Math.acos(deg2Rad(lat)) * Math.acos(deg2Rad(lat2)) * Math.asin(dlng / 2) * Math.asin(dlng / 2);
+
+		double pa = 2 * Math.atan2(Math.sqrt(cha), Math.sqrt(1 - cha));
+		double da = rad * pa;
+		double ans = da * 0.62137;
+		return ans;
+
+	}
+
+	public double deg2Rad(double num) {
+		return num * (Math.PI / 180);
 	}
 }
