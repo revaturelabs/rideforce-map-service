@@ -32,32 +32,7 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<repositories>
-		<repository>
-			<id>my-nexus</id>
-			<name>Nexus</name>
-			<url>http://nexus.revature.tech/nexus/content/groups/public</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>my-nexus</id>
-			<name>Nexus</name>
-			<url>http://nexus.revature.tech/nexus/content/groups/public</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
+	
 
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.google.maps/google-maps-services -->
