@@ -34,7 +34,7 @@
 
 	<repositories>
 		<repository>
-			<id>my-nexus</id>
+			<id>maven-public</id>
 			<name>Nexus</name>
 			<url>http://3.86.43.156:8081/repository/maven-public/</url>
 			<releases>
@@ -47,7 +47,7 @@
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
-			<id>my-nexus</id>
+			<id>maven-public</id>
 			<name>Nexus</name>
 			<url>http://3.86.43.156:8081/repository/maven-public/</url>
 			<releases>
