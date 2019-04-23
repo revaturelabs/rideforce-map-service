@@ -35,7 +35,7 @@
 	<repositories>
 		<repository>
 			<id>maven-group</id>
-			<url>http://3.86.43.156:8081/repository/maven-group/</url>
+			<url>http://nexus.revaturelabs.com:8081/repository/maven-group/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -47,7 +47,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>maven-group</id>
-			<url>http://3.86.43.156:8081/repository/maven-group/</url>
+			<url>http://nexus.revaturelabs.com:8081/repository/maven-group/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
