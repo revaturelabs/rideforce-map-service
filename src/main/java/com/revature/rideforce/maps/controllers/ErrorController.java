@@ -27,6 +27,7 @@ import com.revature.rideforce.maps.beans.ResponseError;
  */
 @CrossOrigin(origins="*")
 @RestController
+@CrossOrigin(origins = "*")
 @RestControllerAdvice
 public class ErrorController extends AbstractErrorController {
 	

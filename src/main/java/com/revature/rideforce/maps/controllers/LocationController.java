@@ -29,6 +29,7 @@ import com.revature.rideforce.maps.validate.Validate;
  */
 @CrossOrigin(origins="*")
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/location")
 public class LocationController {
 	private static final Logger log = LoggerFactory.getLogger(LocationController.class);

@@ -19,6 +19,7 @@ import com.revature.rideforce.maps.service.RouteService;
  */
 @CrossOrigin(origins="*")
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/route")
 public class RouteController {
 	@Autowired
