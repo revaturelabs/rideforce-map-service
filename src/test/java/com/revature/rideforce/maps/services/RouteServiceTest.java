@@ -79,6 +79,9 @@ public class RouteServiceTest {
 		Mockito.doReturn(directionsResult).when(Mockito.spy(RouteService.class)).directionsRequest(START, END);
 	}
 
+	
+
+	
 	/**
 	 * The RouteService only pulls out duration and distance values from the
 	 * DirectionsApi, and we're mocking those values, so this test is mostly
@@ -94,13 +97,13 @@ public class RouteServiceTest {
 	 * route. However, the RouteService doesn't return null on failure, it returns an empty Route(),
 	 * and the DirectionsApi is quite good at finding a possible address based on most strings
 	 */
-	@Test
-	public void testGetRouteWithIncompleteParameters() {
-		// even with partial addresses, the DirectionsApi still finds a route if we don't stub it
+//	@Test
+//	public void testGetRouteWithIncompleteParameters() {
+//		 //even with partial addresses, the DirectionsApi still finds a route if we don't stub it
 //		assertNotEquals(new Route(), routeService.getRoute("Plaza America Dr.", "12160 Sunset Hills Rd, Reston, VA 20190"));
 //		assertNotEquals(new Route(), routeService.getRoute("Plaza America Dr.", "Sunset Hills"));
 //		assertNotEquals(new Route(), routeService.getRoute("11730 Plaza America Dr.", "12160 Sunset Hills"));	
-	}
+//	}
 	
 	/**
 	 * It was proving difficult to stub the method that calls the DirectionsApi to
