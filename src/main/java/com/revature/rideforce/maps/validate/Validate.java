@@ -17,7 +17,9 @@ public class Validate {
 	/**
 	 * logger
 	 */
-	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
+//	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
+	private static final Logger log = LoggerFactory.getLogger(Validate.class); //Changed LocationController => Validate.class (1905-May Batch)
+
 
 	/**
 	 * This method normalizes the address input in hopes of reducing the number of
@@ -33,7 +35,7 @@ public class Validate {
 			log.info("string input was null");
 			return null;
 		}
-		if (address == "") {
+		if (address.equals("")) { //Changed == to .equals(). We are comparing two values
 			log.info("empty string");
 			return "";
 		}
@@ -42,7 +44,7 @@ public class Validate {
 		String addresscheck = address;
 		do {
 			addresscheck = address.replaceFirst("\\s{2,}", " ");
-			if (addresscheck == address) {
+			if (addresscheck.equals(address)) { //Changed == to .equals(). We are comparing two values
 				check = false;
 			}
 			address = addresscheck;
